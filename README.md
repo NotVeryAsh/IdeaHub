@@ -17,4 +17,4 @@ You may find this ReadMe being updated frequently with relevant topics or refact
 
 ## Changelog
 
-You may view the changelog [here](https://raw.githubusercontent.com/NotVeryAsh/IdeaHub/master/CHANGELOG.md).
+You may view the changelog [here](https://github.com/NotVeryAsh/IdeaHub/blob/master/CHANGELOG.md).
