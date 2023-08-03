@@ -3,9 +3,10 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -15,7 +16,7 @@ class RegisterTest extends TestCase
 
     public function test_can_register()
     {
-        Mail::fake();
+        Notification::fake();
 
         $response = $this->postJson('/auth/register', [
             'username' => 'username',
@@ -25,14 +26,16 @@ class RegisterTest extends TestCase
         ]);
 
         $response->assertStatus(302);
-        $response->assertRedirectToRoute('verification.notice');
+        $response->assertRedirect('/auth/verify-email');
         $this->assertAuthenticated();
         $this->assertDatabaseHas('users', [
             'username' => 'username',
             'email' => 'test@test.com',
         ]);
 
-        Mail::assertQueued();
+        $user = User::query()->where('username', 'username')->first();
+
+        Notification::assertSentTo($user, VerifyEmail::class);
     }
 
     public function test_username_is_required_when_registering()
