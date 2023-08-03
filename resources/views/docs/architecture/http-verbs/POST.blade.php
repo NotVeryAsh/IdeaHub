@@ -68,7 +68,7 @@
                 $response = Http::<span class="text-cyan-400">post</span>(<span class="text-emerald-600">'example.com'</span>, [
                     <span class="text-emerald-600">'username'</span> => <span class="text-emerald-600">'value'</span>,
                     <span class="text-emerald-600">'field2'</span> => <span class="text-emerald-600">'value2'</span>
-                ]</span>);
+                ]);
             </code>
         </div>
     </div>
