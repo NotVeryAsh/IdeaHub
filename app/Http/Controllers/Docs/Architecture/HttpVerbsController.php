@@ -8,7 +8,6 @@ class HttpVerbsController extends Controller
 {
     public function index()
     {
-
         return view('docs.architecture.http-verbs.index');
     }
 }
