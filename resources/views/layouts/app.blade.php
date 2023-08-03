@@ -1,19 +1,17 @@
 <!doctype html>
 <html>
 <head>
-    @include('includes.head')
+    @include('layouts.includes.head')
 </head>
-<body>
-<div class="container">
-    <header class="row">
-        @include('includes.header')
-    </header>
-    <div id="main" class="row">
-        @yield('content')
-    </div>
-    <footer class="row">
-        @include('includes.footer')
-    </footer>
+<body class="bg-slate-800">
+<header>
+    @include('layouts.includes.header')
+</header>
+<div class="container mx-auto mt-5">
+    @yield('content')
 </div>
+<footer class="row">
+    @include('layouts.includes.footer')
+</footer>
 </body>
 </html>
