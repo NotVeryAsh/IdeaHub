@@ -40,7 +40,14 @@
     <div>
         <!-- Example of a Raw POST Request -->
         <p class="mb-5 font-normal text-gray-300">The parameters for a post request are sent through in the body of the request rather than in the url.
-            The content-type header tells the server or where you are sending the request, which type of data you have sent </p>
+            The <strong>Content-Type</strong> header tells the server or where you are sending the request, which type of data you have sent. </p>
+
+        <p class="mb-5 font-normal text-gray-300">The other headers including <strong>Host</strong> and <strong>Content-Length</strong> specify which
+            server or domain the request is being made to, and the size of the data you are sending, in bytes.</p>
+
+        <p class="mb-5 font-normal text-gray-300">The top line specifies which method is being used to send the request, such as <strong>POST</strong> as well as where on the host server the request
+            is being sent to, such as <strong>/test</strong>, and which protocol is being used to do so, such as <strong>HTTP/1.1</strong></p>
+
         <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
             <pre><code>
 <span class="text-cyan-400">POST</span> /test HTTP/1.1
