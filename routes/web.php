@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Docs\Architecture\HttpVerbsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,3 +13,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::prefix('docs')->group(function () {
+    Route::prefix('architecture')->group(function () {
+        Route::get('http-verbs', [HttpVerbsController::class, 'index']);
+    });
+});
