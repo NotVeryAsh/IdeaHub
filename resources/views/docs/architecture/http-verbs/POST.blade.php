@@ -46,7 +46,7 @@
 <span class="text-cyan-400">POST</span> /test HTTP/1.1
 <span class="text-lime-200">Host</span>: <span class="text-blue-400">example.com</span>
 <span class="text-lime-200">Content-Type</span>: <span class="text-blue-400">application/x-www-form-urlencoded</span>
-<span class="text-lime-200">Content-Length</span>: <span class="text-blue-400">27</span>
+<span class="text-lime-200">Content-Length</span>: <span class="text-blue-400">28</span>
 
 <span class="text-emerald-600">username=value</span><span class="text-orange-300">&</span><span class="text-emerald-600">field2=value2</span>
             </code></pre>
