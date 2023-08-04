@@ -39,10 +39,24 @@ class LoginTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_login_fails_when_invalid_email_or_username_is_provided()
+    public function test_login_fails_when_invalid_email_is_provided()
     {
         $response = $this->postJson('/auth/login', [
             'identifier' => 'test@test.com',
+            'password' => 'invalid-password',
+        ]);
+
+        $response->assertStatus(401);
+        $response->assertSessionHasErrors([
+            'identifier' => 'Email or username is incorrect.',
+        ]);
+        $this->assertGuest();
+    }
+
+    public function test_login_fails_when_invalid_username_is_provided()
+    {
+        $response = $this->postJson('/auth/login', [
+            'identifier' => 'test',
             'password' => 'invalid-password',
         ]);
 
