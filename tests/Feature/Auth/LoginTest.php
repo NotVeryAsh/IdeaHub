@@ -3,13 +3,10 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_user_can_login_with_valid_email()
     {
         $user = User::factory()->create([
@@ -17,7 +14,7 @@ class LoginTest extends TestCase
         ]);
 
         $response = $this->postJson('/auth/login', [
-            'username' => $user->email,
+            'identifier' => $user->email,
             'password' => $password,
         ]);
 
@@ -33,7 +30,7 @@ class LoginTest extends TestCase
         ]);
 
         $response = $this->postJson('/auth/login', [
-            'username' => $user->username,
+            'identifier' => $user->username,
             'password' => $password,
         ]);
 
@@ -42,30 +39,16 @@ class LoginTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_login_fails_when_invalid_email_is_provided()
+    public function test_login_fails_when_invalid_email_or_username_is_provided()
     {
         $response = $this->postJson('/auth/login', [
-            'email' => 'test@test.com',
+            'identifier' => 'test@test.com',
             'password' => 'invalid-password',
         ]);
 
         $response->assertStatus(401);
         $response->assertSessionHasErrors([
-            'username' => 'Email or username is incorrect.',
-        ]);
-        $this->assertGuest();
-    }
-
-    public function test_login_fails_when_invalid_username_is_provided()
-    {
-        $response = $this->postJson('/auth/login', [
-            'user' => 'test',
-            'password' => 'invalid-password',
-        ]);
-
-        $response->assertStatus(401);
-        $response->assertSessionHasErrors([
-            'username' => 'Email or username is incorrect.',
+            'identifier' => 'Email or username is incorrect.',
         ]);
         $this->assertGuest();
     }
@@ -78,7 +61,7 @@ class LoginTest extends TestCase
         ]);
 
         $response = $this->postJson('/auth/login', [
-            'username' => 'test@test.com',
+            'identifier' => 'test@test.com',
             'password' => 'invalid-password',
         ]);
 
@@ -96,7 +79,7 @@ class LoginTest extends TestCase
         ]);
 
         $response = $this->postJson('/auth/login', [
-            'username' => $user->email,
+            'identifier' => $user->email,
             'password' => $password,
         ]);
 
