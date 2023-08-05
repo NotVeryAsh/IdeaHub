@@ -7,16 +7,16 @@ assignees: ''
 
 ---
 
-# Description
+## Description
 
-# Steps to reproduce
+## Steps to reproduce
 
-# Expected behaviour
+## Expected behaviour
 
-# Platform / OS (if necessary)
+## Platform / OS (if necessary)
 
-# Why did this happen?
+## Why did this happen?
 
-# Screenshots
+## Screenshots
 
-# Extra Notes
+## Extra Notes
