@@ -12,8 +12,14 @@ class EmailVerificationController extends Controller
     /**
      * Show email verification notice page
      */
-    public function showNotice(): View
+    public function showNotice(): RedirectResponse|View
     {
+        $user = request()->user();
+
+        if ($user->hasVerifiedEmail()) {
+            return redirect()->route('dashboard')->with('message', 'Email already verified!');
+        }
+
         return view('auth.verify-email-notice');
     }
 

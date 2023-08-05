@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use App\Models\User;
+use App\Rules\UserIdentifierExists;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
@@ -20,16 +21,7 @@ class LoginRequest extends FormRequest
                 'string',
                 'max:255',
                 // Check if a user exists with this email or username
-                function ($attribute, $value, $fail) {
-                    $user = User::query()->where('email', $value)
-                        ->orWhere('username', $value)
-                        ->first();
-
-                    // fail if user was not found
-                    if (! $user) {
-                        $fail('Email or username is incorrect.');
-                    }
-                },
+                new UserIdentifierExists(),
             ],
             'password' => [
                 'required',
