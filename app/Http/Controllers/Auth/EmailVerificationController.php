@@ -31,11 +31,9 @@ class EmailVerificationController extends Controller
     public function verify(EmailVerificationRequest $request): RedirectResponse
     {
         $request->fulfill();
+        $redirect = redirect()->route('dashboard');
 
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->route('dashboard')->with('message', 'Email already verified!');
-        }
-
-        return redirect()->route('dashboard');
+        // redirect to dashboard with Email Verified message if the user is already verified
+        return $request->user()->hasVerifiedEmail() ? $redirect->with('message', 'Email already verified!') : $redirect;
     }
 }
