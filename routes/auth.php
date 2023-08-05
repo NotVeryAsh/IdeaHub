@@ -1,15 +1,25 @@
 <?php
 
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('auth/verify-email')->group(function () {
-    Route::get('', [EmailVerificationController::class, 'showNotice'])
-        ->middleware('auth')->name('verification.notice');
+Route::prefix('auth')->group(function () {
 
-    Route::post('resend', [EmailVerificationController::class, 'resend'])
-        ->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+    Route::prefix('verify-email')->middleware('auth')->group(function () {
+        Route::get('', [EmailVerificationController::class, 'showNotice'])
+            ->name('verification.notice');
 
-    Route::get('{id}/{hash}', [EmailVerificationController::class, 'verify'])
-        ->middleware(['auth', 'signed'])->name('verification.verify');
+        Route::post('resend', [EmailVerificationController::class, 'resend'])
+            ->middleware(['throttle:6,1'])
+            ->name('verification.send');
+
+        Route::get('{id}/{hash}', [EmailVerificationController::class, 'verify'])
+            ->middleware(['signed'])
+            ->name('verification.verify');
+    });
+
+    Route::post('login', [LoginController::class, 'authenticate'])
+        ->middleware('guest')
+        ->name('login');
 });
