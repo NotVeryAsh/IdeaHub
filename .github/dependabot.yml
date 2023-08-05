@@ -1,7 +1,15 @@
 version: 2
 updates:
 
-  # Maintain dependencies for npm
+    # Check for GitHub Actions updates
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependencies"
+
+    # Check for npm package updates
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -11,7 +19,7 @@ updates:
       - "dependencies"
     target-branch: "development"
 
-  # Maintain dependencies for Composer
+    # Check for composer package updates
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
