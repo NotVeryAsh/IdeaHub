@@ -32,7 +32,7 @@ class VerifyEmailTest extends TestCase
 
         $user = User::factory()->unverified()->create();
 
-        $response = $this->actingAs($user)->postJson('/auth/verify-email/resend');
+        $response = $this->actingAs($user)->post('/auth/verify-email/resend');
 
         $response->assertStatus(302);
         $response->assertRedirect('/auth/verify-email');
@@ -46,7 +46,7 @@ class VerifyEmailTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->postJson('/auth/verify-email/resend');
+        $response = $this->actingAs($user)->post('/auth/verify-email/resend');
 
         $response->assertStatus(302);
         $response->assertRedirect('/dashboard');
