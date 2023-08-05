@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -19,11 +20,17 @@ Route::prefix('auth')->group(function () {
             ->name('verification.verify');
     });
 
-    Route::get('login', [LoginController::class, 'index'])
-        ->middleware('guest')
-        ->name('login-page');
-
     Route::post('login', [LoginController::class, 'authenticate'])
-        ->middleware('guest')
-        ->name('login');
+        ->middleware('guest');
+
+    Route::post('register', [RegisterController::class, 'authenticate'])
+        ->middleware('guest');
 });
+
+Route::get('login', [LoginController::class, 'index'])
+    ->middleware('guest')
+    ->name('login');
+
+Route::get('register', [RegisterController::class, 'index'])
+    ->middleware('guest')
+    ->name('register');

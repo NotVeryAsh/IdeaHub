@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    // TODO Turn this function into a stateless-friendly endpoint ie. meaningful status codes and json data
+    // TODO Turn these functions into stateless-friendly endpoints ie. meaningful status codes and json data
 
     public function index(): Response
     {
