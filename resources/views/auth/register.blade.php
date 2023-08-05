@@ -1,3 +1,5 @@
+Register
+
 <form action="/auth/register" method="post">
     @csrf
 
