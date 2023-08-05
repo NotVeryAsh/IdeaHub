@@ -16,10 +16,14 @@ class VerifyEmailTest extends TestCase
 
         $user = User::factory()->unverified()->create();
 
+        // create verify email
         $mailable = new VerifyEmail();
         $mail = $mailable->toMail($user);
+
+        // get verify email url
         $url = $mail->actionUrl;
 
+        // make a response to the url as the user
         $response = $this->actingAs($user)->get($url);
 
         $response->assertStatus(302);
@@ -60,12 +64,15 @@ class VerifyEmailTest extends TestCase
 
         $user = User::factory()->create();
 
+        // create verify email
         $mailable = new VerifyEmail();
         $mail = $mailable->toMail($user);
+
+        // get verify email url
         $url = $mail->actionUrl;
 
+        // make a response to the url as the user
         $response = $this->actingAs($user)->get($url);
-
         $response->assertStatus(302);
         $response->assertRedirect('/dashboard');
         $response->assertSessionHas('message', 'Email already verified!');
@@ -88,9 +95,15 @@ class VerifyEmailTest extends TestCase
 
         $user = User::factory()->unverified()->create();
 
+        // create verify email
         $mailable = new VerifyEmail();
         $mail = $mailable->toMail($user);
+
+        // get verify email url
         $url = $mail->actionUrl;
+
+        // make a response to the url as the user
+        $response = $this->actingAs($user)->get($url);
 
         $url = Str::replaceLast('expires=', 'expires=1', $url);
 
@@ -105,10 +118,14 @@ class VerifyEmailTest extends TestCase
 
         $user = User::factory()->unverified()->create();
 
+        // create verify email
         $mailable = new VerifyEmail();
         $mail = $mailable->toMail($user);
+
+        // get verify email url
         $url = $mail->actionUrl;
 
+        // make request to url as invalid user
         $invalidUserId = $user->id + 1;
 
         $url = Str::replaceLast("$user->id", "$invalidUserId", $url);

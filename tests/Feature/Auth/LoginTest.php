@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -12,7 +13,7 @@ class LoginTest extends TestCase
     {
         $user = User::factory()->create([
             'email' => 'test@test.com',
-            'password' => bcrypt($password = 'password'),
+            'password' => Hash::make($password = 'password'),
         ]);
 
         $response = $this->post('/auth/login', [
@@ -28,7 +29,7 @@ class LoginTest extends TestCase
     public function test_user_can_login_with_valid_username()
     {
         $user = User::factory()->create([
-            'password' => bcrypt($password = 'password'),
+            'password' => Hash::make($password = 'password'),
         ]);
 
         $response = $this->post('/auth/login', [
@@ -44,7 +45,7 @@ class LoginTest extends TestCase
     public function test_user_is_remembered_when_remember_me_is_checked()
     {
         $user = User::factory()->create([
-            'password' => bcrypt($password = 'password'),
+            'password' => Hash::make($password = 'password'),
             'remember_token' => null,
         ]);
 
@@ -68,7 +69,7 @@ class LoginTest extends TestCase
     public function test_user_is_not_remembered_when_remember_me_is_not_checked()
     {
         $user = User::factory()->create([
-            'password' => bcrypt($password = 'password'),
+            'password' => Hash::make($password = 'password'),
             'remember_token' => null,
         ]);
 
@@ -92,7 +93,7 @@ class LoginTest extends TestCase
     public function test_remember_must_be_a_string()
     {
         $user = User::factory()->create([
-            'password' => bcrypt($password = 'password'),
+            'password' => Hash::make($password = 'password'),
             'remember_token' => null,
         ]);
 
@@ -111,7 +112,7 @@ class LoginTest extends TestCase
     public function test_checkbox_must_be_passed_as_on()
     {
         $user = User::factory()->create([
-            'password' => bcrypt($password = 'password'),
+            'password' => Hash::make($password = 'password'),
             'remember_token' => null,
         ]);
 
@@ -159,7 +160,7 @@ class LoginTest extends TestCase
     {
         User::factory()->create([
             'email' => 'test@test.com',
-            'password' => bcrypt('password'),
+            'password' => Hash::make('password'),
         ]);
 
         $response = $this->post('/auth/login', [
