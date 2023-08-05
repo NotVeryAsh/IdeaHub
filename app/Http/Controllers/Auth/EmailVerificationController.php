@@ -9,11 +9,17 @@ use Illuminate\View\View;
 
 class EmailVerificationController extends Controller
 {
+    /**
+     * Show email verification notice page
+     */
     public function showNotice(): View
     {
         return view('auth.verify-email-notice');
     }
 
+    /**
+     * Resend email verification email
+     */
     public function resend(): RedirectResponse
     {
         $user = request()->user();
@@ -22,12 +28,15 @@ class EmailVerificationController extends Controller
             return redirect()->route('dashboard')->with('message', 'Email already verified!');
         }
 
-        request()->user()->sendEmailVerificationNotification();
+        $user->sendEmailVerificationNotification();
 
         // Make sure we always take the user back to the verification notice page
         return redirect()->route('verification.notice')->with('message', 'Verification link sent!');
     }
 
+    /**
+     * Verify email address
+     */
     public function verify(EmailVerificationRequest $request): RedirectResponse
     {
         $request->fulfill();

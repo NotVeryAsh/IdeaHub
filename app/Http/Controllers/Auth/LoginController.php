@@ -12,11 +12,17 @@ class LoginController extends Controller
 {
     // TODO Turn these functions into stateless-friendly endpoints ie. meaningful status codes and json data
 
+    /**
+     * Return the login view
+     */
     public function index(): Response
     {
         return response()->view('auth.login');
     }
 
+    /**
+     * Authenticate the user with username or email - and password
+     */
     public function authenticate(LoginRequest $request): RedirectResponse
     {
         $identifier = $request->validated('identifier');

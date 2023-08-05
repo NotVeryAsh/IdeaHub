@@ -19,6 +19,7 @@ class LoginRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
+                // Check if a user exists with this email or username
                 function ($attribute, $value, $fail) {
                     $user = User::query()->where('email', $value)
                         ->orWhere('username', $value)
