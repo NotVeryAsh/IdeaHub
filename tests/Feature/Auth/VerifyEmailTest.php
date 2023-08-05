@@ -47,7 +47,15 @@ class VerifyEmailTest extends TestCase
         $response = $this->actingAs($user)->get($url);
         $response->assertStatus(302);
         $response->assertRedirect('/dashboard');
-        $response->assertSessionHas('message', 'Email already verified!');
+        $response->assertSessionHas('message', 'Email already verified');
+    }
+
+    public function test_user_is_redirected_to_login_page_if_unauthenticated()
+    {
+        $response = $this->get('/auth/verify-email/1/1');
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/login');
     }
 
     public function test_can_not_verify_email_when_invalid_signature()

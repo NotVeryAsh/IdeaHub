@@ -33,7 +33,7 @@ class ResendVerifyEmailTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertRedirect('/dashboard');
-        $response->assertSessionHas('message', 'Email already verified!');
+        $response->assertSessionHas('message', 'Email already verified');
         Notification::assertNotSentTo($user, VerifyEmail::class);
     }
 }

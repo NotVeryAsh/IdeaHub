@@ -30,6 +30,14 @@ class ShowVerifyEmailNoticeTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertRedirect('/dashboard');
-        $response->assertSessionHas('message', 'Email already verified!');
+        $response->assertSessionHas('message', 'Email already verified');
+    }
+
+    public function test_user_is_redirected_to_login_page_if_unauthenticated()
+    {
+        $response = $this->get('/auth/verify-email');
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/login');
     }
 }

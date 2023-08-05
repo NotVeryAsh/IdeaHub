@@ -15,7 +15,7 @@ class LoginController extends Controller
     /**
      * Return the login view
      */
-    public function index(): Response
+    public function index(): RedirectResponse|Response
     {
         return response()->view('auth.login');
     }
