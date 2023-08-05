@@ -19,6 +19,10 @@ Route::prefix('auth')->group(function () {
             ->name('verification.verify');
     });
 
+    Route::get('login', [LoginController::class, 'index'])
+        ->middleware('guest')
+        ->name('login-page');
+
     Route::post('login', [LoginController::class, 'authenticate'])
         ->middleware('guest')
         ->name('login');

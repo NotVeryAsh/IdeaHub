@@ -3,31 +3,25 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
-use App\Rules\UserIdentifierExists;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator as ValidatorFacade;
-use Illuminate\Validation\Validator;
 
 class LoginController extends Controller
 {
     // TODO Turn this function into a stateless-friendly endpoint ie. meaningful status codes and json data
 
-    public function authenticate(Request $request): Response|RedirectResponse
+    public function index(): Response
     {
-        // Check if the data in the request is valid.
-        $validator = $this->getValidator($request);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors());
-        }
+        return response()->view('auth.login');
+    }
 
-        // Get validated data
-        $validated = $validator->safe()->only(['identifier', 'password']);
-        $identifier = $validated['identifier'];
-        $password = $validated['password'];
+    public function authenticate(LoginRequest $request): Response|RedirectResponse
+    {
+        $identifier = $request->validated('identifier');
+        $password = $request->validated('password');
 
         // Check if identifier is an email or a username
         $fieldType = filter_var($identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -49,44 +43,5 @@ class LoginController extends Controller
 
         // Redirect the user to the intended page, or the dashboard if there is no intended page.
         return redirect()->intended('dashboard');
-    }
-
-    private function getValidator(Request $request): Validator
-    {
-        // Get rules and messages
-        $rules = $this->getValidationRules($request);
-        $messages = $this->getValidationMessages();
-
-        // Make a validator instance with the requested data as well as the rules and messages
-        return ValidatorFacade::make($request->all(), $rules, $messages);
-    }
-
-    private function getValidationRules(): array
-    {
-        return [
-            'identifier' => [
-                'required',
-                'string',
-                'max:255',
-                new UserIdentifierExists(),
-            ],
-            'password' => [
-                'required',
-                'string',
-                'max:60',
-            ],
-        ];
-    }
-
-    private function getValidationMessages(): array
-    {
-        return [
-            'identifier.required' => 'Email or username is required.',
-            'identifier.string' => 'Email or username is incorrect.',
-            'identifier.max' => 'Email or username is incorrect.',
-            'password.required' => 'Password is required.',
-            'password.string' => 'Password is incorrect. Try again or click "Forgot Password" to reset your password.',
-            'password.max' => 'Password is incorrect. Try again or click "Forgot Password" to reset your password.',
-        ];
     }
 }
