@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -18,16 +17,17 @@ class LoginController extends Controller
         return response()->view('auth.login');
     }
 
-    public function authenticate(LoginRequest $request): Response|RedirectResponse
+    public function authenticate(LoginRequest $request): RedirectResponse
     {
         $identifier = $request->validated('identifier');
         $password = $request->validated('password');
+        $shouldRemember = $request->validated('remember');
 
         // Check if identifier is an email or a username
         $fieldType = filter_var($identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
         // Attempt to authenticate the user with the identifier (username or email) and password
-        $authIsSuccessful = Auth::attempt([$fieldType => $identifier, 'password' => $password]);
+        $authIsSuccessful = Auth::attempt([$fieldType => $identifier, 'password' => $password], $shouldRemember);
 
         // Password is incorrect - we have already established that a user with the identifier exists
         if (! $authIsSuccessful) {

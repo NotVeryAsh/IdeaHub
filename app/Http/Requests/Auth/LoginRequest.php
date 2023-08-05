@@ -34,6 +34,12 @@ class LoginRequest extends FormRequest
                 'string',
                 'max:60',
             ],
+            // Validation for a remember checkbox
+            'remember' => [
+                'nullable',
+                'string',
+                'in:on',
+            ],
         ];
     }
 
@@ -47,6 +53,8 @@ class LoginRequest extends FormRequest
             'password.required' => 'Password is required.',
             'password.string' => 'Password is incorrect. Try again or click "Forgot Password" to reset your password.',
             'password.max' => 'Password is incorrect. Try again or click "Forgot Password" to reset your password.',
+            'remember.in' => 'The remember checkbox must be checked or not.',
+            'remember.string' => 'The remember checkbox must be checked or not.',
         ];
     }
 }

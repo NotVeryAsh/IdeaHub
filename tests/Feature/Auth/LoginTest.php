@@ -41,6 +41,92 @@ class LoginTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
+    public function test_user_is_remembered_when_remember_me_is_checked()
+    {
+        $user = User::factory()->create([
+            'password' => bcrypt($password = 'password'),
+            'remember_token' => null,
+        ]);
+
+        $response = $this->post('/auth/login', [
+            'identifier' => $user->username,
+            'password' => $password,
+            'remember' => 'on',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirectToRoute('dashboard');
+        $this->assertAuthenticatedAs($user);
+
+        // assert that the user's remember_token has been set
+        $this->assertDatabaseMissing('users', [
+            'id' => $user->id,
+            'remember_token' => null,
+        ]);
+    }
+
+    public function test_user_is_not_remembered_when_remember_me_is_not_checked()
+    {
+        $user = User::factory()->create([
+            'password' => bcrypt($password = 'password'),
+            'remember_token' => null,
+        ]);
+
+        $response = $this->post('/auth/login', [
+            'identifier' => $user->username,
+            'password' => $password,
+            'remember' => null,
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirectToRoute('dashboard');
+        $this->assertAuthenticatedAs($user);
+
+        // assert that the user's remember_token has not been set
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'remember_token' => null,
+        ]);
+    }
+
+    public function test_remember_must_be_a_string()
+    {
+        $user = User::factory()->create([
+            'password' => bcrypt($password = 'password'),
+            'remember_token' => null,
+        ]);
+
+        $response = $this->post('/auth/login', [
+            'identifier' => $user->username,
+            'password' => $password,
+            'remember' => 1,
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors([
+            'remember' => 'The remember checkbox must be checked or not.',
+        ]);
+    }
+
+    public function test_checkbox_must_be_passed_as_on()
+    {
+        $user = User::factory()->create([
+            'password' => bcrypt($password = 'password'),
+            'remember_token' => null,
+        ]);
+
+        $response = $this->post('/auth/login', [
+            'identifier' => $user->username,
+            'password' => $password,
+            'remember' => 'off',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors([
+            'remember' => 'The remember checkbox must be checked or not.',
+        ]);
+    }
+
     public function test_login_fails_when_invalid_email_is_provided()
     {
         $response = $this->post('/auth/login', [
