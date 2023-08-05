@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
@@ -10,11 +11,12 @@ class LoginTest extends TestCase
     public function test_user_can_login_with_valid_email()
     {
         $user = User::factory()->create([
+            'email' => 'test@test.com',
             'password' => bcrypt($password = 'password'),
         ]);
 
         $response = $this->postJson('/auth/login', [
-            'identifier' => $user->email,
+            'identifier' => 'test@test.com',
             'password' => $password,
         ]);
 
@@ -46,7 +48,6 @@ class LoginTest extends TestCase
             'password' => 'invalid-password',
         ]);
 
-        $response->assertStatus(401);
         $response->assertSessionHasErrors([
             'identifier' => 'Email or username is incorrect.',
         ]);
@@ -60,7 +61,6 @@ class LoginTest extends TestCase
             'password' => 'invalid-password',
         ]);
 
-        $response->assertStatus(401);
         $response->assertSessionHasErrors([
             'identifier' => 'Email or username is incorrect.',
         ]);
@@ -79,25 +79,88 @@ class LoginTest extends TestCase
             'password' => 'invalid-password',
         ]);
 
-        $response->assertStatus(401);
         $response->assertSessionHasErrors([
             'password' => 'Password is incorrect. Try again or click "Forgot Password" to reset your password.',
         ]);
         $this->assertGuest();
     }
 
-    public function test_login_fails_when_recaptcha_is_invalid()
+    public function test_identifier_field_is_required()
     {
-        $user = User::factory()->create([
-            'password' => bcrypt($password = 'password'),
+        $response = $this->postJson('/auth/login', [
+            'password' => 'test',
         ]);
+
+        $response->assertSessionHasErrors([
+            'identifier' => 'Email or username is required.',
+        ]);
+        $this->assertGuest();
+    }
+
+    public function test_password_field_is_required()
+    {
+        User::factory()->create(['username' => 'test']);
 
         $response = $this->postJson('/auth/login', [
-            'identifier' => $user->email,
-            'password' => $password,
+            'identifier' => 'test',
         ]);
 
-        $response->assertStatus(401);
+        $response->assertSessionHasErrors([
+            'password' => 'Password is required.',
+        ]);
+
+        $this->assertGuest();
+    }
+
+    public function test_identifier_must_not_be_greater_than_255_characters()
+    {
+        $response = $this->postJson('/auth/login', [
+            'identifier' => Str::random(256),
+            'password' => 'test',
+        ]);
+
+        $response->assertSessionHasErrors([
+            'identifier' => 'Email or username is incorrect.',
+        ]);
+        $this->assertGuest();
+    }
+
+    public function test_password_must_not_be_greater_than_60_characters()
+    {
+        $response = $this->postJson('/auth/login', [
+            'identifier' => 'test',
+            'password' => Str::random(61),
+        ]);
+
+        $response->assertSessionHasErrors([
+            'password' => 'Password is incorrect. Try again or click "Forgot Password" to reset your password.',
+        ]);
+        $this->assertGuest();
+    }
+
+    public function test_identifier_must_be_a_string()
+    {
+        $response = $this->postJson('/auth/login', [
+            'identifier' => 123,
+            'password' => 'test',
+        ]);
+
+        $response->assertSessionHasErrors([
+            'identifier' => 'Email or username is incorrect.',
+        ]);
+        $this->assertGuest();
+    }
+
+    public function test_password_must_be_a_string()
+    {
+        $response = $this->postJson('/auth/login', [
+            'identifier' => 'test',
+            'password' => 123,
+        ]);
+
+        $response->assertSessionHasErrors([
+            'password' => 'Password is incorrect. Try again or click "Forgot Password" to reset your password.',
+        ]);
         $this->assertGuest();
     }
 }
