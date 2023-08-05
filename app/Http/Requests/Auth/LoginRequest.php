@@ -25,6 +25,7 @@ class LoginRequest extends FormRequest
                         ->orWhere('username', $value)
                         ->first();
 
+                    // fail if user was not found
                     if (! $user) {
                         $fail('Email or username is incorrect.');
                     }
