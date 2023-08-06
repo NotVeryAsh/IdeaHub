@@ -1,0 +1,1 @@
+Hey, {{ auth()->user()->username }}
