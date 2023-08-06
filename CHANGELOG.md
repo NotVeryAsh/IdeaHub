@@ -19,6 +19,11 @@ Progression and changes will be documented in this file and adhere to the standa
 ### Changed
 
 - Tailwind UI Redesign.
+
+## [1.1.0] - 2023-08-06
+
+### Changed
+
 - Update PR Template to include Changelog version section
 
 ## [1.0.1] - 2023-08-06
