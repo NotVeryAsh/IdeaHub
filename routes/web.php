@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,3 +10,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Route;
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
