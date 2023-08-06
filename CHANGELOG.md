@@ -19,6 +19,12 @@ Progression and changes will be documented in this file and adhere to the standa
 
 - Tailwind UI Redesign.
 
+## [1.2.1] - 2023-08-06
+
+### Fixed
+
+- Fix PR Template checkboxes
+
 ## [1.2.0] - 2023-08-06
 
 ### Added
