@@ -11,7 +11,6 @@ Progression and changes will be documented in this file and adhere to the standa
 
 - Dashboard functionality.
 - Architecture Documentation.
-- Laravel Telescope Package.
 - Logout functionality.
 - Forgot Password functionality.
 - Recaptcha for login / register / resend verification email pages.
@@ -19,6 +18,12 @@ Progression and changes will be documented in this file and adhere to the standa
 ### Changed
 
 - Tailwind UI Redesign.
+
+## [1.2.0] - 2023-08-06
+
+### Added
+
+- Added Telescope Composer package, configured it and ran its migrations
 
 ## [1.1.0] - 2023-08-06
 
