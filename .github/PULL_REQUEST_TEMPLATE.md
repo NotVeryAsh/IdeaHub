@@ -16,4 +16,10 @@
 - [ ] Postman
 - [ ] Manual Testing
 
+## Requirements
+
+- [] Updated Changelog
+- [] Test coverage is over 90%
+- [] Queries take less than 200ms
+
 ## Extra Notes

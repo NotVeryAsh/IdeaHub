@@ -16,13 +16,21 @@ Progression and changes will be documented in this file and adhere to the standa
 - Forgot Password functionality.
 - Recaptcha for login / register / resend verification email pages.
 
-### Fixed
-
-- Failed Jobs Table Migration.
-
 ### Changed
 
 - Tailwind UI Redesign.
+
+## [1.1.0] - 2023-08-06
+
+### Changed
+
+- Update PR Template to include Changelog version section
+
+## [1.0.1] - 2023-08-06
+
+### Fixed
+
+- Failed Jobs Table Migration.
 
 ## [1.0.0] - 2023-08-06
 
