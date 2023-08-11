@@ -56,7 +56,7 @@
 <span class="text-lime-200">Content-Type</span>: <span class="text-blue-400">application/x-www-form-urlencoded</span>
 <span class="text-lime-200">Content-Length</span>: <span class="text-blue-400">28</span>
 
-<span class="text-emerald-600">username=value</span><span class="text-orange-300">&</span><span class="text-emerald-600">field2=value2</span>
+<span class="text-emerald-600">email=test@example.com</span><span class="text-orange-300">&</span><span class="text-emerald-600">age=33</span>
             </code></pre>
         </div>
     </div>
@@ -67,12 +67,24 @@
         <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
             <code class="language-php">
                 $response = Http::<span class="text-cyan-400">post</span>(<span class="text-emerald-600">'example.com/test'</span>, [
-                    <span class="text-emerald-600">'username'</span> => <span class="text-emerald-600">'value'</span>,
-                    <span class="text-emerald-600">'field2'</span> => <span class="text-emerald-600">'value2'</span>
+                    <span class="text-emerald-600">'email'</span> => <span class="text-emerald-600">'test@example.com'</span>,
+                    <span class="text-emerald-600">'age'</span> => <span class="text-emerald-600">'33'</span>
                 ]);
             </code>
         </div>
     </div>
 
-    <p class="mb-5 font-normal text-gray-300">Responses typically look the same as the response return from GET requests, by returning data or redirecting the user.</p>
+    <div>
+        <p class="mb-5 font-normal text-gray-300">This will give you a json response as shown below:</p>
+        <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
+                    <pre><code class="language-json">
+<span class="text-lime-200">"user"</span>: {
+    <span class="text-lime-200">"id"</span>: <span class="text-blue-400">1</span>,
+    <span class="text-lime-200">"age"</span>: <span class="text-blue-400">33</span>,
+    <span class="text-lime-200">"name"</span>: <span class="text-blue-400">null</span>,
+    <span class="text-lime-200">"email"</span>: <span class="text-blue-400">"test@example.com"</span>
+}
+                    </code></pre>
+        </div>
+    </div>
 </div>

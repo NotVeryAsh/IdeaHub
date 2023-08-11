@@ -37,9 +37,9 @@
 
 {
     <span class="text-lime-200">"id"</span>: <span class="text-blue-400">1</span>,
-    <span class="text-lime-200">"age"</span>: <span class="text-blue-400">1</span>,
-    <span class="text-lime-200">"name"</span>: <span class="text-blue-400">"John Smith"</span>,
-    <span class="text-lime-200">"email"</span>: <span class="text-blue-400">"test@example.com"</span>
+    <span class="text-lime-200">"age"</span>: <span class="text-blue-400">47</span>,
+    <span class="text-lime-200">"name"</span>: <span class="text-blue-400">"Jake Smith"</span>,
+    <span class="text-lime-200">"email"</span>: <span class="text-blue-400">"jake@example.com"</span>
 }
     </code></pre>
     </div>
@@ -52,13 +52,25 @@
             <code class="language-php">
                 $response = Http::<span class="text-cyan-400">put</span>(<span class="text-emerald-600">'example.com/test'</span>, [
                     <span class="text-emerald-600">'id'</span> => <span class="text-emerald-600">1</span>
-                    <span class="text-emerald-600">'age'</span> => <span class="text-emerald-600">1</span>,
-                    <span class="text-emerald-600">'name'</span> => <span class="text-emerald-600">'John Smith'</span>
-                    <span class="text-emerald-600">'email'</span> => <span class="text-emerald-600">'test@test.com'</span>
+                    <span class="text-emerald-600">'age'</span> => <span class="text-emerald-600">47</span>,
+                    <span class="text-emerald-600">'name'</span> => <span class="text-emerald-600">'Jake Smith'</span>,
+                    <span class="text-emerald-600">'email'</span> => <span class="text-emerald-600">'jake@example.com'</span>
                 ]);
             </code>
         </div>
     </div>
 
-    <p class="mb-5 font-normal text-gray-300">Responses typically look the same as the response return from GET requests, by returning data or redirecting the user.</p>
+    <div>
+        <p class="mb-5 font-normal text-gray-300">This will give you a json response as shown below:</p>
+        <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
+                    <pre><code class="language-json">
+<span class="text-lime-200">"user"</span>: {
+    <span class="text-lime-200">"id"</span>: <span class="text-blue-400">1</span>,
+    <span class="text-lime-200">"age"</span>: <span class="text-blue-400">47</span>,
+    <span class="text-lime-200">"name"</span>: <span class="text-blue-400">"Jake Smith"</span>,
+    <span class="text-lime-200">"email"</span>: <span class="text-blue-400">"jake@example.com"</span>
+}
+                    </code></pre>
+        </div>
+    </div>
 </div>
