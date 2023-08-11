@@ -1,4 +1,4 @@
-<!-- POST Verb -->
+<!-- PATCH Verb -->
 <div class="p-6 flex flex-col space-y-10">
     <a href="#">
         <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">PATCH</h5>
@@ -9,7 +9,7 @@
 
     <div>
 
-        <!-- Examples of a POST Request -->
+        <!-- Examples of a PATCH Request -->
         <p class="mb-5 font-normal text-gray-300">Use cases for a PATCH request can include:</p>
 
         <ul class="list-disc list-inside font-normal text-gray-300 space-y-3">
@@ -46,11 +46,11 @@
 <span class="text-cyan-400">PATCH</span> /test HTTP/1.1
 <span class="text-lime-200">Host</span>: <span class="text-blue-400">example.com</span>
 <span class="text-lime-200">Content-Type</span>: <span class="text-blue-400">application/json</span>
-<span class="text-lime-200">Content-Length</span>: <span class="text-blue-400">61</span>
+<span class="text-lime-200">Content-Length</span>: <span class="text-blue-400">42</span>
 
 {
     <span class="text-lime-200">"age"</span>: <span class="text-blue-400">1</span>,
-    <span class="text-lime-200">"name"</span>: <span class="text-blue-400">"John Smith"</span>,
+    <span class="text-lime-200">"name"</span>: <span class="text-blue-400">"John Smith"</span>
 }
     </code></pre>
     </div>
