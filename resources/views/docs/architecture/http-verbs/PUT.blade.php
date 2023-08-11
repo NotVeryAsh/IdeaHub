@@ -20,17 +20,17 @@
         </ul>
     </div>
 
-    <p class="font-normal text-gray-300">When using PUT, the entire resource is put into the request, and so it will either replace an existing resource or create a new resource</p>
+    <p class="font-normal text-gray-300">When using PUT, the entire resource is put into the request, and so it will either replace an existing resource or create a new resource.</p>
 
     <p class="mb-5 font-normal text-gray-300">The parameters for a PUT request are sent in the body of the request, much like a POST and PATCH request. You can also use the Content-Type header to specify which type of data you have sent to the server.</p>
 
     <!-- Example of a Raw PUT Request -->
-    <p class="mb-5 font-normal text-gray-300">We are going to use the same example as the PATCH request and send the data to <strong>https://example.com/test</strong> in the form of a json object which is specified by the Content-Type.
-        However, this time, we will be sending over all of the fields that belong to the user, since a PUT request requires us to include the entire resource </p>
+    <p class="mb-5 font-normal text-gray-300">We are going to use the same example as the PATCH request and send the data to <strong>https://example.com/user/1</strong> in the form of a json object which is specified by the Content-Type.
+        However, this time, we will be sending over all of the fields that belong to the user, since a PUT request requires us to include the entire resource. </p>
 
     <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
         <pre><code>
-<span class="text-cyan-400">PUT</span> /test HTTP/1.1
+<span class="text-cyan-400">PUT</span> /users/1 HTTP/1.1
 <span class="text-lime-200">Host</span>: <span class="text-blue-400">example.com</span>
 <span class="text-lime-200">Content-Type</span>: <span class="text-blue-400">application/json</span>
 <span class="text-lime-200">Content-Length</span>: <span class="text-blue-400">88</span>

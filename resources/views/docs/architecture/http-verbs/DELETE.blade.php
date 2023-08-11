@@ -29,7 +29,7 @@
 
     <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
         <pre><code>
-<span class="text-cyan-400">DELETE</span> /1 HTTP/1.1
+<span class="text-cyan-400">DELETE</span> /users/1 HTTP/1.1
 <span class="text-lime-200">Host</span>: <span class="text-blue-400">example.com</span>
     </code></pre>
     </div>
@@ -40,7 +40,7 @@
         <p class="mb-5 font-normal text-gray-300">Using Laravel's Http facade, you can easily make DELETE requests like so:</p>
         <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
             <code class="language-php">
-                $response = Http::<span class="text-cyan-400">DELETE</span>(<span class="text-emerald-600">'example.com/1'</span>
+                $response = Http::<span class="text-cyan-400">delete</span>(<span class="text-emerald-600">'example.com/1'</span>);
             </code>
         </div>
     </div>

@@ -23,8 +23,8 @@
 
     <p class="font-normal text-gray-300">The POST Verb should only be used when creating new resources. PATCH and PUT are used for updating existing records.</p>
 
-    <p class="mb-5 font-normal text-gray-300">The parameters for a post request are sent in the body of the request rather than in the url like a GET request.
-        The Content-Type header tells the server, or where you are sending the request, which type of data you have sent using an attribute called a 'MIME Type'.  </p>
+    <p class="mb-5 font-normal text-gray-300">The parameters for a post request are sent in the body of the request rather than in the url's query parameters like a GET request.
+        The Content-Type header tells the server, or where you are sending the request, which type of data you have sent - using an attribute called a 'MIME Type'.  </p>
     <div>
 
         <!-- Examples of MIME Types -->
@@ -40,18 +40,15 @@
 
     <div>
         <!-- Example of a Raw POST Request -->
-        <p class="mb-5 font-normal text-gray-300">The parameters for a post request are sent through in the body of the request rather than in the url.
-            The <strong>Content-Type</strong> header tells the server or where you are sending the request, which type of data you have sent. </p>
-
-        <p class="mb-5 font-normal text-gray-300">The other headers including <strong>Host</strong> and <strong>Content-Length</strong> specify which
+        <p class="mb-5 font-normal text-gray-300">The headers including <strong>Host</strong> and <strong>Content-Length</strong> specify which
             server or domain the request is being made to, and the size of the data you are sending, in bytes.</p>
 
         <p class="mb-5 font-normal text-gray-300">The top line specifies which method is being used to send the request, such as <strong>POST</strong> as well as where on the host server the request
-            is being sent to, such as <strong>/test</strong>, and which protocol is being used to do so, such as <strong>HTTP/1.1</strong></p>
+            is being sent to, such as <strong>/users</strong>, and which protocol is being used to do so, such as <strong>HTTP/1.1</strong>:</p>
 
         <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
             <pre><code>
-<span class="text-cyan-400">POST</span> /test HTTP/1.1
+<span class="text-cyan-400">POST</span> /users HTTP/1.1
 <span class="text-lime-200">Host</span>: <span class="text-blue-400">example.com</span>
 <span class="text-lime-200">Content-Type</span>: <span class="text-blue-400">application/x-www-form-urlencoded</span>
 <span class="text-lime-200">Content-Length</span>: <span class="text-blue-400">28</span>
@@ -66,7 +63,7 @@
         <p class="mb-5 font-normal text-gray-300">Using Laravel's Http facade, you can easily make POST requests like so:</p>
         <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
             <code class="language-php">
-                $response = Http::<span class="text-cyan-400">post</span>(<span class="text-emerald-600">'example.com/test'</span>, [
+                $response = Http::<span class="text-cyan-400">post</span>(<span class="text-emerald-600">'example.com/users'</span>, [
                     <span class="text-emerald-600">'email'</span> => <span class="text-emerald-600">'test@example.com'</span>,
                     <span class="text-emerald-600">'age'</span> => <span class="text-emerald-600">'33'</span>
                 ]);

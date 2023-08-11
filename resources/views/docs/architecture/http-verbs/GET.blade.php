@@ -22,7 +22,7 @@
 
     <div>
         <!-- Query Parameters -->
-        <p class="mb-5 font-normal text-gray-300">The query parameters for a GET request (The data you are trying to pass into the request) are appended to the end of the request url with a question mark, and an ampersand that separates each parameter</p>
+        <p class="mb-5 font-normal text-gray-300">The query parameters for a GET request (The data you are trying to pass into the request) are appended to the end of the request url with a question mark, and an ampersand that separates each parameter:</p>
         <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
             <code class="language-php">
                 <span class="text-emerald-600">https://example.com</span><span class="text-orange-300">?</span><span class="text-emerald-600">name=John</span><span class="text-orange-300">&</span><span class="text-emerald-600">age=30</span>

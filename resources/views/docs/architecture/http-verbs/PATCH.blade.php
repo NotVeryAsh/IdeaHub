@@ -20,14 +20,14 @@
         </ul>
     </div>
 
-    <p class="font-normal text-gray-300">The PATCH Verb in its simplest form is used to overwrite specific fields in a resource, whereas a PUT is used to replace the entire resource and a POST is used to create a new resource.</p>
+    <p class="font-normal text-gray-300">The PATCH Verb in its simplest form is used to overwrite specific fields in a resource, whereas a PUT is used to replace an existing resource or create a new resource.</p>
 
     <p class="mb-5 font-normal text-gray-300">The parameters for a PATCH request are sent in the body of the request, much like a POST request. You can also use the Content-Type header to specify which type of data you have sent to the server. </p>
 
     <!-- Example of a Raw PATCH Request -->
-    <p class="mb-5 font-normal text-gray-300">In the example below, we are sending our data to <strong>https://example.com/test</strong> in the form of a json object which is specified by the Content-Type.</p>
+    <p class="mb-5 font-normal text-gray-300">In the example below, we are sending our data to <strong>https://example.com/users/1</strong> in the form of a json object which is specified by the Content-Type. We are passing the user id which is 1.</p>
 
-    <p class="mb-5 font-normal text-gray-300">The Accept header is much like the Content-Type header. It specifies which type of data the Client is expecting to receive from the server - with an attribute called a 'MIME TYPE'</p>
+    <p class="mb-5 font-normal text-gray-300">The Accept header is much like the Content-Type header. It specifies which type of data the Client is expecting to receive from the server - with an attribute called a 'MIME TYPE'.</p>
     <div>
 
             <!-- Examples of MIME Types -->
@@ -43,7 +43,7 @@
 
     <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
         <pre><code>
-<span class="text-cyan-400">PATCH</span> /test HTTP/1.1
+<span class="text-cyan-400">PATCH</span> /users/1 HTTP/1.1
 <span class="text-lime-200">Host</span>: <span class="text-blue-400">example.com</span>
 <span class="text-lime-200">Content-Type</span>: <span class="text-blue-400">application/json</span>
 <span class="text-lime-200">Content-Length</span>: <span class="text-blue-400">42</span>
