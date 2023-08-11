@@ -1,12 +1,15 @@
 <?php
 
-namespace Auth;
+namespace Tests\Feature\Auth;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ShowVerifyEmailNoticeTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_can_see_email_notice_page_if_user_unverified()
     {
         $user = User::factory()->unverified()->create();

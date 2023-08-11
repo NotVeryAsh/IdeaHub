@@ -2,10 +2,20 @@
 
 namespace Tests\Feature\Docs\Architecture;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class HttpVerbsTest extends TestCase
 {
+    use RefreshDatabase;
+
+    function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutVite();
+    }
+
     public function test_can_access_http_verbs_page()
     {
         $response = $this->get('/docs/architecture/http-verbs');
