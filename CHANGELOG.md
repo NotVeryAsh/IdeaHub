@@ -21,6 +21,18 @@ Progression and changes will be documented in this file and adhere to the standa
 
 ## [1.3.0] - 2023-08-11
 
+### Added
+
+- Added Documentation pages for architecture verbs
+- Added Documentation page for GET HTTP Verb
+- Added Documentation page for POST HTTP Verb
+- Added Documentation page for PATCH HTTP Verb
+- Added Documentation page for PUT HTTP Verb
+- Added Documentation page for DELETE HTTP Verb
+- Added Tailwind UI to the project
+
+## [1.3.0] - 2023-08-11
+
 ### Changed
 
 - Updated Composer Dependencies.
