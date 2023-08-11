@@ -28,7 +28,7 @@
     <div>
 
         <!-- Examples of MIME Types -->
-        <p class="mb-5 font-normal text-gray-300">Common examples of Content-Types include:</p>
+        <p class="mb-5 font-normal text-gray-300">Common examples of the Content-Type header include:</p>
 
         <ul class="list-disc list-inside font-normal text-gray-300 space-y-3">
             <li class="font-normal text-gray-300">application/x-www-form-urlencoded - Used for regular form submissions</li>
@@ -37,6 +37,7 @@
             <li class="font-normal text-gray-300">image/png - Used for uploading png images</li>
         </ul>
     </div>
+
     <div>
         <!-- Example of a Raw POST Request -->
         <p class="mb-5 font-normal text-gray-300">The parameters for a post request are sent through in the body of the request rather than in the url.
@@ -65,7 +66,7 @@
         <p class="mb-5 font-normal text-gray-300">Using Laravel's Http facade, you can easily make POST requests like so:</p>
         <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
             <code class="language-php">
-                $response = Http::<span class="text-cyan-400">post</span>(<span class="text-emerald-600">'example.com'</span>, [
+                $response = Http::<span class="text-cyan-400">post</span>(<span class="text-emerald-600">'example.com/test'</span>, [
                     <span class="text-emerald-600">'username'</span> => <span class="text-emerald-600">'value'</span>,
                     <span class="text-emerald-600">'field2'</span> => <span class="text-emerald-600">'value2'</span>
                 ]);
@@ -73,5 +74,5 @@
         </div>
     </div>
 
-    <p class="mb-5 font-normal text-gray-300">Responses typically look the same as GET requests, by returning data or redirecting the user.</p>
+    <p class="mb-5 font-normal text-gray-300">Responses typically look the same as the response return from GET requests, by returning data or redirecting the user.</p>
 </div>
