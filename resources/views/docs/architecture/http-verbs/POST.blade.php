@@ -78,6 +78,10 @@
         <p class="mb-5 font-normal text-gray-300">This will give you a json response as shown below:</p>
         <div class="bg-gray-800 rounded border-2 border-gray-600 p-2 text-gray-200">
                     <pre><code class="language-json">
+HTTP/1.1 200 OK
+<span class="text-lime-200">Content-Type</span>: <span class="text-blue-400">application/json</span>
+<span class="text-lime-200">Content-Length</span>: <span class="text-blue-400">84</span>
+
 <span class="text-lime-200">"user"</span>: {
     <span class="text-lime-200">"id"</span>: <span class="text-blue-400">1</span>,
     <span class="text-lime-200">"age"</span>: <span class="text-blue-400">33</span>,

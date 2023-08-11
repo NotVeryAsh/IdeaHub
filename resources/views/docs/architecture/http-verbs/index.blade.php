@@ -11,4 +11,6 @@
     @include('docs.architecture.http-verbs.PATCH')
     <hr class="h-px my-8 bg-gray-600 border-0">
     @include('docs.architecture.http-verbs.PUT')
+    <hr class="h-px my-8 bg-gray-600 border-0">
+    @include('docs.architecture.http-verbs.DELETE')
 @stop
