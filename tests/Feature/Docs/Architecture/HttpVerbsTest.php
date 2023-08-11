@@ -9,7 +9,7 @@ class HttpVerbsTest extends TestCase
 {
     use RefreshDatabase;
 
-    function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
 
