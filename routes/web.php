@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Docs\Architecture\HttpVerbsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Docs\Architecture\HttpVerbsController;
 use Illuminate\Support\Facades\Route;
 
 /*
