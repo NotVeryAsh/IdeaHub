@@ -1,0 +1,30 @@
+version: 2
+updates:
+
+    # Check for GitHub Actions updates
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependencies"
+
+    # Check for npm package updates
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "npm"
+      - "dependencies"
+    target-branch: "development"
+
+    # Check for composer package updates
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "php"
+      - "dependencies"
+    target-branch: "development"
