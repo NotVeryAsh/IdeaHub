@@ -19,11 +19,11 @@ class HttpVerbsTest extends TestCase
         $response = $this->get('/docs/architecture/http-verbs');
 
         $response->assertSeeInOrder([
-            '<!-- GET Verb -->',
-            '<!-- POST Verb -->',
-            '<!-- PUT Verb -->',
-            '<!-- PATCH Verb -->',
-            '<!-- DELETE Verb -->',
+            'GET Verb',
+            'POST Verb',
+            'PATCH Verb',
+            'PUT Verb',
+            'DELETE Verb',
         ]);
     }
 }
