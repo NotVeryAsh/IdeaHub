@@ -19,6 +19,13 @@ Progression and changes will be documented in this file and adhere to the standa
 
 - Tailwind UI Redesign.
 
+## [1.3.0] - 2023-08-11
+
+### Changed
+
+- Updated Composer Dependencies.
+- Updated NPM Dependencies.
+
 ## [1.2.1] - 2023-08-06
 
 ### Fixed
