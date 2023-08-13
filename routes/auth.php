@@ -6,19 +6,22 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
-// Email verification and logout routes
-Route::prefix('auth')->group(function () {
-    Route::prefix('verify-email')->middleware('auth')->group(function () {
+// Logout and Email verification routes
+Route::prefix('auth')->middleware('auth')->group(function () {
+
+    // Logout route
+    Route::post('logout', LogoutController::class)->name('logout');
+
+    // Email verification routes
+    Route::prefix('verify-email')->group(function () {
 
         Route::get('', [EmailVerificationController::class, 'showNotice'])->name('verification.notice');
         Route::post('resend', [EmailVerificationController::class, 'resend'])->middleware(['throttle:6,1'])->name('verification.send');
         Route::get('{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
     });
-
-    Route::post('logout', LogoutController::class)->name('logout');
 });
 
-// Login and dashboard routes
+// Login and register routes
 Route::middleware('guest')->group(function () {
 
     // Authentication routes
