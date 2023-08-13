@@ -23,7 +23,7 @@ Route::prefix('auth')->middleware('auth')->group(function () {
     });
 });
 
-// Login register, and forgot password routes
+// Login register, forgot password and reset password routes
 Route::middleware('guest')->group(function () {
 
     // Authentication routes
