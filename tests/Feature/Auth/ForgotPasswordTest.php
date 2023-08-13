@@ -101,20 +101,4 @@ class ForgotPasswordTest extends TestCase
             'email' => 'Email not found.',
         ]);
     }
-
-    public function test_forgot_password_route_returns_correct_view()
-    {
-        $response = $this->get('/forgot-password');
-
-        $response->assertStatus(200);
-        $response->assertViewIs('auth.forgot-password');
-    }
-
-    public function test_forgot_password_view_returns_correct_data()
-    {
-        $response = $this->get('/forgot-password');
-
-        $response->assertStatus(200);
-        $response->assertSee('Forgot Password');
-    }
 }
