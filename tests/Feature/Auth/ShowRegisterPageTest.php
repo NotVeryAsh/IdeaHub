@@ -3,13 +3,10 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ShowRegisterPageTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_can_see_page_if_user_is_unauthenticated()
     {
         $response = $this->get('/register');
