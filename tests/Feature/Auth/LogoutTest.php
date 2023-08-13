@@ -12,17 +12,17 @@ class LogoutTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $response = $this->post('/logout');
+        $response = $this->post('/auth/logout');
 
         $this->assertGuest();
-        $response->assertRedirect('/auth/login');
+        $response->assertRedirectToRoute('home');
     }
 
     public function test_user_is_redirected_to_login_page_if_not_logged_in()
     {
-        $response = $this->post('/logout');
+        $response = $this->post('/auth/logout');
 
         $this->assertGuest();
-        $response->assertRedirect('/auth/login');
+        $response->assertRedirectToRoute('home');
     }
 }
