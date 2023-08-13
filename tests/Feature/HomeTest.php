@@ -10,19 +10,19 @@ class HomeTest extends TestCase
 
     public function test_home_can_be_viewed_without_authentication()
     {
-        $response = $this->get('/home');
+        $response = $this->get('/');
         $response->assertStatus(200);
     }
 
     public function test_home_view_is_returned()
     {
-        $response = $this->get('/home');
+        $response = $this->get('/');
         $response->assertViewIs('home');
     }
 
     public function test_home_view_contains_correct_data()
     {
-        $response = $this->get('/home');
+        $response = $this->get('/');
         $response->assertSee('Welcome to Idea Hub');
     }
 
@@ -31,7 +31,7 @@ class HomeTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $response = $this->get('/home');
+        $response = $this->get('/');
         $response->assertStatus(200);
     }
 }
