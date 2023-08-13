@@ -16,6 +16,13 @@ Progression and changes will be documented in this file and adhere to the standa
 
 - Tailwind UI Redesign.
 
+## [1.7.0] - 2023-08-13
+
+### Added
+
+- Laravel Debug Bar composer package.
+- Added DEBUGBAR_ENABLED env variable to .env.example.
+
 ## [1.6.0] - 2023-08-13
 
 ### Added
