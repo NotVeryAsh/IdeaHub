@@ -5,17 +5,17 @@ namespace Tests\Feature\Auth;
 use App\Models\User;
 use Tests\TestCase;
 
-class ShowLoginPageTest extends TestCase
+class RegisterViewTest extends TestCase
 {
     public function test_can_see_page_if_user_is_unauthenticated()
     {
-        $response = $this->get('/login');
+        $response = $this->get('/register');
 
         $response->assertStatus(200);
-        $response->assertViewIs('auth.login');
+        $response->assertViewIs('auth.register');
         $response->assertSeeInOrder([
-            'Login',
-            '/auth/login',
+            'Register',
+            '/auth/register',
         ]);
     }
 
@@ -23,7 +23,7 @@ class ShowLoginPageTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/login');
+        $response = $this->actingAs($user)->get('/register');
 
         $response->assertStatus(302);
         $response->assertRedirect('/dashboard');
