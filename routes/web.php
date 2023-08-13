@@ -24,5 +24,6 @@ Route::prefix('docs')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('home', [HomeController::class, 'index'])->name('home');
 });
+
+Route::get('home', [HomeController::class, 'index'])->name('home');
