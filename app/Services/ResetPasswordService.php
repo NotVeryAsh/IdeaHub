@@ -17,15 +17,13 @@ class ResetPasswordService
             $request->only(['email', 'password', 'token']),
             function (User $user, string $password) use ($request) {
 
-                // Update user's password
-                $user->update([
-                    'password' => Hash::make($password),
-                ]);
+                // Either update user's remember token to remember them, or set it to null
+                $rememberToken = $request->validated('remember') ? Str::random(60) : null;
 
-                // Remember user if they ticked the remember me checkbox
-                if ($request->validated('remember')) {
-                    $user->setRememberToken(Str::random(60));
-                }
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                    'remember_token' => $rememberToken,
+                ])->save();
 
                 event(new PasswordReset($user));
             }

@@ -194,9 +194,7 @@ class ResetPasswordTest extends TestCase
 
     public function test_user_is_remembered_when_remember_me_is_checked()
     {
-        $user = User::factory()->create([
-            'password' => Hash::make('old-password'),
-        ]);
+        $user = User::factory()->create();
 
         $token = Password::createToken($user);
 
@@ -220,10 +218,7 @@ class ResetPasswordTest extends TestCase
 
     public function test_user_is_not_remembered_when_remember_me_is_not_checked()
     {
-        $user = User::factory()->create([
-            'password' => Hash::make('old-password'),
-            'remember_token' => null,
-        ]);
+        $user = User::factory()->create();
 
         $token = Password::createToken($user);
 
@@ -232,7 +227,6 @@ class ResetPasswordTest extends TestCase
             'password' => 'TestPassword',
             'password_confirmation' => 'TestPassword',
             'email' => $user->email,
-            'remember' => 'on',
         ]);
 
         $response->assertStatus(302);
@@ -247,9 +241,7 @@ class ResetPasswordTest extends TestCase
 
     public function test_remember_must_be_a_string()
     {
-        $user = User::factory()->create([
-            'password' => Hash::make('old-password'),
-        ]);
+        $user = User::factory()->create();
 
         $token = Password::createToken($user);
 
@@ -269,9 +261,7 @@ class ResetPasswordTest extends TestCase
 
     public function test_checkbox_must_be_passed_as_on()
     {
-        $user = User::factory()->create([
-            'password' => Hash::make('old-password'),
-        ]);
+        $user = User::factory()->create();
 
         $token = Password::createToken($user);
 
