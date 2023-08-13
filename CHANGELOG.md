@@ -10,8 +10,6 @@ Progression and changes will be documented in this file and adhere to the standa
 ### Added
 
 - Dashboard functionality.
-- Architecture Documentation.
-- Logout functionality.
 - Forgot Password functionality.
 - Recaptcha for login / register / resend verification email pages.
 
