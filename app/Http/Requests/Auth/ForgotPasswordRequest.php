@@ -17,6 +17,7 @@ class ForgotPasswordRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
+                'exists:users,email',
             ],
         ];
     }
@@ -25,8 +26,9 @@ class ForgotPasswordRequest extends FormRequest
     {
 
         return [
-            'email.required' => 'Email is required',
-            'email.email' => 'Email is invalid',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Email is invalid.',
+            'email.exists' => 'Email not found.',
         ];
     }
 }

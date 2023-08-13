@@ -18,10 +18,10 @@ class ForgotPasswordController extends Controller
         return view('auth.forgot-password');
     }
 
-    public function sendResetLinkNotification(ForgotPasswordRequest $request)
+    public function sendResetLinkNotification(ForgotPasswordRequest $request): RedirectResponse
     {
         // Send password reset link to user
-        $status = Password::sendResetLink($request->validated('email'));
+        $status = Password::sendResetLink(['email' => $request->validated('email')]);
 
         $statusMessage = __($status);
 

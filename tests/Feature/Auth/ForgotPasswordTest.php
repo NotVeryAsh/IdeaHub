@@ -13,20 +13,33 @@ class ForgotPasswordTest extends TestCase
     {
         $user = User::factory()->create(['email' => 'test@example.com']);
 
-        $this->post('/auth/forgot-password', [
+        $response = $this->post('/auth/forgot-password', [
             'email' => $user->email,
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHas([
+            'status' => 'Password reset email sent',
         ]);
     }
 
     public function test_reset_password_notification_is_sent()
     {
+        Notification::fake();
+
         $user = User::factory()->create(['email' => 'test@example.com']);
 
-        $this->post('/auth/forgot-password', [
+        $response = $this->post('/auth/forgot-password', [
             'email' => $user->email,
         ]);
 
+        // Check reset password notification was sent to user
         Notification::assertSentTo($user, ResetPasswordNotification::class);
+
+        $response->assertStatus(302);
+        $response->assertSessionHas([
+            'status' => 'Password reset email sent.',
+        ]);
     }
 
     public function test_password_resets_table_is_populated()
@@ -74,6 +87,18 @@ class ForgotPasswordTest extends TestCase
         $response->assertStatus(302);
         $response->assertSessionHasErrors([
             'email' => 'Email is invalid.',
+        ]);
+    }
+
+    public function test_email_field_must_exist_in_users_table_when_sending_forgot_password_email()
+    {
+        $response = $this->post('/auth/forgot-password', [
+            'email' => 'test@example.com',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors([
+            'email' => 'Email not found.',
         ]);
     }
 
