@@ -35,6 +35,7 @@ Progression and changes will be documented in this file and adhere to the standa
 ### Changed
 
 - Refactored auth routes to stop calling guest middleware multiple times
+- Refactor Email Verification routes to also include logout route
 - Changed phpunit.xml to use .env.testng config file instead 
 - Refactored Verify Email Test since it was being disrupted by other tests
 
