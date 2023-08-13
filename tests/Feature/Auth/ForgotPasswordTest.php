@@ -19,7 +19,7 @@ class ForgotPasswordTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertSessionHas([
-            'status' => 'Password reset email sent',
+            'status' => 'Password reset email sent.',
         ]);
     }
 
