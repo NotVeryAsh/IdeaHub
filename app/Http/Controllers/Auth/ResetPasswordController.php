@@ -47,12 +47,12 @@ class ResetPasswordController extends Controller
 
         $statusMessage = __($status);
 
-        // Sending password reset notification was not successful
+        // Reset password was not successful
         if ($status !== Password::PASSWORD_RESET) {
             return back()->withErrors(['email' => $statusMessage]);
         }
 
-        // Sending password reset notification was successful
+        // Reset password was successful
         return redirect()->route('login')->with(['status' => $statusMessage]);
     }
 }

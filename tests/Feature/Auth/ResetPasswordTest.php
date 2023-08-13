@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Illuminate\Testing\Fluent\Concerns\Has;
 use Tests\TestCase;
 
 class ResetPasswordTest extends TestCase
@@ -27,6 +28,8 @@ class ResetPasswordTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertRedirect('/login');
+
+        $this->assertTrue(Hash::check('TestPassword', $user->fresh()->password));
     }
 
     public function test_logged_in_user_cannot_reset_password()
