@@ -8,14 +8,14 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
 
-class ForgotPasswordController extends Controller
+class ResetPasswordController extends Controller
 {
     /**
-     * Show forgot password page
+     * Show reset password page
      */
-    public function index(): View
+    public function index($token): View
     {
-        return view('auth.forgot-password');
+        return view('auth.forgot-password', ['token' => $token]);
     }
 
     public function sendResetLinkNotification(ForgotPasswordRequest $request): RedirectResponse
