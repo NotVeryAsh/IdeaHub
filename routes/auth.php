@@ -32,11 +32,12 @@ Route::middleware('guest')->group(function () {
         Route::post('login', [LoginController::class, 'authenticate']);
         Route::post('register', [RegisterController::class, 'authenticate']);
         Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkNotification'])->name('password.email');
+        Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
     });
 
     // Index routes for views
     Route::get('login', [LoginController::class, 'index'])->name('login');
     Route::get('register', [RegisterController::class, 'index'])->name('register');
     Route::get('forgot-password', [ForgotPasswordController::class, 'index'])->name('forgot-password')->name('password.request');
-    Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::get('reset-password/{token}', [ResetPasswordController::class, 'index'])->name('password.reset');
 });

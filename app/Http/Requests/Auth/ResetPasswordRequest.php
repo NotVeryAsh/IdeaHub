@@ -14,6 +14,9 @@ class ResetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'token' => [
+                'required',
+            ],
             'email' => [
                 'required',
                 'email',
@@ -32,6 +35,7 @@ class ResetPasswordRequest extends FormRequest
     {
 
         return [
+            'token.required' => 'Token is required.',
             'email.required' => 'Email is required.',
             'email.email' => 'Email is invalid.',
             'email.exists' => 'Email not found.',

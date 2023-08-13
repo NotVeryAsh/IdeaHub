@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\ForgotPasswordRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
@@ -15,10 +15,13 @@ class ResetPasswordController extends Controller
      */
     public function index($token): View
     {
-        return view('auth.forgot-password', ['token' => $token]);
+        return view('auth.reset-password', ['token' => $token]);
     }
 
-    public function sendResetLinkNotification(ForgotPasswordRequest $request): RedirectResponse
+    /**
+     * Reset user password
+     */
+    public function reset(ResetPasswordRequest $request): RedirectResponse
     {
         // Send password reset link to user
         $status = Password::sendResetLink(['email' => $request->validated('email')]);
