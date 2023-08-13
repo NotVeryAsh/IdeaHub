@@ -19,7 +19,26 @@ Progression and changes will be documented in this file and adhere to the standa
 
 - Tailwind UI Redesign.
 
-## [1.3.0] - 2023-08-11
+## [1.5.0] - 2023-08-13
+
+### Added
+
+- Home Controller
+- Home Tests
+- Home View
+- Dashboard Tests
+- Logout Controller
+- Logout routes
+- Logout Tests 
+- Added .env.testing to .gitignore file
+- Added logout button on Dashboard view
+
+### Changed
+
+- Refactored auth routes to stop calling guest middleware multiple times
+- Changed phpunit.xml to use .env.testng config file instead 
+
+## [1.4.0] - 2023-08-11
 
 ### Added
 
