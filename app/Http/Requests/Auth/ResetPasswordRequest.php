@@ -28,6 +28,12 @@ class ResetPasswordRequest extends FormRequest
                 'max:60',
                 'confirmed',
             ],
+            // Validation for a remember checkbox
+            'remember' => [
+                'nullable',
+                'string',
+                'in:on',
+            ],
         ];
     }
 
@@ -43,6 +49,8 @@ class ResetPasswordRequest extends FormRequest
             'password.min' => 'Password must be at least 8 characters.',
             'password.max' => 'Password must not be greater than 60 characters.',
             'password.confirmed' => 'Passwords do not match.',
+            'remember.in' => 'The remember checkbox must be checked or not.',
+            'remember.string' => 'The remember checkbox must be checked or not.',
         ];
     }
 }
