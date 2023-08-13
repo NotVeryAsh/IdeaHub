@@ -61,7 +61,7 @@ class ForgotPasswordTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors([
-            'email' => 'The email field is required.',
+            'email' => 'Email is required.',
         ]);
     }
 
@@ -73,7 +73,7 @@ class ForgotPasswordTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors([
-            'email' => 'The email must be a valid email address.',
+            'email' => 'Email is invalid.',
         ]);
     }
 
