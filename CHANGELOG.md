@@ -30,11 +30,13 @@ Progression and changes will be documented in this file and adhere to the standa
 - Logout Tests 
 - Added .env.testing to .gitignore file
 - Added logout button on Dashboard view
+- Added brianium/paratest package for parallel unit testing
 
 ### Changed
 
 - Refactored auth routes to stop calling guest middleware multiple times
 - Changed phpunit.xml to use .env.testng config file instead 
+- Refactored Verify Email Test since it was being disrupted by other tests
 
 ## [1.4.0] - 2023-08-11
 
