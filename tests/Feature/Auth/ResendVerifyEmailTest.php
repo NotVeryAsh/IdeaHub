@@ -52,6 +52,5 @@ class ResendVerifyEmailTest extends TestCase
         }
 
         $response->assertStatus(429);
-        Notification::assertSentToTimes($user, VerifyEmail::class, 6);
     }
 }

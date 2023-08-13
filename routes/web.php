@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Docs\Architecture\HttpVerbsController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Home route
+Route::get('', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('docs')->group(function () {
     Route::prefix('architecture')->group(function () {

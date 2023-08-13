@@ -10,8 +10,6 @@ Progression and changes will be documented in this file and adhere to the standa
 ### Added
 
 - Dashboard functionality.
-- Architecture Documentation.
-- Logout functionality.
 - Forgot Password functionality.
 - Recaptcha for login / register / resend verification email pages.
 
@@ -19,7 +17,29 @@ Progression and changes will be documented in this file and adhere to the standa
 
 - Tailwind UI Redesign.
 
-## [1.3.0] - 2023-08-11
+## [1.5.0] - 2023-08-13
+
+### Added
+
+- Home Controller
+- Home Tests
+- Home View
+- Dashboard Tests
+- Logout Controller
+- Logout routes
+- Logout Tests 
+- Added .env.testing to .gitignore file
+- Added logout button on Dashboard view
+- Added brianium/paratest package for parallel unit testing
+
+### Changed
+
+- Refactored auth routes to stop calling guest middleware multiple times
+- Refactor Email Verification routes to also include logout route
+- Changed phpunit.xml to use .env.testng config file instead 
+- Refactored Verify Email Test since it was being disrupted by other tests
+
+## [1.4.0] - 2023-08-11
 
 ### Added
 
