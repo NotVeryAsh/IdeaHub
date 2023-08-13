@@ -2,13 +2,10 @@
 
 namespace Tests\Feature\Docs\Architecture;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class HttpVerbsTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();

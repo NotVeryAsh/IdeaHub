@@ -4,14 +4,11 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class ResendVerifyEmailTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_can_resend_verification_email()
     {
         Notification::fake();

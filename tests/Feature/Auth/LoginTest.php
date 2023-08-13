@@ -3,15 +3,12 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_user_can_login_with_valid_email()
     {
         $user = User::factory()->create([

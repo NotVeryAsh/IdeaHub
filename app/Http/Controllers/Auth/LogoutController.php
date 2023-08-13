@@ -10,6 +10,9 @@ class LogoutController extends Controller
 {
     // TODO Turn these functions into stateless-friendly endpoints ie. meaningful status codes and json data
 
+    /**
+     * Logout functionality
+     */
     public function __invoke(): RedirectResponse
     {
         // Logout current device and clear session

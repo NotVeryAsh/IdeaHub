@@ -4,14 +4,11 @@ namespace Tests\Feature\Emails;
 
 use App\Mail\RegisteredUser;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class RegisteredUserEmailTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_registered_user_is_sent_to_correct_email_address()
     {
         Mail::fake();

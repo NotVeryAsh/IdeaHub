@@ -5,7 +5,6 @@ namespace Tests\Feature\Auth;
 use App\Mail\RegisteredUser;
 use App\Models\User;
 use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
@@ -13,8 +12,6 @@ use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_can_register()
     {
         Notification::fake();

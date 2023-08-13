@@ -10,12 +10,29 @@ Progression and changes will be documented in this file and adhere to the standa
 ### Added
 
 - Dashboard functionality.
-- Forgot Password functionality.
 - Recaptcha for login / register / resend verification email pages.
 
 ### Changed
 
 - Tailwind UI Redesign.
+
+## [1.6.0] - 2023-08-13
+
+### Added
+
+- Reset Password Controller / routes / tests / views / form request
+- Forgot Password Controller / routes / tests / views / form request
+- Ability to send forgot password email
+- Ability to reset password
+- Added Scheduler to delete old password reset tokens
+- Added password resets migration
+- Added reset password trait and interface to user model
+
+### Changed
+
+- Revert phpunit.xml to previous config so GitHub Actions can run tests
+- Changed name of login page / register page tests for more consistency and readability
+- Removes RefreshDatabase trait from test classes class since it is already in the base test class
 
 ## [1.5.0] - 2023-08-13
 

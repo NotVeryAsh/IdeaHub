@@ -1,13 +1,10 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class DashboardTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_viewing_dashboard_requires_authentication()
     {
         $response = $this->get('/dashboard');
