@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use App\Models\User;
+use App\Rules\PassesRecaptcha;
 use App\Rules\UserIdentifierExists;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -33,6 +34,13 @@ class LoginRequest extends FormRequest
                 'nullable',
                 'string',
                 'in:on',
+            ],
+            'recaptcha_action' => [
+                'required',
+            ],
+            'recaptcha_response' => [
+                'required',
+                new PassesRecaptcha(),
             ],
         ];
     }

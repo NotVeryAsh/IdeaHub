@@ -2,7 +2,6 @@
 
 namespace App\Rules;
 
-use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use ReCaptcha\ReCaptcha;
@@ -16,9 +15,9 @@ class PassesRecaptcha implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $recaptcha = new ReCaptcha(config('recaptcha.server_secret'));
-        $resp = $recaptcha->setExpectedHostname(config('recaptcha.expected_host'))
-            ->setExpectedAction(request()->input('action'))
+        $recaptcha = new ReCaptcha(config('services.recaptcha.secret'));
+        $resp = $recaptcha->setExpectedHostname(config('app.url'))
+            ->setExpectedAction(request()->input('recaptcha_action'))
             ->setScoreThreshold(0.5)
             ->verify($value, request()->ip());
 
