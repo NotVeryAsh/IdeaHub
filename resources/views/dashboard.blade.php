@@ -1,6 +1,11 @@
-Hey, {{ auth()->user()->username }}
+@extends('layouts.app')
+@section('content')
 
-<form action="{{ route('logout') }}" method="POST">
-    @csrf
-    <button type="submit">Logout</button>
-</form>
+    Hey, {{ auth()->user()->username }}
+
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
+
+@stop

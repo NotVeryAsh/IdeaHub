@@ -1,6 +1,11 @@
-Email Verification Sent! Check your email for a verification link.
+@extends('layouts.app')
+@section('content')
 
-<form action="/auth/verify-email/resend" method="post">
-    @csrf
-    <button type="submit">Resend Verification Email</button>
-</form>
+    Email Verification Sent! Check your email for a verification link.
+
+    <form action="/auth/verify-email/resend" method="post">
+        @csrf
+        <button type="submit">Resend Verification Email</button>
+    </form>
+
+@stop
