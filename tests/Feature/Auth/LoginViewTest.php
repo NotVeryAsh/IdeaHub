@@ -28,4 +28,16 @@ class LoginViewTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/dashboard');
     }
+
+    public function test_recaptcha_data_is_present()
+    {
+        $response = $this->get('/login');
+
+        $response->assertStatus(200);
+        $response->assertSeeInOrder([
+            'recaptcha-protected-form',
+            'data-sitekey',
+            'data-action',
+        ]);
+    }
 }
