@@ -3,7 +3,7 @@
 use App\Models\User;
 use Tests\TestCase;
 
-class HomeTest extends TestCase
+class HomeViewTest extends TestCase
 {
     public function setUp(): void
     {
