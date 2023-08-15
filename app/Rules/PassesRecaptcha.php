@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
-use ReCaptcha\ReCaptcha;
+use Illuminate\Support\Facades\Http;
 
 class PassesRecaptcha implements ValidationRule
 {
@@ -15,14 +15,21 @@ class PassesRecaptcha implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $recaptcha = new ReCaptcha(config('services.recaptcha.secret'));
-        $resp = $recaptcha->setExpectedHostname(config('app.url'))
-            ->setExpectedAction(request()->input('recaptcha_action'))
-            ->setScoreThreshold(0.5)
-            ->verify($value, request()->ip());
+        $request = Http::post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('services.recaptcha.secret'),
+            'response' => $value,
+            'remoteip' => request()->ip(),
+        ]);
 
-        if ($errors = $resp->getErrorCodes()) {
-            $fail(implode(', ', $errors));
+        $response = $request->json();
+
+        $fails = $response['success'] === false ||
+            $response['score'] < 0.5 ||
+            $response['action'] !== request('recaptcha_action') ||
+            $response['hostname'] !== request()->getHost();
+
+        if ($fails) {
+            $fail('Recaptcha failed.');
         }
     }
 }

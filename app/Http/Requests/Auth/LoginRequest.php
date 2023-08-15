@@ -37,9 +37,11 @@ class LoginRequest extends FormRequest
             ],
             'recaptcha_action' => [
                 'required',
+                'string',
             ],
             'recaptcha_response' => [
                 'required',
+                'string',
                 new PassesRecaptcha(),
             ],
         ];
@@ -57,6 +59,10 @@ class LoginRequest extends FormRequest
             'password.max' => 'Password is incorrect. Try again or click "Forgot Password" to reset your password.',
             'remember.in' => 'The remember checkbox must be checked or not.',
             'remember.string' => 'The remember checkbox must be checked or not.',
+            'recaptcha_action.required' => 'Recaptcha action is required.',
+            'recaptcha_action.string' => 'Recaptcha action is invalid.',
+            'recaptcha_response.required' => 'Recaptcha response is required.',
+            'recaptcha_response.string' => 'Recaptcha response is invalid.',
         ];
     }
 }

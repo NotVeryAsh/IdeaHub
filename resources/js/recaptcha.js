@@ -8,7 +8,18 @@ submitButton.on('click', function(event) {
 
     // get site key and action
     let siteKey = form.data('sitekey');
+
+    if(!siteKey) {
+        console.error("reCAPTCHA sitekey not found");
+        return;
+    }
+
     let action = form.data('action');
+
+    if(!action) {
+        console.error("reCAPTCHA action not found");
+        return;
+    }
 
     // execute reCAPTCHA
     grecaptcha.ready(function() {
