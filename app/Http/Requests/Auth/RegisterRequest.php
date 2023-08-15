@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Rules\PassesRecaptcha;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -39,6 +40,15 @@ class RegisterRequest extends FormRequest
                 'string',
                 'in:on',
             ],
+            'recaptcha_action' => [
+                'required',
+                'string',
+            ],
+            'recaptcha_response' => [
+                'required',
+                'string',
+                new PassesRecaptcha(),
+            ],
         ];
     }
 
@@ -60,6 +70,10 @@ class RegisterRequest extends FormRequest
             'password.confirmed' => 'Passwords do not match.',
             'remember.in' => 'Remember checkbox must be checked or not.',
             'remember.string' => 'Remember checkbox must be checked or not.',
+            'recaptcha_action.required' => 'Recaptcha action is required.',
+            'recaptcha_action.string' => 'Recaptcha action is invalid.',
+            'recaptcha_response.required' => 'Recaptcha response is required.',
+            'recaptcha_response.string' => 'Recaptcha response is invalid.',
         ];
     }
 }

@@ -4,7 +4,6 @@ namespace Auth;
 
 use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -137,14 +136,10 @@ class ForgotPasswordTest extends TestCase
     {
         self::fakeSuccessfulRecaptchaResponse();
 
-        User::factory()->create([
-            'email' => 'test@test.com',
-            'password' => Hash::make($password = 'password'),
-        ]);
+        $user = User::factory()->create(['email' => 'test@example.com']);
 
         $response = $this->post('/auth/forgot-password', [
-            'identifier' => 'test@test.com',
-            'password' => $password,
+            'email' => $user->email,
             'recaptcha_response' => Str::random(40),
         ]);
 
@@ -159,16 +154,12 @@ class ForgotPasswordTest extends TestCase
     {
         self::fakeSuccessfulRecaptchaResponse();
 
-        User::factory()->create([
-            'email' => 'test@test.com',
-            'password' => Hash::make($password = 'password'),
-        ]);
+        $user = User::factory()->create(['email' => 'test@example.com']);
 
         $response = $this->post('/auth/forgot-password', [
-            'identifier' => 'test@test.com',
-            'password' => $password,
+            'email' => $user->email,
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 0,
+            'recaptcha_action' => 1,
         ]);
 
         $response->assertStatus(302);
@@ -180,16 +171,12 @@ class ForgotPasswordTest extends TestCase
 
     public function test_recaptcha_response_is_required()
     {
-        self::fakeUnsuccessfulRecaptchaResponse();
+        self::fakeSuccessfulRecaptchaResponse();
 
-        User::factory()->create([
-            'email' => 'test@test.com',
-            'password' => Hash::make($password = 'password'),
-        ]);
+        $user = User::factory()->create(['email' => 'test@example.com']);
 
         $response = $this->post('/auth/forgot-password', [
-            'identifier' => 'test@test.com',
-            'password' => $password,
+            'email' => $user->email,
             'recaptcha_action' => 'test',
         ]);
 
@@ -204,15 +191,11 @@ class ForgotPasswordTest extends TestCase
     {
         self::fakeSuccessfulRecaptchaResponse();
 
-        User::factory()->create([
-            'email' => 'test@test.com',
-            'password' => Hash::make($password = 'password'),
-        ]);
+        $user = User::factory()->create(['email' => 'test@example.com']);
 
         $response = $this->post('/auth/forgot-password', [
-            'identifier' => 'test@test.com',
-            'password' => $password,
-            'recaptcha_response' => 0,
+            'email' => $user->email,
+            'recaptcha_response' => 1,
             'recaptcha_action' => 'test',
         ]);
 
@@ -227,14 +210,10 @@ class ForgotPasswordTest extends TestCase
     {
         self::fakeUnsuccessfulRecaptchaResponse();
 
-        User::factory()->create([
-            'email' => 'test@test.com',
-            'password' => Hash::make($password = 'password'),
-        ]);
+        $user = User::factory()->create(['email' => 'test@example.com']);
 
         $response = $this->post('/auth/forgot-password', [
-            'identifier' => 'test@test.com',
-            'password' => $password,
+            'email' => $user->email,
             'recaptcha_response' => Str::random(40),
             'recaptcha_action' => 'test',
         ]);
