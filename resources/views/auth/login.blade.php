@@ -2,7 +2,7 @@
 @section('content')
 
     Login
-    <form action="/auth/login" method="post" id="#recaptcha-protected-form" data-sitekey="{{ config('services.recaptcha.key') }}" data-action="login">
+    <form action="/auth/login" method="post" id="recaptcha-protected-form" data-sitekey="{{ config('services.recaptcha.key') }}" data-action="login">
         @csrf
 
         <input type="text" name="identifier" placeholder="Email or username" maxlength="255" required>
