@@ -5,6 +5,13 @@ use Tests\TestCase;
 
 class HomeTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutVite();
+    }
+
     public function test_home_can_be_viewed_without_authentication()
     {
         $response = $this->get('/');
