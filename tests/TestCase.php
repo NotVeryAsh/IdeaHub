@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
                 'challengeTs' => '2023-08-15T12:42:19Z',
                 'apkPackageName' => '',
                 'score' => 0.9,
-                'action' => 'login',
+                'action' => 'test',
             ]),
         ]);
     }

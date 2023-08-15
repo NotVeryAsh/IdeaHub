@@ -23,7 +23,7 @@ class LoginTest extends TestCase
             'identifier' => 'test@test.com',
             'password' => $password,
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -43,7 +43,7 @@ class LoginTest extends TestCase
             'identifier' => $user->username,
             'password' => $password,
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -65,7 +65,7 @@ class LoginTest extends TestCase
             'password' => $password,
             'remember' => 'on',
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -93,7 +93,7 @@ class LoginTest extends TestCase
             'password' => $password,
             'remember' => null,
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -121,7 +121,7 @@ class LoginTest extends TestCase
             'password' => $password,
             'remember' => 1,
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -144,7 +144,7 @@ class LoginTest extends TestCase
             'password' => $password,
             'remember' => 'off',
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -161,7 +161,7 @@ class LoginTest extends TestCase
             'identifier' => 'test@test.com',
             'password' => 'invalid-password',
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -179,7 +179,7 @@ class LoginTest extends TestCase
             'identifier' => 'test',
             'password' => 'invalid-password',
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -202,7 +202,7 @@ class LoginTest extends TestCase
             'identifier' => 'test@test.com',
             'password' => 'test_password',
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -219,7 +219,7 @@ class LoginTest extends TestCase
         $response = $this->post('/auth/login', [
             'password' => 'test',
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -238,7 +238,7 @@ class LoginTest extends TestCase
         $response = $this->post('/auth/login', [
             'identifier' => 'test',
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -257,7 +257,7 @@ class LoginTest extends TestCase
             'identifier' => Str::random(256),
             'password' => 'test',
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -275,7 +275,7 @@ class LoginTest extends TestCase
             'identifier' => 'test',
             'password' => Str::random(61),
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -293,7 +293,7 @@ class LoginTest extends TestCase
             'identifier' => 123,
             'password' => 'test',
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -311,7 +311,7 @@ class LoginTest extends TestCase
             'identifier' => 'test',
             'password' => 123,
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -368,7 +368,7 @@ class LoginTest extends TestCase
 
     public function test_recaptcha_response_is_required()
     {
-        self::fakeSuccessfulRecaptchaResponse();
+        self::fakeUnsuccessfulRecaptchaResponse();
 
         User::factory()->create([
             'email' => 'test@test.com',
@@ -378,7 +378,7 @@ class LoginTest extends TestCase
         $response = $this->post('/auth/login', [
             'identifier' => 'test@test.com',
             'password' => $password,
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -401,7 +401,7 @@ class LoginTest extends TestCase
             'identifier' => 'test@test.com',
             'password' => $password,
             'recaptcha_response' => 0,
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
@@ -424,7 +424,7 @@ class LoginTest extends TestCase
             'identifier' => 'test@test.com',
             'password' => $password,
             'recaptcha_response' => Str::random(40),
-            'recaptcha_action' => 'login',
+            'recaptcha_action' => 'test',
         ]);
 
         $response->assertStatus(302);
