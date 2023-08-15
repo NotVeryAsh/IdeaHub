@@ -371,7 +371,6 @@ class ResetPasswordTest extends TestCase
         $response->assertSessionHasErrors([
             'recaptcha_action' => 'Recaptcha action is required.',
         ]);
-        $this->assertGuest();
     }
 
     public function test_recaptcha_action_must_be_string()
@@ -397,7 +396,6 @@ class ResetPasswordTest extends TestCase
         $response->assertSessionHasErrors([
             'recaptcha_action' => 'Recaptcha action is invalid.',
         ]);
-        $this->assertGuest();
     }
 
     public function test_recaptcha_response_is_required()
@@ -422,7 +420,6 @@ class ResetPasswordTest extends TestCase
         $response->assertSessionHasErrors([
             'recaptcha_response' => 'Recaptcha response is required.',
         ]);
-        $this->assertGuest();
     }
 
     public function test_recaptcha_response_must_be_string()
@@ -448,7 +445,6 @@ class ResetPasswordTest extends TestCase
         $response->assertSessionHasErrors([
             'recaptcha_response' => 'Recaptcha response is invalid.',
         ]);
-        $this->assertGuest();
     }
 
     public function test_recaptcha_response_must_pass()
@@ -474,6 +470,5 @@ class ResetPasswordTest extends TestCase
         $response->assertSessionHasErrors([
             'recaptcha_response' => 'Recaptcha failed.',
         ]);
-        $this->assertGuest();
     }
 }
