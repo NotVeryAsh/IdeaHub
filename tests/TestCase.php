@@ -11,6 +11,13 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, RefreshDatabase, WithFaker;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutVite();
+    }
+
     public static function fakeSuccessfulRecaptchaResponse(): void
     {
         // Fake google recaptcha response

@@ -7,13 +7,6 @@ use Tests\TestCase;
 
 class LoginViewTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->withoutVite();
-    }
-
     public function test_can_see_page_if_user_is_unauthenticated()
     {
         $response = $this->get('/login');

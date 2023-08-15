@@ -7,13 +7,6 @@ use Tests\TestCase;
 
 class ShowVerifyEmailNoticeTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->withoutVite();
-    }
-
     public function test_can_see_email_notice_page_if_user_unverified()
     {
         $user = User::factory()->unverified()->create();

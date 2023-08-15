@@ -8,13 +8,6 @@ use Tests\TestCase;
 
 class ResetPasswordViewTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->withoutVite();
-    }
-
     public function test_logged_in_user_cannot_see_reset_password_view()
     {
         $user = User::factory()->create();

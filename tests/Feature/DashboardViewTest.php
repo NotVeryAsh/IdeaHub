@@ -5,13 +5,6 @@ use Tests\TestCase;
 
 class DashboardViewTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->withoutVite();
-    }
-
     public function test_viewing_dashboard_requires_authentication()
     {
         $response = $this->get('/dashboard');
