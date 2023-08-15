@@ -7,6 +7,13 @@ use Tests\TestCase;
 
 class ForgotPasswordViewTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutVite();
+    }
+
     public function test_forgot_password_route_returns_correct_view()
     {
         $response = $this->get('/forgot-password');
