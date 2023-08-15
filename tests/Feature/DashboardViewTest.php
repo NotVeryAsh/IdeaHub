@@ -3,7 +3,7 @@
 use App\Models\User;
 use Tests\TestCase;
 
-class DashboardTest extends TestCase
+class DashboardViewTest extends TestCase
 {
     public function test_viewing_dashboard_requires_authentication()
     {

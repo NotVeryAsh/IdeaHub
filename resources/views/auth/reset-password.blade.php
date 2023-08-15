@@ -1,11 +1,18 @@
-Reset Password
+@extends('layouts.app')
+@section('content')
 
-<form action="/auth/reset-password" method="post">
-    @csrf
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="hidden" name="token" value="{{ $token }}">
-    <input type="password" name="password">
-    <input type="password" name="password_confirmation">
+    Reset Password
 
-    <button type="submit">Resend Verification Email</button>
-</form>
+    <form action="/auth/reset-password" method="post" id="recaptcha-protected-form" data-sitekey="{{ config('services.recaptcha.key') }}" data-action="reset_password">
+        @csrf
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="hidden" name="token" value="{{ $token }}">
+        <input type="password" name="password">
+        <input type="password" name="password_confirmation">
+        <input id="recaptcha_response" type="hidden" name="recaptcha_response">
+        <input id="recaptcha_action" type="hidden" name="recaptcha_action">
+
+        <button type="submit">Resend Verification Email</button>
+    </form>
+
+@stop

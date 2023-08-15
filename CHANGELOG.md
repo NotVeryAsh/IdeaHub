@@ -10,11 +10,27 @@ Progression and changes will be documented in this file and adhere to the standa
 ### Added
 
 - Dashboard functionality.
-- Recaptcha for login / register / resend verification email pages.
 
 ### Changed
 
 - Tailwind UI Redesign.
+
+## [2.0.0] - 2023-08-13
+
+### Added
+
+- Add custom rule to check if recaptcha passes
+- Add recaptcha.js to handle running recaptcha, populating form with recaptcha data and submitting form
+- Added jquery npm package
+- Added laravel vite plugin npm package
+- Added ResendEmailVerificationRequest class for recaptcha
+- Add config for recaptcha in services.php config and .env.example
+
+### Changed
+
+- Change forgot-password, login, register, reset-password and verify-email views to include recaptcha
+- Change forgot-password, login, register, reset-password and verify-email tests to include recaptcha validation
+- Change head.blade.php to include recaptcha script and css / js vite files
 
 ## [1.7.0] - 2023-08-13
 

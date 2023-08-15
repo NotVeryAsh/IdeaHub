@@ -39,4 +39,18 @@ class ResetPasswordViewTest extends TestCase
         $response->assertStatus(200);
         $response->assertSeeInOrder(['Reset Password', $token]);
     }
+
+    public function test_recaptcha_data_is_present()
+    {
+        $user = User::factory()->create();
+
+        $token = Password::createToken($user);
+
+        $response = $this->get("reset-password/$token");
+        $response->assertSeeInOrder([
+            'recaptcha-protected-form',
+            'data-sitekey',
+            'data-action',
+        ]);
+    }
 }

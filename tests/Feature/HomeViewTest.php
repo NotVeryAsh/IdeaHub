@@ -3,7 +3,7 @@
 use App\Models\User;
 use Tests\TestCase;
 
-class HomeTest extends TestCase
+class HomeViewTest extends TestCase
 {
     public function test_home_can_be_viewed_without_authentication()
     {

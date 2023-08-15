@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ResendEmailVerificationRequest;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -25,7 +26,7 @@ class EmailVerificationController extends Controller
     /**
      * Resend email verification email
      */
-    public function resend(): RedirectResponse
+    public function resend(ResendEmailVerificationRequest $request): RedirectResponse
     {
         $user = request()->user();
 
