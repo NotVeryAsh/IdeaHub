@@ -219,4 +219,23 @@ class ForgotPasswordTest extends TestCase
             'recaptcha_response' => 'Recaptcha failed.',
         ]);
     }
+
+    public function test_too_many_requests_are_throttled()
+    {
+        self::fakeSuccessfulRecaptchaResponse();
+
+        $user = User::factory()->create(['email' => 'test@example.com']);
+
+        for ($i = 0; $i < 10; $i++) {
+            $response = $this->post('/auth/forgot-password', [
+                'email' => $user->email,
+                'recaptcha_response' => Str::random(40),
+                'recaptcha_action' => 'test',
+            ]);
+        }
+
+        $response->assertSessionHasErrors([
+            'email' => 'Please wait before retrying.',
+        ]);
+    }
 }
