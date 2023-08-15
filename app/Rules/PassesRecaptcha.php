@@ -15,11 +15,11 @@ class PassesRecaptcha implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $request = Http::post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => config('services.recaptcha.secret'),
-            'response' => $value,
-            'remoteip' => request()->ip(),
-        ]);
+        $request = Http::asForm()
+            ->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret' => config('services.recaptcha.secret'),
+                'response' => $value,
+            ]);
 
         $response = $request->json();
 

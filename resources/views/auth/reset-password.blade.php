@@ -3,7 +3,7 @@
 
     Reset Password
 
-    <form action="/auth/reset-password" method="post" id="recaptcha-protected-form" data-sitekey="{{ config('services.recaptcha.key') }}" data-action="reset-password">
+    <form action="/auth/reset-password" method="post" id="recaptcha-protected-form" data-sitekey="{{ config('services.recaptcha.key') }}" data-action="reset_password">
         @csrf
         <input type="email" name="email" placeholder="Email" required>
         <input type="hidden" name="token" value="{{ $token }}">
