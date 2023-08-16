@@ -23,5 +23,14 @@
                 </li>
             </ul>
         </div>
+
+<!-- TODO Change to use user's profile_picture if they have one -->
+{{--        @if(\Illuminate\Support\Facades\Auth::check())--}}
+{{--        <img class="w-10 h-10 rounded-full ring-2 ring-blue-500" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" alt="Bordered avatar">--}}
+{{--        @else--}}
+{{--        <div class="p-1 rounded-full ring-2 ring-blue-500 relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">--}}
+{{--            <span class="font-medium text-gray-600 dark:text-gray-300">JL</span>--}}
+{{--        </div>--}}
+{{--        @endif--}}
     </div>
 </nav>
