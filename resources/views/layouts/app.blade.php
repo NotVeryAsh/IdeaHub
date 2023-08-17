@@ -3,7 +3,7 @@
 <head>
     @include('layouts.includes.head')
 </head>
-<body class="bg-slate-800 text-white">
+<body class="bg-slate-800 text-slate-100">
 <header>
     @include('layouts.includes.header')
 </header>
