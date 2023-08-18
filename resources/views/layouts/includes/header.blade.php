@@ -47,19 +47,34 @@
         </button>
     </div>
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div class="text-sm lg:flex-grow">
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 mr-4">
+        <div class="font-medium lg:flex-grow">
+            <a href="{{ route('home') }}" class="sm:hidden mt-4 lg:inline-block lg:mt-0 mr-4 hover:text-blue-500 @if(request()->routeIs('home')) text-blue-500 @endif">
+                Home
+            </a>
+            <!-- TODO Change to splash page for Docs -->
+            <a href="{{ route('docs.architecture.http-verbs') }}" class="sm:hidden mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 @if(request()->routeIs('docs.architecture.http-verbs')) text-blue-500 @endif">
                 Docs
             </a>
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 mr-4">
-                Examples
-            </a>
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0">
-                Blog
-            </a>
+            @if(\Illuminate\Support\Facades\Auth::check())
+                <a href="{{ route('dashboard') }}" class="sm:hidden mt-4 lg:inline-block lg:mt-0 mr-4 hover:text-blue-500 @if(request()->routeIs('dashboard')) text-blue-500 @endif">
+                    Dashboard
+                </a>
+            @endif
         </div>
         <div>
-            <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:bg-white mt-4 lg:mt-0">Download</a>
+            @if(\Illuminate\Support\Facades\Auth::check())
+                <!-- TODO Change to user->profile_picture -->
+                @if($user->firstname)
+                    <!-- TODO Change to use user's profile_picture if they have one -->
+                    <img class="w-10 h-10 rounded-full ring-2 ring-blue-500" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" alt="Bordered avatar">
+                @else
+                    <div class="p-1 rounded-full ring-2 ring-blue-500 relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                        <span class="font-medium text-gray-600 dark:text-gray-300">JL</span>
+                    </div>
+                @endif
+            @else
+                <a href="{{ route('login') }}" class="block sm:hidden mt-4 lg:inline-block sm:hidden bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">Login</a>
+            @endif
         </div>
     </div>
 </nav>

@@ -21,7 +21,7 @@ Route::get('', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('docs')->group(function () {
     Route::prefix('architecture')->group(function () {
-        Route::get('http-verbs', [HttpVerbsController::class, 'index']);
+        Route::get('http-verbs', [HttpVerbsController::class, 'index'])->name('docs.architecture.http-verbs');
     });
 });
 
