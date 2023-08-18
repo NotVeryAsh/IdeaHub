@@ -48,15 +48,15 @@
     </div>
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="font-medium lg:flex-grow">
-            <a href="{{ route('home') }}" class="sm:hidden mt-4 lg:inline-block lg:mt-0 mr-4 hover:text-blue-500 @if(request()->routeIs('home')) text-blue-500 @endif">
+            <a href="{{ route('home') }}" class="hidden mt-4 lg:inline-block lg:mt-0 mr-4 hover:text-blue-500 @if(request()->routeIs('home')) text-blue-500 @endif">
                 Home
             </a>
             <!-- TODO Change to splash page for Docs -->
-            <a href="{{ route('docs.architecture.http-verbs') }}" class="sm:hidden mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 @if(request()->routeIs('docs.architecture.http-verbs')) text-blue-500 @endif">
+            <a href="{{ route('docs.architecture.http-verbs') }}" class="hidden mt-4 lg:inline-block lg:mt-0 hover:text-blue-500 @if(request()->routeIs('docs.architecture.http-verbs')) text-blue-500 @endif">
                 Docs
             </a>
             @if(\Illuminate\Support\Facades\Auth::check())
-                <a href="{{ route('dashboard') }}" class="sm:hidden mt-4 lg:inline-block lg:mt-0 mr-4 hover:text-blue-500 @if(request()->routeIs('dashboard')) text-blue-500 @endif">
+                <a href="{{ route('dashboard') }}" class="hidden mt-4 lg:inline-block lg:mt-0 mr-4 hover:text-blue-500 @if(request()->routeIs('dashboard')) text-blue-500 @endif">
                     Dashboard
                 </a>
             @endif
@@ -73,7 +73,7 @@
                     </div>
                 @endif
             @else
-                <a href="{{ route('login') }}" class="block sm:hidden mt-4 lg:inline-block sm:hidden bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">Login</a>
+                <a href="{{ route('login') }}" class="block hidden lg:inline-block sm:hidden bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">Login</a>
             @endif
         </div>
     </div>
