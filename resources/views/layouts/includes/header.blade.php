@@ -1,4 +1,4 @@
-<nav class="border-gray-200 bg-gray-900">
+<nav class="border-gray-200 bg-gray-900 px-10">
     <div class="flex flex-wrap items-center mx-auto p-4">
         <a href="#" class="flex items-center">
             <img src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" class="h-8 mr-3" alt="Idea Hub" />
