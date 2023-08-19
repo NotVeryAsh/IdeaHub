@@ -218,6 +218,41 @@ class ResetPasswordTest extends TestCase
         ]);
     }
 
+    public function test_email_must_be_the_same_as_the_email_in_the_password_reset_record()
+    {
+        // Fake google recaptcha response
+        self::fakeSuccessfulRecaptchaResponse();
+
+        // Create user with password reset record
+        $user = User::factory()->create([
+            'password' => 'password',
+            'email' => 'test@test.com',
+        ]);
+
+        // Create user without password reset record
+        $invalidUser = User::factory()->create([
+            'password' => 'password',
+            'email' => 'test2@test.com',
+        ]);
+
+        $token = Password::createToken($user);
+
+        // Try and reset the password for the invalid user, using the token for the valid user
+        $response = $this->post('auth/reset-password', [
+            'token' => $token,
+            'password' => 'TestPassword',
+            'password_confirmation' => 'TestPassword',
+            'email' => $invalidUser->email,
+            'recaptcha_response' => Str::random(40),
+            'recaptcha_action' => 'test',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors([
+            'email' => 'Email is invalid.',
+        ]);
+    }
+
     public function test_token_is_required_when_resetting_password()
     {
         // Fake google recaptcha response
