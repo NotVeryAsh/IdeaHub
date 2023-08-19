@@ -17,7 +17,7 @@ class EmailVerificationController extends Controller
     {
         // If authenticated user has already verified their email, redirect to dashboard
         if (request()->user()->hasVerifiedEmail()) {
-            return redirect()->route('dashboard')->with('message', 'Email already verified');
+            return redirect()->route('dashboard')->with('status', 'Email already verified');
         }
 
         return view('auth.verify-email-notice');
@@ -31,13 +31,13 @@ class EmailVerificationController extends Controller
         $user = request()->user();
 
         if ($user->hasVerifiedEmail()) {
-            return redirect()->route('dashboard')->with('message', 'Email already verified');
+            return redirect()->route('dashboard')->with('status', 'Email already verified');
         }
 
         $user->sendEmailVerificationNotification();
 
         // Make sure we always take the user back to the verification notice page
-        return redirect()->route('verification.notice')->with('message', 'Verification link sent!');
+        return redirect()->back()->with('status', 'Email Verification Resent!');
     }
 
     /**
@@ -49,6 +49,6 @@ class EmailVerificationController extends Controller
         $redirect = redirect()->route('dashboard');
 
         // redirect to dashboard with Email Verified message if the user is already verified
-        return $request->user()->hasVerifiedEmail() ? $redirect->with('message', 'Email already verified') : $redirect;
+        return $request->user()->hasVerifiedEmail() ? $redirect->with('status', 'Email already verified') : $redirect;
     }
 }
