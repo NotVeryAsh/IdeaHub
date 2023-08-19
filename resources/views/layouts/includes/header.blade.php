@@ -11,7 +11,7 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
                 </svg>
             </button>
-            <div class="hidden w-full md:block md:w-auto md:relative md:mt-0 absolute top-0 right-0 mt-20 flex-column justify-content-center align-items-center" id="navbar-default">
+            <div id="navbar-default" class="hidden w-full md:block md:w-auto md:relative md:mt-0 absolute top-0 right-0 mt-20 flex-column justify-content-center align-items-center">
                 <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
                         <a href="{{ route('home') }}" class="block py-2 pl-3 pr-4 bg-blue-700 rounded md:bg-transparent md:p-0 md:hover:text-blue-700 @if(request()->routeIs('home')) text-blue-500 @endif" aria-current="page">Home</a>
@@ -24,7 +24,7 @@
                     </li>
                 </ul>
             </div>
-            <div>
+            <button data-collapse-toggle="navbar-profile">
                 @if(\Illuminate\Support\Facades\Auth::check())
                     <img class="w-25 h-10 rounded-full ring-2 ring-blue-500" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" alt="Bordered avatar">
                 @else
@@ -32,6 +32,13 @@
                         <span class="font-medium text-gray-600 dark:text-gray-300">JL</span>
                     </div>
                 @endif
+            </button>
+            <div id="navbar-profile" class="hidden w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 absolute top-0 right-0 mt-20 flex-column justify-content-center align-items-center">
+                <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
+                    <li>
+                        <a href="#" class="block py-2 pl-3 pr-4 bg-blue-700 rounded {{--@if(request()->routeIs('home')) text-blue-500 @endif--}}" aria-current="page">Profile</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
