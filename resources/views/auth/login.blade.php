@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+    <h1 class="font-bold text-4xl text-center">Login</h1>
+
     <form class="w-full max-w-xs mx-auto space-y-8" action="/auth/login" method="post" id="recaptcha-protected-form" data-sitekey="{{ config('services.recaptcha.key') }}" data-action="login">
         @csrf
 
@@ -7,9 +9,9 @@
             <label class="block mb-3" for="username">
                 Email or Username
             </label>
-            <input placeholder="Email or Username" id="username" type="text" name="identifier" maxlength="255" required class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('identifier')) border-red-400 @else border-gray-500 @endif">
+            <input placeholder="Email or Username" id="username" type="text" name="identifier" maxlength="255" required value="{{ old('identifier') }}" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('identifier')) border-red-400 @else border-gray-500 @endif">
             @if($errors->has('identifier'))
-                <p class="text-red-400">{{ $errors->first('identifier') }}</p>
+                <p class="mt-2 text-red-400">{{ $errors->first('identifier') }}</p>
             @endif
         </div>
         <div>
@@ -18,7 +20,7 @@
             </label>
             <input id="password" type="password" name="password" placeholder="Password" required maxlength="60" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('password')) border-red-400 @else border-gray-500 @endif">
             @if($errors->has('password'))
-                <p class="text-red-400">{{ $errors->first('password') }}</p>
+                <p class="mt-2 text-red-400">{{ $errors->first('password') }}</p>
             @endif
         </div>
         <div class="flex items-center">
@@ -32,8 +34,11 @@
         <button class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
             Log In
         </button>
-        <div>
-            <a class="font-bold text-sm text-blue-500 hover:text-blue-700" href="{{route('forgot-password')}}">
+        <div class="flex flex-col space-y-4">
+            <a class="text-sm text-blue-500 hover:text-blue-700" href="{{route('register')}}">
+                Don't have an account yet?
+            </a>
+            <a class="text-sm text-blue-500 hover:text-blue-700" href="{{route('forgot-password')}}">
                 Forgot Password?
             </a>
         </div>
