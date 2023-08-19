@@ -1,11 +1,10 @@
 @extends('layouts.app')
 @section('content')
 
-    Hey, {{ auth()->user()->username }}
+    <h1 class="font-bold text-4xl text-center">Dashboard</h1>
+    <hr class="h-px my-8 mx-auto bg-gray-200 border-0 dark:bg-gray-700 w-5/12">
 
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
-
+    <div class="text-center">
+        Hey, {{ Auth::user()->username }}
+    </div>
 @stop

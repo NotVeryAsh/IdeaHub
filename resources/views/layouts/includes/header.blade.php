@@ -38,11 +38,12 @@
                     <li>
                         @if(Auth::check())
                             <a href="#" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500 {{--@if(request()->routeIs('home')) text-blue-500 @endif--}}" aria-current="page">Profile</a>
-                            <form class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500">
+                            <form action="{{ route('logout') }}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500">
+                                @csrf
                                 <button type="submit" class="text-left w-full" aria-current="page">Log Out</button>
                             </form>
                         @else
-                            <a href="#" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500 @if(request()->routeIs('login')) text-blue-500 @endif" aria-current="page">Log In</a>
+                            <a href="{{ route('login') }}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500 @if(request()->routeIs('login')) text-blue-500 @endif" aria-current="page">Log In</a>
                         @endif
                     </li>
                 </ul>
