@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Docs\Architecture\HttpVerbsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,12 +20,22 @@ use Illuminate\Support\Facades\Route;
 // Home route
 Route::get('', [HomeController::class, 'index'])->name('home');
 
+// Docs routes
 Route::prefix('docs')->group(function () {
     Route::prefix('architecture')->group(function () {
         Route::get('http-verbs', [HttpVerbsController::class, 'index'])->name('docs.architecture.http-verbs');
     });
 });
 
+// Auth routes
 Route::middleware(['auth', 'verified'])->group(function () {
+    // Dashboard route
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Profile routes
+    Route::prefix('profile')->group(function () {
+        Route::get('', [ProfileController::class, 'index'])->name('profile');
+        Route::get('edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('', [ProfileController::class, 'update'])->name('profile.update');
+    });
 });
