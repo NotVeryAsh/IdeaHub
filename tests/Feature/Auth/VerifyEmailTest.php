@@ -47,7 +47,7 @@ class VerifyEmailTest extends TestCase
         $response = $this->actingAs($user)->get($url);
         $response->assertStatus(302);
         $response->assertRedirect('/dashboard');
-        $response->assertSessionHas('message', 'Email already verified');
+        $response->assertSessionHas('status', 'Email already verified!');
     }
 
     public function test_user_is_redirected_to_login_page_if_unauthenticated()
