@@ -10,10 +10,19 @@ Progression and changes will be documented in this file and adhere to the standa
 ### Added
 
 - Dashboard functionality.
+- Ability to update profile
+- Teams
+- Profile pictures
+
+## [3.0.0] - 2023-08-13
 
 ### Changed
 
-- Tailwind UI Redesign.
+- Redesigned the entire application to use Tailwind CSS
+- Changed all pages to display errors and status where needed
+- Changed email verification routes to return status instead of message for consistency
+- Changed navbar to include dropdowns and make it more mobile friendly / responsive
+- Refactored tests accordingly
 
 ## [2.0.0] - 2023-08-13
 
