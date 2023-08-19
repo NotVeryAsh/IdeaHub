@@ -9,7 +9,7 @@ class UpdateProfileViewTest extends TestCase
 {
     public function test_viewing_update_profile_page_requires_authentication()
     {
-        $response = $this->get('/profile');
+        $response = $this->get('/profile/edit');
         $response->assertRedirectToRoute('login');
     }
 
@@ -18,8 +18,8 @@ class UpdateProfileViewTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $response = $this->get('/profile');
-        $response->assertViewIs('profile');
+        $response = $this->get('/profile/edit');
+        $response->assertViewIs('profile.edit');
     }
 
     public function test_update_profile_view_contains_correct_data()
@@ -32,9 +32,9 @@ class UpdateProfileViewTest extends TestCase
         ]);
         $this->actingAs($user);
 
-        $response = $this->get('/profile');
+        $response = $this->get('/profile/edit');
         $response->assertSeeInOrder([
-            'Update Profile',
+            'Edit Profile',
             'johndoe',
             'test@test.com',
             'John',
