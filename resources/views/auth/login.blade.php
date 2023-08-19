@@ -2,6 +2,10 @@
 @section('content')
     <h1 class="font-bold text-4xl text-center">Login</h1>
 
+    @if(Session::has('status'))
+        <p class="mt-2 text-xl text-center">{{ Session::get('status') }}</p>
+    @endif
+
     <form class="w-full max-w-xs mx-auto space-y-8" action="/auth/login" method="post" id="recaptcha-protected-form" data-sitekey="{{ config('services.recaptcha.key') }}" data-action="login">
         @csrf
 

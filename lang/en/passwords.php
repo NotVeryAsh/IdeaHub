@@ -16,7 +16,7 @@ return [
     'reset' => 'Password has been reset.',
     'sent' => 'Password reset email sent.',
     'throttled' => 'Please wait before retrying.',
-    'token' => 'Password reset token is invalid.',
-    'user' => 'Email Address is invalid.',
+    'token' => 'Email is invalid.',
+    'user' => 'Email is invalid.',
 
 ];
