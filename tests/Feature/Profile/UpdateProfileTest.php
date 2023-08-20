@@ -529,7 +529,7 @@ class UpdateProfileTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors([
-            'profile_picture' => 'Profile picture must be a JPEG, JPG, PNG, or GIF.',
+            'profile_picture' => 'Profile picture must be a JPEG, JPG, PNG, WEBP or GIF.',
         ]);
     }
 

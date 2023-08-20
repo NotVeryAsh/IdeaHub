@@ -3,7 +3,7 @@
 
     <h1 class="font-bold text-4xl text-center">Edit Profile</h1>
 
-    <form class="w-full max-w-xs mx-auto space-y-8" action="/profile" method="post">
+    <form class="w-full max-w-xs mx-auto space-y-8" action="/profile" method="post" enctype="multipart/form-data">
         @method('patch')
         @csrf
 
@@ -13,7 +13,7 @@
         <button id="change-profile-picture" class="mx-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="button">
             Change Profile Picture
         </button>
-        <div id="profile-picture-upload" class="w-full">
+        <div id="profile-picture-upload" class="w-full hidden">
             <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                     <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -22,7 +22,7 @@
                     <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPEG or GIF</p>
                 </div>
-                <input id="dropzone-file" type="file" class="hidden" accept="image/gif,image/jpeg,image/png" />
+                <input name="profile_picture" id="dropzone-file" type="file" class="hidden" accept="image/gif,image/jpeg,image/png,image/webp" />
             </label>
         </div>
         </div>
