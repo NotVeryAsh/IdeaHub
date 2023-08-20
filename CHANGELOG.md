@@ -10,9 +10,25 @@ Progression and changes will be documented in this file and adhere to the standa
 ### Added
 
 - Dashboard functionality.
-- Ability to update profile
 - Teams
 - Profile pictures
+
+## [3.1.0] - 2023-08-13
+
+### Added
+
+- Profile view page
+- Profile edit page
+- Profile update functionality
+- Added Rule to allow people to update their username only once every six hours
+- Ability to view other people's profiles 
+- Added username_updated_at field to enforce time constraint on username updates
+- Added migration to add username_updated_at field to users table
+
+### Changed
+
+- Profile dropdown menu to include profile link
+- User factory to include username_updated_at field
 
 ## [3.0.0] - 2023-08-13
 
