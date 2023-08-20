@@ -24,14 +24,18 @@ class ProfileViewTest extends TestCase
 
     public function test_profile_view_contains_correct_data_when_viewing_as_self()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'username' => 'johndoe',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+        ]);
+
         $this->actingAs($user);
 
         $response = $this->get('/profile');
         $response->assertSeeInOrder([
             'Viewing your profile',
             'johndoe',
-            'test@test.com',
             'John',
             'Doe',
         ]);
@@ -41,18 +45,18 @@ class ProfileViewTest extends TestCase
     {
         User::factory()->create([
             'username' => 'johndoe',
-            'firstname' => 'John',
-            'lastname' => 'Doe',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
         ]);
 
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $response = $this->get('/profile');
+        $response = $this->get('/profile/johndoe');
         $response->assertSeeInOrder([
             'johndoe',
-            'john',
-            'doe',
+            'John',
+            'Doe',
         ]);
     }
 }

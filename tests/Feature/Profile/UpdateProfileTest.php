@@ -174,6 +174,28 @@ class UpdateProfileTest extends TestCase
         ]);
     }
 
+    public function test_password_is_not_updated_if_passed_as_null()
+    {
+        $user = User::factory()->create([
+            'password' => 'test',
+        ]);
+
+        // Log in as user
+        $this->actingAs($user);
+
+        $response = $this->patch('/profile', [
+            'password' => null,
+        ]);
+
+        // Check that user is redirected to profile page
+        $response->assertRedirectToRoute('profile');
+        $response->assertSessionHas(['status' => 'Profile updated!']);
+
+        $this->assertDatabaseMissing('users', [
+            'password' => Hash::make('test'),
+        ]);
+    }
+
     public function test_password_must_be_greater_than_8_characters_when_updating_profile()
     {
         $user = User::factory()->create();
