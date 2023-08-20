@@ -5,7 +5,7 @@ namespace Profile;
 use App\Models\User;
 use Tests\TestCase;
 
-class UpdateProfileViewTest extends TestCase
+class EditProfileViewTest extends TestCase
 {
     public function test_viewing_update_profile_page_requires_authentication()
     {
