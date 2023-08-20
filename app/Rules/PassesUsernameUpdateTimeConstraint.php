@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
@@ -14,7 +15,15 @@ class PassesUsernameUpdateTimeConstraint implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $lastUpdated = auth()->user()->username_updated_at;
+        $user = auth()->user();
+
+        // Username is not being updated
+        if ($user->username === $value) {
+            return;
+        }
+
+        // Get last time username was updated
+        $lastUpdated = Carbon::parse($user->username_updated_at);
 
         // Check if username has been updated in the last 6 hours
         if ($lastUpdated > now()->subHours(6)) {

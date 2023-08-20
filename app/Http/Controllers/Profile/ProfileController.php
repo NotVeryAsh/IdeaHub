@@ -33,6 +33,11 @@ class ProfileController extends Controller
             unset($fields['password']);
         }
 
+        // update username_updated_at field
+        if (isset($fields['username']) && $fields['username'] !== $user->username) {
+            $fields['username_updated_at'] = now();
+        }
+
         $user->update(
             $fields
         );

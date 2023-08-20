@@ -54,6 +54,55 @@ class UpdateProfileTest extends TestCase
         ]);
     }
 
+    public function test_username_updated_at_field_is_updated_when_updating_username()
+    {
+        $time = now()->subDays(4)->format('Y-m-d H:i:s');
+
+        // Make user with initial credentials
+        $user = User::factory()->create([
+            'username' => 'test',
+            'username_updated_at' => now()->subDays(4),
+        ]);
+
+        // Log in as user
+        $this->actingAs($user);
+
+        // Update user with new credentials
+        $this->patch('/profile', [
+            'username' => 'new_username',
+        ]);
+
+        $this->assertDatabaseMissing('users', [
+            'id' => $user->id,
+            'username_updated_at' => $time,
+        ]);
+    }
+
+    public function test_username_updated_at_field_is_not_updated_when_not_updating_username()
+    {
+        $time = now()->subDays(4)->format('Y-m-d H:i:s');
+
+        // Make user with initial credentials
+        $user = User::factory()->create([
+            'email' => 'test@test.com',
+            'username_updated_at' => now()->subDays(4),
+        ]);
+
+        // Log in as user
+        $this->actingAs($user);
+
+        // Update user with new credentials
+        $this->patch('/profile', [
+            'email' => 'example@example.com',
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'email' => 'example@example.com',
+            'username_updated_at' => $time,
+        ]);
+    }
+
     public function test_username_is_required_when_present_when_updating_profile()
     {
         $user = User::factory()->create();
@@ -160,7 +209,10 @@ class UpdateProfileTest extends TestCase
     public function test_can_update_username_once_every_six_hours()
     {
         // Create user that has updated their username now
-        $user = User::factory()->create(['username_updated_at' => now()]);
+        $user = User::factory()->create([
+            'username' => 'test',
+            'username_updated_at' => now(),
+        ]);
 
         // Log in as user
         $this->actingAs($user);
@@ -172,6 +224,26 @@ class UpdateProfileTest extends TestCase
         $response->assertSessionHasErrors([
             'username' => 'You may update your username again in 5 hours.',
         ]);
+    }
+
+    public function test_username_time_constraint_does_not_occur_when_updating_same_username()
+    {
+        // Create user that has updated their username now
+        $user = User::factory()->create([
+            'username' => 'username',
+            'username_updated_at' => now(),
+        ]);
+
+        // Log in as user
+        $this->actingAs($user);
+
+        $response = $this->patch('/profile', [
+            'username' => 'username',
+        ]);
+
+        // Check that user is redirected to profile page
+        $response->assertRedirectToRoute('profile');
+        $response->assertSessionHas(['status' => 'Profile updated!']);
     }
 
     public function test_password_is_not_updated_if_passed_as_null()
