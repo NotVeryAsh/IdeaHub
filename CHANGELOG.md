@@ -13,7 +13,7 @@ Progression and changes will be documented in this file and adhere to the standa
 - Teams
 - Profile pictures
 
-## [3.1.0] - 2023-08-13
+## [3.1.0] - 2023-08-20
 
 ### Added
 
@@ -30,7 +30,7 @@ Progression and changes will be documented in this file and adhere to the standa
 - Profile dropdown menu to include profile link
 - User factory to include username_updated_at field
 
-## [3.0.0] - 2023-08-13
+## [3.0.0] - 2023-08-19
 
 ### Changed
 
