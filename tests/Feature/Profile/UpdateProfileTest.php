@@ -3,7 +3,9 @@
 namespace Profile;
 
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -475,5 +477,77 @@ class UpdateProfileTest extends TestCase
         $response = $this->patch('/profile');
 
         $response->assertRedirect('/login');
+    }
+
+    public function test_profile_picture_must_be_5MB_or_less()
+    {
+        $user = User::factory()->create();
+
+        // Log in as user
+        $this->actingAs($user);
+
+        Storage::fake('public');
+
+        $response = $this->patch('/profile', [
+            'profile_picture' => UploadedFile::fake()->image('profile_picture.jpg')->size(6000),
+        ]);
+
+        $response->assertSessionHasErrors([
+            'profile_picture' => 'Profile picture must be 5MB or less.',
+        ]);
+    }
+
+    public function test_profile_picture_must_be_image()
+    {
+        $user = User::factory()->create();
+
+        // Log in as user
+        $this->actingAs($user);
+
+        Storage::fake('public');
+
+        $response = $this->patch('/profile', [
+            'profile_picture' => UploadedFile::fake()->create('profile_picture.pdf'),
+        ]);
+
+        $response->assertSessionHasErrors([
+            'profile_picture' => 'Profile picture must be an image.',
+        ]);
+    }
+
+    public function test_profile_picture_must_be_jpeg_jpg_png_or_gif()
+    {
+        $user = User::factory()->create();
+
+        // Log in as user
+        $this->actingAs($user);
+
+        Storage::fake('public');
+
+        $response = $this->patch('/profile', [
+            'profile_picture' => UploadedFile::fake()->image('profile_picture.bmp'),
+        ]);
+
+        $response->assertSessionHasErrors([
+            'profile_picture' => 'Profile picture must be a JPEG, JPG, PNG, or GIF.',
+        ]);
+    }
+
+    public function test_profile_picture_resolution_must_be_800x800_or_less()
+    {
+        $user = User::factory()->create();
+
+        // Log in as user
+        $this->actingAs($user);
+
+        Storage::fake('public');
+
+        $response = $this->patch('/profile', [
+            'profile_picture' => UploadedFile::fake()->image('profile_picture.jpg', 801, 801),
+        ]);
+
+        $response->assertSessionHasErrors([
+            'profile_picture' => 'Profile picture must be 800x800 or less.',
+        ]);
     }
 }
