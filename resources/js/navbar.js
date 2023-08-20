@@ -41,7 +41,7 @@ triggers.click(function (event) {
 
     hideOtherElements(target, menus);
 
-    toggleElementVisibility(target);
+    toggle(target);
 });
 
 // Hide all menus, other than the one that was clicked
@@ -54,7 +54,7 @@ function hideOtherElements(element, otherElements) {
 }
 
 // Toggle visibility of an element
-function toggleElementVisibility(element) {
+window.toggle = function toggleElementVisibility(element) {
     // Toggle visibility this way (using toggle causes menu to stay hidden when resizing the window)
     if(!element.hasClass('hidden')) {
         HideElement(element);
