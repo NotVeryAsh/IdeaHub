@@ -29,7 +29,7 @@
             <label class="block mb-3" for="first_name">
                 First Name
             </label>
-            <input placeholder="First Name" id="first_name" type="text" name="first_name" maxlength="255" required value="{{ $user->first_name }}" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('first_name')) border-red-400 @else border-gray-500 @endif">
+            <input placeholder="First Name" id="first_name" type="text" name="first_name" maxlength="255" value="{{ $user->first_name }}" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('first_name')) border-red-400 @else border-gray-500 @endif">
             @if($errors->has('first_name'))
                 <p class="mt-2 text-red-400">{{ $errors->first('first_name') }}</p>
             @endif
@@ -38,7 +38,7 @@
             <label class="block mb-3" for="last_name">
                 Last Name
             </label>
-            <input placeholder="Last Name" id="last_name" type="text" name="last_name" maxlength="255" required value="{{ $user->last_name }}" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('last_name')) border-red-400 @else border-gray-500 @endif">
+            <input placeholder="Last Name" id="last_name" type="text" name="last_name" maxlength="255" value="{{ $user->last_name }}" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('last_name')) border-red-400 @else border-gray-500 @endif">
             @if($errors->has('last_name'))
                 <p class="mt-2 text-red-400">{{ $errors->first('last_name') }}</p>
             @endif
@@ -47,10 +47,16 @@
             <label class="block mb-3" for="password">
                 Password
             </label>
-            <input id="password" type="password" name="password" placeholder="Password" required maxlength="60" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('password')) border-red-400 @else border-gray-500 @endif">
+            <input id="password" type="password" name="password" placeholder="Password" maxlength="60" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('password')) border-red-400 @else border-gray-500 @endif">
             @if($errors->has('password'))
                 <p class="mt-2 text-red-400">{{ $errors->first('password') }}</p>
             @endif
+        </div>
+        <div>
+            <label class="block mb-3" for="password_confirmation">
+                Confirm Password
+            </label>
+            <input id="password_confirmation" type="password" name="password_confirmation" placeholder="Confirm Password" maxlength="60" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('password')) border-red-400 @else border-gray-500 @endif">
         </div>
         <button class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
             Save

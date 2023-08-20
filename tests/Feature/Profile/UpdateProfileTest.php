@@ -174,23 +174,6 @@ class UpdateProfileTest extends TestCase
         ]);
     }
 
-    public function test_password_is_required_when_present_when_updating_profile()
-    {
-        $user = User::factory()->create();
-
-        // Log in as user
-        $this->actingAs($user);
-
-        $response = $this->patch('/profile', [
-            'password' => '',
-            'password_confirmation' => '',
-        ]);
-
-        $response->assertSessionHasErrors([
-            'password' => 'Password is required.',
-        ]);
-    }
-
     public function test_password_must_be_greater_than_8_characters_when_updating_profile()
     {
         $user = User::factory()->create();

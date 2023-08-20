@@ -33,8 +33,7 @@ class UpdateProfileRequest extends FormRequest
                 new PassesUsernameUpdateTimeConstraint(),
             ],
             'password' => [
-                'sometimes',
-                'required',
+                'nullable',
                 'min:8',
                 'max:60',
                 'confirmed',

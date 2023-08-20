@@ -35,8 +35,8 @@ class UpdateProfileViewTest extends TestCase
         $response = $this->get('/profile/edit');
         $response->assertSeeInOrder([
             'Edit Profile',
-            'johndoe',
             'test@test.com',
+            'johndoe',
             'John',
             'Doe',
         ]);

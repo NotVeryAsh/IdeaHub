@@ -19,7 +19,7 @@ class ProfileViewTest extends TestCase
         $this->actingAs($user);
 
         $response = $this->get('/profile');
-        $response->assertViewIs('profile');
+        $response->assertViewIs('profile.index');
     }
 
     public function test_profile_view_contains_correct_data_when_viewing_as_self()
@@ -29,7 +29,7 @@ class ProfileViewTest extends TestCase
 
         $response = $this->get('/profile');
         $response->assertSeeInOrder([
-            'Your Profile',
+            'Viewing your profile',
             'johndoe',
             'test@test.com',
             'John',
@@ -50,26 +50,7 @@ class ProfileViewTest extends TestCase
 
         $response = $this->get('/profile');
         $response->assertSeeInOrder([
-            "johndoe's Profile",
-            'john',
-            'doe',
-        ]);
-    }
-
-    public function test_profile_view_displays_correct_username_ending_in_s()
-    {
-        User::factory()->create([
-            'username' => 'johndoes',
-            'firstname' => 'John',
-            'lastname' => 'Doe',
-        ]);
-
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
-        $response = $this->get('/profile');
-        $response->assertSeeInOrder([
-            "johndoes' Profile",
+            'johndoe',
             'john',
             'doe',
         ]);

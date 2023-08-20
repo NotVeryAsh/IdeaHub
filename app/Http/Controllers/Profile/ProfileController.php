@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\UpdateProfileRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    public function index(): View
+    public function index(User $user = null): View
     {
-        return view('profile');
+        $user = $user ?? auth()->user();
+
+        return view('profile.index', ['user' => $user, 'viewing_self' => auth()->user()->is($user)]);
     }
 
     public function edit(): View
@@ -23,8 +26,15 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
+        $fields = $request->validated();
+
+        // Check if array contains password key, and if password value is null, remove it
+        if (array_key_exists('password', $fields) && ! $fields['password']) {
+            unset($fields['password']);
+        }
+
         $user->update(
-            $request->validated(),
+            $fields
         );
 
         return redirect()->route('profile')->with(['status' => 'Profile updated!']);
