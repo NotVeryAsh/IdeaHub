@@ -10,7 +10,7 @@
         <img id="preview-image" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" class="rounded-full w-32 h-32 mt-4 mx-auto" alt="User's profile picture">
 
         <div class="flex flex-col items-center justify-center w-full space-y-8">
-        <button class="mx-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="button">
+        <button id="change-profile-picture" class="mx-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="button">
             Change Profile Picture
         </button>
         <div id="profile-picture-upload" class="w-full">
