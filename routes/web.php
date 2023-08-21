@@ -35,7 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Profile routes
     Route::prefix('profile')->group(function () {
         Route::get('edit', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('', [ProfileController::class, 'update'])->name('profile.update');
+        Route::patch('', [ProfileController::class, 'update'])->name('profile.update')->middleware('optimizeImages');
         Route::get('{user:username?}', [ProfileController::class, 'index'])->name('profile');
     });
 });
