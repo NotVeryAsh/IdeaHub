@@ -556,24 +556,14 @@ class UpdateProfileTest extends TestCase
         ]);
     }
 
-    public function test_can_select_default_profile_picture()
-    {
-
-    }
-
     public function test_old_uploaded_profile_picture_is_deleted_when_new_one_is_uploaded()
-    {
-
-    }
-
-    public function test_profile_picture_is_not_deleted_when_default_is_selected()
     {
 
     }
 
     public function test_profile_picture_is_compressed_when_updating_profile()
     {
-
+        //TODO - Might need to have custom images for this test, or delete it
     }
 
     public function test_profile_picture_is_not_updated_if_no_profile_picture_is_uploaded()
