@@ -520,7 +520,7 @@ class UpdateProfileTest extends TestCase
         ]);
     }
 
-    public function test_profile_picture_must_be_jpeg_jpg_png_or_gif()
+    public function test_profile_picture_must_be_jpeg_jpg_png_webp_or_gif()
     {
         $user = User::factory()->create();
 
