@@ -20,9 +20,9 @@
             <h2 class="text-xl font-bold mt-2">{{ $user->first_name }} {{ $user->last_name }}</h2>
         </div>
         @if($viewing_self)
-            <button class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
-                <a href="{{route('profile.edit')}}">Edit Profile</a>
-            </button>
+            <a href="{{route('profile.edit')}}">
+                <button class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">Edit Profile</button>
+            </a>
         @endif
     </div>
 
