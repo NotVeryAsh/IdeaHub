@@ -499,7 +499,27 @@ class UpdateProfileTest extends TestCase
 
     public function test_profile_picture_is_saved_when_updating_profile()
     {
+        $user = User::factory()->create();
 
+        // Log in as user
+        $this->actingAs($user);
+
+        Storage::fake('public');
+
+        $response = $this->patch('/profile', [
+            'profile_picture' => UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100),
+        ]);
+
+        $response->assertSessionHas([
+            'status' => 'Profile updated!',
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'profile_picture' => "images/users/profile_pictures/$user->profile_picture",
+        ]);
+
+        Storage::disk('public')->assertExists("images/users/profile_pictures/$user->profile_picture");
     }
 
     public function test_profile_picture_must_be_image()
@@ -558,16 +578,81 @@ class UpdateProfileTest extends TestCase
 
     public function test_old_uploaded_profile_picture_is_deleted_when_new_one_is_uploaded()
     {
+        $user = User::factory()->create([
+            'profile_picture' => 'profile_picture.jpg',
+        ]);
 
+        // Log in as user
+        $this->actingAs($user);
+
+        Storage::fake('public');
+
+        UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store('images/users/profile_pictures');
+
+        $response = $this->patch('/profile', [
+            'profile_picture' => UploadedFile::fake()->image('new_profile_picture.jpg', 100, 100)->size(100),
+        ]);
+
+        $response->assertSessionHas([
+            'status' => 'Profile updated!',
+        ]);
+
+        Storage::disk('public')->assertMissing('images/users/profile_pictures/profile_picture.jpg');
     }
 
-    public function test_profile_picture_is_compressed_when_updating_profile()
+    public function test_profile_picture_is_updated()
     {
-        //TODO - Might need to have custom images for this test, or delete it
+        $user = User::factory()->create([
+            'profile_picture' => 'profile_picture.jpg',
+        ]);
+
+        // Log in as user
+        $this->actingAs($user);
+
+        Storage::fake('public');
+
+        UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store('images/users/profile_pictures');
+
+        $response = $this->patch('/profile', [
+            'profile_picture' => UploadedFile::fake()->image('new_profile_picture.jpg', 100, 100)->size(100),
+        ]);
+
+        $response->assertSessionHas([
+            'status' => 'Profile updated!',
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'profile_picture' => "images/users/profile_pictures/$user->profile_picture",
+        ]);
+
+        Storage::disk('public')->assertExists("images/users/profile_pictures/$user->profile_picture");
     }
 
     public function test_profile_picture_is_not_updated_if_no_profile_picture_is_uploaded()
     {
+        $user = User::factory()->create([
+            'profile_picture' => 'profile_picture.jpg',
+        ]);
 
+        // Log in as user
+        $this->actingAs($user);
+
+        Storage::fake('public');
+
+        UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store('images/users/profile_pictures');
+
+        $response = $this->patch('/profile');
+
+        $response->assertSessionHas([
+            'status' => 'Profile updated!',
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'profile_picture' => "images/users/profile_pictures/$user->profile_picture",
+        ]);
+
+        Storage::disk('public')->assertExists("images/users/profile_pictures/$user->profile_picture");
     }
 }
