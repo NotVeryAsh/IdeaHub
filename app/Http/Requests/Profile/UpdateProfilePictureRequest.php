@@ -27,7 +27,7 @@ class UpdateProfilePictureRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'profile_pictuire.required' => 'Profile picture is required.',
+            'profile_picture.required' => 'Profile picture is required.',
             'profile_picture.max' => 'Profile picture must be 5MB or less.',
             'profile_picture.image' => 'Profile picture must be an image.',
             'profile_picture.mimes' => 'Profile picture must be a JPEG, JPG, PNG, WEBP or GIF.',
