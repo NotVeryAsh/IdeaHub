@@ -19,9 +19,9 @@
         @csrf
 
         @if($user->profile_picture)
-            <img id="preview-image" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" class="ring-2 ring-blue-500 rounded-full w-32 h-32 mt-4 mx-auto" alt="User's profile picture" data-original-image="{{ asset('images/idea-hub-logo-minimal.jpg') }}">
+            <img id="preview-image" src="{{ $user->profile_picture }}" class="ring-2 ring-blue-500 rounded-full w-32 h-32 mt-4 mx-auto" alt="User's profile picture" data-original-image="{{ asset('images/idea-hub-logo-minimal.jpg') }}">
         @else
-            <div class="rounded-full w-32 h-32 mt-4 mx-auto p-1 ring-2 ring-blue-500 bg-gray-600 flex items-center justify-center">
+            <div class="rounded-full w-32 h-32 mt-4 mx-auto p-1 ring-2 ring-blue-500 bg-gray-600 flex align-item items-center justify-center">
                 <span class="font-medium text-6xl text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials() }}</span>
             </div>
         @endif
