@@ -3,11 +3,28 @@
 
     <h1 class="font-bold text-4xl text-center">Edit Profile</h1>
 
+    <form id="remove-profile-picture-form" method="POST">
+        @method('delete')
+        @csrf
+    </form>
+
+    <form id="save-profile-picture-form" method="POST">
+        @method('patch')
+        @csrf
+        <input name="profile_picture" id="dropzone-file" type="file" class="hidden" accept="image/gif,image/jpeg,image/png,image/webp" required />
+    </form>
+
     <form class="w-full max-w-xs mx-auto space-y-8" action="/profile" method="post" enctype="multipart/form-data">
         @method('patch')
         @csrf
 
-        <img id="preview-image" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" class="rounded-full w-32 h-32 mt-4 mx-auto" alt="User's profile picture">
+        @if($user->profile_picture)
+            <img id="preview-image" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" class="ring-2 ring-blue-500 rounded-full w-32 h-32 mt-4 mx-auto" alt="User's profile picture" data-original-image="{{ asset('images/idea-hub-logo-minimal.jpg') }}">
+        @else
+            <div class="rounded-full w-32 h-32 mt-4 mx-auto p-1 ring-2 ring-blue-500 bg-gray-600 flex items-center justify-center">
+                <span class="font-medium text-6xl text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials() }}</span>
+            </div>
+        @endif
 
         <div class="flex flex-col items-center justify-center w-full space-y-8">
             <button id="change-profile-picture" class="mx-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="button">
@@ -30,7 +47,6 @@
                         <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                         <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPEG or GIF</p>
                     </div>
-                    <input name="profile_picture" id="dropzone-file" type="file" class="hidden" accept="image/gif,image/jpeg,image/png,image/webp" />
                 </label>
             </div>
         </div>

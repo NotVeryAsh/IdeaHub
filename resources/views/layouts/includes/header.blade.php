@@ -25,11 +25,11 @@
                 </ul>
             </div>
             <button data-collapse-toggle="navbar-profile">
-                @if(Auth::check())
+                @if($user->profile_picture)
                     <img class="w-25 h-10 rounded-full ring-2 ring-blue-500" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" alt="Bordered avatar">
                 @else
-                    <div class="p-1 ring-2 ring-blue-500 relative inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600">
-                        <span class="font-medium text-gray-300">JL</span>
+                    <div class="p-1 ring-2 ring-blue-500 flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600">
+                        <span class="font-medium text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials() }}</span>
                     </div>
                 @endif
             </button>
