@@ -28,12 +28,12 @@ class ProfileController extends Controller
 
         $fields = $request->validated();
 
-        // Check if array contains password key, and if password value is null, remove it
+        // Only update password if it's not empty
         if (array_key_exists('password', $fields) && ! $fields['password']) {
             unset($fields['password']);
         }
 
-        // update username_updated_at field
+        // Only update username if it's not empty
         if (isset($fields['username']) && $fields['username'] !== $user->username) {
             $fields['username_updated_at'] = now();
         }
