@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Docs\Architecture\HttpVerbsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Profile\ProfilePictureController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Profile routes
     Route::prefix('profile')->group(function () {
+
+        Route::prefix('profile-picture')->group(function () {
+            Route::patch('', [ProfilePictureController::class, 'update'])->name('profile.profile-picture.update')->middleware('optimizeImages');
+            Route::delete('', [ProfilePictureController::class, 'destroy'])->name('profile.profile-picture.delete');
+        });
+
         Route::get('edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('{user:username?}', [ProfileController::class, 'index'])->name('profile');
