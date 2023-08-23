@@ -18,8 +18,9 @@ class ProfilePictureController extends Controller
         $newProfilePicture = $request->validated('profile_picture');
 
         // store new profile picture and get its path
-        $newProfilePicture = $newProfilePicture->store('images/users/profile_pictures'); /*Storage::disk('public')->put('images/users/profile_pictures', $newProfilePicture, 'public');*/
+        $newProfilePicture = $newProfilePicture->store('images/users/profile_pictures');
 
+        // If upload fails for whatever reason - possibly due to permissions
         if (! $newProfilePicture) {
             return redirect()->route('profile')->with(['status' => 'Profile picture could not be updated.']);
         }
