@@ -10,9 +10,9 @@
 
         <div class="w-full max-w-xs mx-auto space-y-8">
 
-        <img id="preview-image" @if($profilePicture) src="{{ asset("storage/$profilePicture") }}" @endif class="@if(!$profilePicture) hidden @endif ring-2 ring-blue-500 rounded-full w-32 h-32 mt-4 mx-auto" alt="User's profile picture" @if($profilePicture)data-original-image=" {{ asset($profilePicture) }} "@endif>
+        <img id="preview-image" @if($profilePicture) src="{{ asset("storage/$profilePicture") }}" @endif class="@if(!$profilePicture) hidden @endif ring-2 ring-blue-500 rounded-full w-40 h-40 mt-4 mx-auto" alt="User's profile picture" @if($profilePicture)data-original-image=" {{ asset($profilePicture) }} "@endif>
 
-        <div id="default-profile-picture" class="@if($profilePicture) hidden @endif rounded-full w-32 h-32 mt-4 mx-auto p-1 ring-2 ring-blue-500 bg-gray-600 flex align-item items-center justify-center">
+        <div id="default-profile-picture" class="@if($profilePicture) hidden @endif rounded-full w-40 h-40 mt-4 mx-auto p-1 ring-2 ring-blue-500 bg-gray-600 flex align-item items-center justify-center">
             <span class="font-medium text-6xl text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials() }}</span>
         </div>
 
