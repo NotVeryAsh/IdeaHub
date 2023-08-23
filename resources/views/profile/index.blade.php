@@ -12,7 +12,7 @@
     <div class="flex items-center space-x-8 w-8/12 mx-auto">
 
         @if($user->profile_picture)
-            <img id="preview-image" src="{{ asset("storage/$profilePicture") }}" class="ring-2 ring-blue-500 rounded-full w-32 h-32 mt-4 mx-auto" alt="User's profile picture" data-original-image="{{ asset("storage/$profilePicture") }}">
+            <img id="preview-image" src="{{ asset("storage/$user->profile_picture") }}" class="ring-2 ring-blue-500 rounded-full w-32 h-32 mt-4 mx-auto" alt="User's profile picture" data-original-image="{{ asset("storage/$user->profile_picture") }}">
         @else
             <div class="rounded-full w-32 h-32 mt-4 mx-auto p-1 ring-2 ring-blue-500 bg-gray-600 flex items-center justify-center">
                 <span class="font-medium text-6xl text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials() }}</span>
