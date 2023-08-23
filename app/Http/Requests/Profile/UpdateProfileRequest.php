@@ -48,12 +48,6 @@ class UpdateProfileRequest extends FormRequest
                 'string',
                 'max:35',
             ],
-            'profile_picture' => [
-                'image',
-                'mimes:jpg,png,jpeg,gif,webp',
-                'max:5120',
-                'dimensions:max_width=800,max_height=800',
-            ],
         ];
     }
 
@@ -77,10 +71,6 @@ class UpdateProfileRequest extends FormRequest
             'first_name.max' => 'First name must not be greater than 35 characters.',
             'last_name.string' => 'Last name is invalid.',
             'last_name.max' => 'Last name must not be greater than 35 characters.',
-            'profile_picture.max' => 'Profile picture must be 5MB or less.',
-            'profile_picture.image' => 'Profile picture must be an image.',
-            'profile_picture.mimes' => 'Profile picture must be a JPEG, JPG, PNG, WEBP or GIF.',
-            'profile_picture.dimensions' => 'Profile picture must be 800x800 or less.',
         ];
     }
 }
