@@ -3,7 +3,7 @@
 
     <h1 class="font-bold text-4xl text-center">Edit Profile</h1>
 
-    <form id="remove-profile-picture-form" method="POST">
+    <form id="remove-profile-picture-form" method="POST" action="{{ route('profile.profile-picture.delete') }}">
         @method('delete')
         @csrf
     </form>
@@ -22,6 +22,9 @@
             </button>
             @if($errors->has('profile_picture'))
                 <p class="text-red-400">{{ $errors->first('profile_picture') }}</p>
+            @endif
+            @if(Session::has('status'))
+                <p class="mt-2 text-m text-center">{{ Session::get('status') }}</p>
             @endif
             <div id="profile-picture-upload" class="w-full hidden">
                 <div class="flex flex-row align-items-center justify-content-center justify-between">

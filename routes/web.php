@@ -38,6 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('profile-picture')->group(function () {
             Route::patch('', [ProfilePictureController::class, 'update'])->name('profile.profile-picture.update')->middleware('optimizeImages');
+            Route::delete('', [ProfilePictureController::class, 'destroy'])->name('profile.profile-picture.delete');
         });
 
         Route::get('edit', [ProfileController::class, 'edit'])->name('profile.edit');

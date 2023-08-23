@@ -63,7 +63,7 @@ removeButton.click(function(){
     let originalImage = previewImageElement.data('original-image');
 
     // If user is trying to remove their profile picture
-    if(profilePictureInput.val() === undefined) {
+    if(profilePictureInput.val() === '') {
 
         // Remove the preview image since they are deleting their profile picture
         previewImageElement.attr('src', null);
