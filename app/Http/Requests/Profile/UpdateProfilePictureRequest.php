@@ -19,7 +19,7 @@ class UpdateProfilePictureRequest extends FormRequest
                 'image',
                 'mimes:jpg,png,jpeg,gif,webp',
                 'max:5120',
-                'dimensions:max_width=800,max_height=800',
+                'dimensions:max_width=2000,max_height=2000',
             ],
         ];
     }
@@ -31,7 +31,7 @@ class UpdateProfilePictureRequest extends FormRequest
             'profile_picture.max' => 'Profile picture must be 5MB or less.',
             'profile_picture.image' => 'Profile picture must be an image.',
             'profile_picture.mimes' => 'Profile picture must be a JPEG, JPG, PNG, WEBP or GIF.',
-            'profile_picture.dimensions' => 'Profile picture must be 800x800 or less.',
+            'profile_picture.dimensions' => 'Profile picture must be 2000x2000 or less.',
         ];
     }
 }

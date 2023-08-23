@@ -1,7 +1,8 @@
 const saveButton = $('#profile-picture-save');
 const removeButton = $('#profile-picture-remove');
 const previewImageElement = $('#preview-image');
-const profilePictureInput = $('#profile_picture');
+const profilePictureInput = $('#dropzone-file');
+const defaultProfilePicture = $('#default-profile-picture');
 
 
 // hide or show drag and drop area
@@ -9,7 +10,7 @@ $('#change-profile-picture').click(function(){
     toggle($('#profile-picture-upload'));
 });
 
-$('#dropzone-file').change(function(){
+profilePictureInput.change(function(){
     let file = event.target.files[0];
 
     previewImage(file);
@@ -26,6 +27,10 @@ function previewImage(image) {
 
     saveButton.removeClass('hidden');
     removeButton.removeClass('hidden');
+
+    // Hide default profile picture and show preview image
+    defaultProfilePicture.addClass('hidden');
+    previewImageElement.removeClass('hidden');
 }
 
 $('#profile-picture-upload').on("drop", function(ev) {
@@ -56,9 +61,9 @@ $('#profile-picture-upload').on("drop", function(ev) {
 removeButton.click(function(){
 
     let originalImage = previewImageElement.data('original-image');
-console.log(originalImage);
+
     // If user is trying to remove their profile picture
-    if(profilePictureInput.val() === '') {
+    if(profilePictureInput.val() === undefined) {
 
         // Remove the preview image since they are deleting their profile picture
         previewImageElement.attr('src', null);
@@ -67,19 +72,38 @@ console.log(originalImage);
         saveButton.addClass('hidden');
         removeButton.addClass('hidden');
 
+        // Show default profile picture and hide profile picture preview
+        previewImageElement.addClass('hidden');
+        defaultProfilePicture.removeClass('hidden');
+
         // Delete the profile picture
         $('#remove-profile-picture-form').submit();
 
         return;
     }
 
-    // Reset preview image to user's original profile picture
-    previewImageElement.attr('src', originalImage);
+    // If user is trying to remove image they uploaded
+
+    // If they never had a profile picture, don't attempt to show it again
+    if(originalImage === undefined) {
+        previewImageElement.addClass('hidden');
+        defaultProfilePicture.removeClass('hidden');
+
+        // Hide remove button since there is nothing to remove
+        removeButton.addClass('hidden');
+
+        // remove file from input
+        profilePictureInput.val(null);
+    } else {
+
+        // Reset preview image to user's original profile picture
+        previewImageElement.attr('src', originalImage);
+    }
 
     // Hide save button since there is nothing to save
     saveButton.addClass('hidden');
 });
 
 saveButton.click(function(){
-    $('#remove-profile-picture-form').submit();
+    $('#save-profile-picture-form').submit();
 });

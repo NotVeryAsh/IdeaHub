@@ -19,7 +19,9 @@ class ProfileController extends Controller
 
     public function edit(): View
     {
-        return view('profile.edit', ['user' => auth()->user()]);
+        $user = request()->user();
+
+        return view('profile.edit', ['user' => $user, 'profilePicture' => $user->profile_picture]);
     }
 
     public function update(UpdateProfileRequest $request): RedirectResponse
