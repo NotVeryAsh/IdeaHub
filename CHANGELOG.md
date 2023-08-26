@@ -11,7 +11,25 @@ Progression and changes will be documented in this file and adhere to the standa
 
 - Dashboard functionality.
 - Teams
-- Profile pictures
+
+## [3.2.0] - 2023-08-22
+
+### Added
+
+- Profile Picture Controller
+- Update Profile Picture Request
+- Profile Picture Service
+- Migration to add profile_picture to users table
+- Edit Profile Picture js file for edit profile page
+- Ability to Update / Remove and add profile pictures
+
+### Changed
+
+- Changed Profile Edit Page to include profile picture
+- Removed profile picture from update profile request
+- Separated functionality of updating profile and changing profile picture
+- Changed all profile picture sections to use profile picture instead of default idea hub logo
+- Changed all profile picture sections to use initials of authenticated user if they do not have a profile picture
 
 ## [3.1.0] - 2023-08-20
 
