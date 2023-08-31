@@ -5,6 +5,7 @@ use App\Http\Controllers\Docs\Architecture\HttpVerbsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ProfilePictureController;
+use App\Http\Controllers\Profile\SelectDefaultProfilePictureController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('profile-picture')->group(function () {
             Route::patch('', [ProfilePictureController::class, 'update'])->name('profile.profile-picture.update')->middleware('optimizeImages');
+            Route::patch('{picture}', SelectDefaultProfilePictureController::class)->name('profile.default-profile-picture.select');
             Route::delete('', [ProfilePictureController::class, 'destroy'])->name('profile.profile-picture.delete');
         });
 

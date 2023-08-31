@@ -35,6 +35,12 @@
                         Remove
                     </button>
                 </div>
+
+                <div class="flex flex-row align-items-center justify-content-center">
+                    <img id="preview-image" @if($profilePicture) src="{{ asset("storage/$profilePicture") }}" @endif class="@if(!$profilePicture) hidden @endif ring-2 ring-blue-500 rounded-full w-10 h-10 mt-4 mx-auto" alt="User's profile picture" @if($profilePicture)data-original-image=" {{ asset($profilePicture) }} "@endif>
+                    <img id="preview-image" @if($profilePicture) src="{{ asset("storage/$profilePicture") }}" @endif class="@if(!$profilePicture) hidden @endif ring-2 ring-blue-500 rounded-full w-10 h-10 mt-4 mx-auto" alt="User's profile picture" @if($profilePicture)data-original-image=" {{ asset($profilePicture) }} "@endif>
+                </div>
+
                 <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
 
                     <form id="save-profile-picture-form" method="POST" action="{{ route('profile.profile-picture.update') }}" enctype="multipart/form-data">

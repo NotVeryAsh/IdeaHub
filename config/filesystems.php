@@ -44,6 +44,22 @@ return [
             'throw' => false,
         ],
 
+        'default_profile_pictures' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/images/default/profile_pictures'),
+            'url' => env('APP_URL').'/storage/images/default/profile_pictures',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'profile_pictures' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/images/users/profile_pictures'),
+            'url' => env('APP_URL').'/storage/images/users/profile_pictures',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

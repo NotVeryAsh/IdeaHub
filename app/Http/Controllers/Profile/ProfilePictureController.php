@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\UpdateProfilePictureRequest;
+use App\Services\ProfilePictureService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,24 +15,8 @@ class ProfilePictureController extends Controller
     {
         $user = $request->user();
 
-        $oldProfilePicture = $user->profile_picture;
-        $newProfilePicture = $request->validated('profile_picture');
-
-        // store new profile picture and get its path
-        $newProfilePicture = $newProfilePicture->store('images/users/profile_pictures');
-
-        // If upload fails for whatever reason - possibly due to permissions
-        if (! $newProfilePicture) {
-            return redirect()->route('profile')->with(['status' => 'Profile picture could not be updated.']);
-        }
-
-        $user->update([
-            'profile_picture' => $newProfilePicture,
-        ]);
-
-        if ($oldProfilePicture) {
-            Storage::disk('public')->delete($oldProfilePicture);
-        }
+        // Update user's current profile picture
+        ProfilePictureService::update($user, $request->profile_picture);
 
         return redirect()->back()->with(['status' => 'Profile picture updated!']);
     }
@@ -40,13 +25,7 @@ class ProfilePictureController extends Controller
     {
         $user = $request->user();
 
-        $oldProfilePicture = $user->profile_picture;
-
-        $user->update([
-            'profile_picture' => null,
-        ]);
-
-        Storage::disk('public')->delete($oldProfilePicture);
+        ProfilePictureService::remove($user);
 
         return redirect()->back()->with(['status' => 'Profile picture removed!']);
     }
