@@ -2,6 +2,7 @@
 
 namespace Profile;
 
+use App\Models\DefaultProfilePicture;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -35,7 +36,7 @@ class UpdateProfilePictureTest extends TestCase
         ]);
 
         // Assert profile picture is saved in storage
-        Storage::assertExists($user->profile_picture);
+        Storage::assertExists('images/users/profile_pictures/profile_picture.jpg');
     }
 
     public function test_profile_picture_is_required_when_updating_profile_picture()
@@ -179,7 +180,7 @@ class UpdateProfilePictureTest extends TestCase
         ]);
 
         // Assert profile picture is saved in storage
-        Storage::assertExists($user->profile_picture);
+        Storage::disk('public')->assertExists('/images/users/profile_pictures/new_profile_picture.jpg');
     }
 
     public function test_cannot_update_profile_picture_if_not_authenticated()
@@ -190,5 +191,32 @@ class UpdateProfilePictureTest extends TestCase
         ]);
 
         $response->assertRedirect('/login');
+    }
+
+    public function test_default_profile_picture_is_not_deleted_when_removing_profile_picture()
+    {
+        $defaultProfilePicture = DefaultProfilePicture::factory()->create();
+
+        // Give user a default uploaded profile picture
+        $user = User::factory()->create([
+            'profile_picture' => $defaultProfilePicture->path,
+        ]);
+
+        // Log in as user
+        $this->actingAs($user);
+
+        $this->patch('/profile/profile-picture', [
+            'profile_picture' => UploadedFile::fake()->image('new_profile_picture.jpg', 100, 100)->size(100),
+        ]);
+
+        // Assert user's profile picture has been updated
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'profile_picture' => 'images/users/profile_pictures/new_profile_picture.jpg',
+        ]);
+
+        // assert default profile picture was not deleted
+        Storage::fake('public');
+        Storage::disk('public')->assertExists($defaultProfilePicture->path);
     }
 }

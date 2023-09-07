@@ -63,7 +63,7 @@ class ProfilePictureService
         ]);
 
         // Do not delete default profile pictures
-        if(self::checkIsDefault($oldProfilePicture)) {
+        if (self::checkIsDefault($oldProfilePicture)) {
             return;
         }
 
@@ -76,7 +76,7 @@ class ProfilePictureService
         $defaultProfilePicturePath = Storage::disk('default_profile_pictures')->path('');
         $containsDefaultProfilePicturePath = Str::contains($profilePicture, $defaultProfilePicturePath);
 
-        if($defaultProfilePicture !== null || $containsDefaultProfilePicturePath) {
+        if ($defaultProfilePicture !== null || $containsDefaultProfilePicturePath) {
             return false;
         }
 

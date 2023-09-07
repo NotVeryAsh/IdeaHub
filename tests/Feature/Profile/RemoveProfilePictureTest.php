@@ -2,6 +2,7 @@
 
 namespace Profile;
 
+use App\Models\DefaultProfilePicture;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -63,5 +64,31 @@ class RemoveProfilePictureTest extends TestCase
 
         // assert profile picture was deleted from storage
         Storage::disk('public')->assertMissing('images/users/profile_pictures/profile_picture.jpg');
+    }
+
+    public function test_default_profile_picture_is_not_deleted_when_removing_profile_picture()
+    {
+        $defaultProfilePicture = DefaultProfilePicture::factory()->create();
+
+        // Give user a default uploaded profile picture
+        $user = User::factory()->create([
+            'profile_picture' => $defaultProfilePicture->path,
+        ]);
+
+        // Log in as user
+        $this->actingAs($user);
+
+        // Update profile picture with new default profile picture
+        $this->delete('/profile/profile-picture');
+
+        // Assert user's profile picture has been removed
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'profile_picture' => null,
+        ]);
+
+        // assert default profile picture was not deleted
+        Storage::fake('public');
+        Storage::disk('public')->assertExists('C:\Users\Ash\Documents\projects\IdeaHub\storage\app\public\images\default\profile_pictures');
     }
 }
