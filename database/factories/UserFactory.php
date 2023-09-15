@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\DefaultProfilePicture;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -26,7 +29,7 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'username_updated_at' => now()->subHours(7),
-            'profile_picture' => 'images/USERS/profile_pictures/test.jpg',
+            'profile_picture' => null,
         ];
     }
 
@@ -38,5 +41,24 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    public function configure(): static
+    {
+        return $this->afterMaking(function (User $user) {
+
+            $profilePicture = $user->profile_picture;
+
+            // If profile picture has not been set
+            if(!$profilePicture) {
+                return;
+            }
+
+            // Fake create profile picture based on the path
+            $image = fake()->image(null, 100, 100);
+
+            // Store profile picture in storage
+            Storage::put($profilePicture, $image);
+        });
     }
 }

@@ -32,14 +32,13 @@ class ProfilePictureService
         return null;
     }
 
-    public static function update(User $user, $profilePicture)
+    public static function update(User $user, $newProfilePicture)
     {
-        // get user's current profile picture and the new profile picture
+        // get user's current profile picture and the new submitted profile picture
         $oldProfilePicture = $user->profile_picture;
-        $newProfilePicture = $profilePicture;
 
         // store new profile picture and get its path
-        $newProfilePicture = $newProfilePicture->store('', ['disk' => 'profile_pictures']);
+        $newProfilePicture = $newProfilePicture->store(config('filesystems.profile_pictures_path'));
 
         // If upload fails for whatever reason - possibly due to permissions
         if (! $newProfilePicture) {
@@ -50,8 +49,9 @@ class ProfilePictureService
             'profile_picture' => $newProfilePicture,
         ]);
 
-        if ($oldProfilePicture) {
-            Storage::disk('public')->delete($oldProfilePicture);
+        // Only delete old profile picture if it exists and is not a default profile picture
+        if ($oldProfilePicture && !self::checkIsDefault($oldProfilePicture)) {
+            Storage::delete($oldProfilePicture);
         }
     }
 
@@ -68,16 +68,16 @@ class ProfilePictureService
             return;
         }
 
-        Storage::disk('public')->delete($oldProfilePicture);
+        Storage::delete($oldProfilePicture);
     }
 
     public static function checkIsDefault($profilePicture): bool
     {
         $defaultProfilePicture = DefaultProfilePicture::query()->where('path', $profilePicture)->first();
-        $defaultProfilePicturePath = Storage::disk('default_profile_pictures')->path('');
+        $defaultProfilePicturePath = config('filesystems.default_profile_pictures_path');
         $containsDefaultProfilePicturePath = Str::contains($profilePicture, $defaultProfilePicturePath);
 
-        if ($defaultProfilePicture !== null || $containsDefaultProfilePicturePath) {
+        if (!$defaultProfilePicture || !$containsDefaultProfilePicturePath) {
             return false;
         }
 

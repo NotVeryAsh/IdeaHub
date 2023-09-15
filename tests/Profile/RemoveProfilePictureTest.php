@@ -12,6 +12,8 @@ class RemoveProfilePictureTest extends TestCase
 {
     public function test_can_remove_profile_picture()
     {
+        Storage::fake();
+
         $user = User::factory()->create([
             'profile_picture' => 'profile_picture.jpg',
         ]);
@@ -20,8 +22,7 @@ class RemoveProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Store fake profile picture
-        Storage::fake('public');
-        UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store('images/users/profile_pictures');
+        UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store(config('filesystems.default_profile_pictures_path'));
 
         // Delete auth user's profile picture
         $response = $this->delete('/profile/profile-picture');
@@ -48,6 +49,8 @@ class RemoveProfilePictureTest extends TestCase
 
     public function test_profile_picture_is_removed_from_storage()
     {
+        Storage::fake();
+
         $user = User::factory()->create([
             'profile_picture' => 'profile_picture.jpg',
         ]);
@@ -56,18 +59,19 @@ class RemoveProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Store a fake profile picture
-        Storage::fake('public');
-        UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store('images/users/profile_pictures');
+        UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store(config('filesystems.profile_pictures_path'));
 
         // delete auth user's profile picture
         $this->delete('/profile/profile-picture');
 
         // assert profile picture was deleted from storage
-        Storage::disk('public')->assertMissing('images/users/profile_pictures/profile_picture.jpg');
+        Storage::assertMissing('images/users/profile_pictures/profile_picture.jpg');
     }
 
     public function test_default_profile_picture_is_not_deleted_when_removing_profile_picture()
     {
+        Storage::fake();
+
         // Create default profile picture
         $defaultProfilePicture = DefaultProfilePicture::factory()->create();
 
@@ -89,7 +93,6 @@ class RemoveProfilePictureTest extends TestCase
         ]);
 
         // assert default profile picture was not deleted
-        Storage::fake('public');
-        Storage::disk('public')->assertExists('C:\Users\Ash\Documents\projects\IdeaHub\storage\app\public\images\default\profile_pictures');
+        Storage::assertExists($defaultProfilePicture->path);
     }
 }

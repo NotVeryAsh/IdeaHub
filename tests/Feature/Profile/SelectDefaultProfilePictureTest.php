@@ -59,16 +59,17 @@ class SelectDefaultProfilePictureTest extends TestCase
 
     public function test_old_none_default_profile_picture_is_removed_when_selecting_default_profile_picture()
     {
+        Storage::fake();
+
         // Give user a default uploaded profile picture
         $user = User::factory()->create([
-            'profile_picture' => 'images/users/profile_pictures/profile_picture.jpg',
+            'profile_picture' => 'profile_picture.jpg',
         ]);
 
         // Log in as user
         $this->actingAs($user);
 
         // Store fake profile picture
-        Storage::fake();
         UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store('images/users/profile_pictures');
 
         // Update profile picture with a default profile picture
@@ -87,7 +88,7 @@ class SelectDefaultProfilePictureTest extends TestCase
         ]);
 
         // assert old profile picture was deleted from storage
-        Storage::disk('public')->assertMissing('images/users/profile_pictures/profile_picture.jpg');
+        Storage::assertMissing('images/users/profile_pictures/profile_picture.jpg');
     }
 
     public function test_default_profile_picture_is_not_deleted_when_selecting_new_default_profile_picture()

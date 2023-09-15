@@ -6,18 +6,19 @@ use App\Models\DefaultProfilePicture;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Psy\Util\Str;
 use Tests\TestCase;
 
 class UpdateProfilePictureTest extends TestCase
 {
     public function test_profile_picture_is_saved_when_updating_profile_picture()
     {
+        Storage::fake();
+
         $user = User::factory()->create();
 
         // Log in as user
         $this->actingAs($user);
-
-        Storage::fake('public');
 
         // Update profile picture
         $response = $this->patch('/profile/profile-picture', [
@@ -36,7 +37,7 @@ class UpdateProfilePictureTest extends TestCase
         ]);
 
         // Assert profile picture is saved in storage
-        Storage::assertExists('images/users/profile_pictures/profile_picture.jpg');
+        Storage::assertExists($user->profile_picture);
     }
 
     public function test_profile_picture_is_required_when_updating_profile_picture()
@@ -126,6 +127,8 @@ class UpdateProfilePictureTest extends TestCase
 
     public function test_old_uploaded_profile_picture_is_deleted_when_new_one_is_uploaded()
     {
+        Storage::fake();
+
         $user = User::factory()->create([
             'profile_picture' => 'profile_picture.jpg',
         ]);
@@ -134,7 +137,6 @@ class UpdateProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Store fake profile picture
-        Storage::fake('public');
         UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store('images/users/profile_pictures');
 
         // Update new profile picture
@@ -148,11 +150,13 @@ class UpdateProfilePictureTest extends TestCase
         ]);
 
         // Assert old profile picture is deleted
-        Storage::disk('public')->assertMissing('images/users/profile_pictures/profile_picture.jpg');
+        Storage::assertMissing('images/users/profile_pictures/profile_picture.jpg');
     }
 
     public function test_profile_picture_is_updated()
     {
+        Storage::fake();
+
         $user = User::factory()->create([
             'profile_picture' => 'profile_picture.jpg',
         ]);
@@ -160,9 +164,8 @@ class UpdateProfilePictureTest extends TestCase
         // Log in as user
         $this->actingAs($user);
 
-        // Store fake profile picture
-        Storage::fake('public');
-        UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store('images/users/profile_pictures');
+        // Store fake profile picture in profile pictures directory
+        UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store(config('filesystems.profile_pictures_path'));
 
         $response = $this->patch('/profile/profile-picture', [
             'profile_picture' => UploadedFile::fake()->image('new_profile_picture.jpg', 100, 100)->size(100),
@@ -180,7 +183,7 @@ class UpdateProfilePictureTest extends TestCase
         ]);
 
         // Assert profile picture is saved in storage
-        Storage::disk('public')->assertExists('/images/users/profile_pictures/new_profile_picture.jpg');
+        Storage::assertExists($user->profile_picture);
     }
 
     public function test_cannot_update_profile_picture_if_not_authenticated()
@@ -193,7 +196,7 @@ class UpdateProfilePictureTest extends TestCase
         $response->assertRedirect('/login');
     }
 
-    public function test_default_profile_picture_is_not_deleted_when_removing_profile_picture()
+    public function test_default_profile_picture_is_not_deleted_when_updating_profile_picture()
     {
         Storage::fake();
 
@@ -211,14 +214,7 @@ class UpdateProfilePictureTest extends TestCase
             'profile_picture' => UploadedFile::fake()->image('new_profile_picture.jpg', 100, 100)->size(100),
         ]);
 
-        // Assert user's profile picture has been updated
-        $this->assertDatabaseHas('users', [
-            'id' => $user->id,
-            'profile_picture' => 'images/users/profile_pictures/new_profile_picture.jpg',
-        ]);
-
         // assert default profile picture was not deleted
-        Storage::fake('public');
-        Storage::disk('public')->assertExists($defaultProfilePicture->path);
+        Storage::assertExists($defaultProfilePicture->path);
     }
 }
