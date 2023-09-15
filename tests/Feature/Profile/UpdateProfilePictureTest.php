@@ -195,6 +195,8 @@ class UpdateProfilePictureTest extends TestCase
 
     public function test_default_profile_picture_is_not_deleted_when_removing_profile_picture()
     {
+        Storage::fake();
+
         $defaultProfilePicture = DefaultProfilePicture::factory()->create();
 
         // Give user a default uploaded profile picture

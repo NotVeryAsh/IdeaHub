@@ -34,6 +34,7 @@ class ProfilePictureService
 
     public static function update(User $user, $profilePicture)
     {
+        // get user's current profile picture and the new profile picture
         $oldProfilePicture = $user->profile_picture;
         $newProfilePicture = $profilePicture;
 

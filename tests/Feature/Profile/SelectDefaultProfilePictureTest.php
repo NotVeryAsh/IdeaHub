@@ -12,6 +12,8 @@ class SelectDefaultProfilePictureTest extends TestCase
 {
     public function test_can_select_default_profile_picture()
     {
+        Storage::fake();
+
         $user = User::factory()->create([
             'profile_picture' => 'profile_picture.jpg',
         ]);
@@ -66,7 +68,7 @@ class SelectDefaultProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Store fake profile picture
-        Storage::fake('public');
+        Storage::fake();
         UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store('images/users/profile_pictures');
 
         // Update profile picture with a default profile picture
@@ -90,13 +92,10 @@ class SelectDefaultProfilePictureTest extends TestCase
 
     public function test_default_profile_picture_is_not_deleted_when_selecting_new_default_profile_picture()
     {
-        Storage::fake('default_profile_pictures');
+        Storage::fake();
 
         // Create default profile pictures
-        $oldDefaultProfilePicture = DefaultProfilePicture::factory()->create(['path' => 'test.jpg']);
-
-        // Fake store default profile picture
-        UploadedFile::fake()->image('test.jpg', 100, 100)->size(100)->store('images/default/profile_pictures');
+        $oldDefaultProfilePicture = DefaultProfilePicture::factory()->create();
 
         $newDefaultProfilePicture = DefaultProfilePicture::factory()->create();
 
@@ -121,13 +120,15 @@ class SelectDefaultProfilePictureTest extends TestCase
             'id' => $user->id,
             'profile_picture' => $newDefaultProfilePicture->path,
         ]);
-        dd(Storage::disk()->allFiles());
+
         // assert default profile pictures were not deleted
-        Storage::disk('default_profile_pictures')->assertExists($oldDefaultProfilePicture->path);
+        Storage::assertExists($oldDefaultProfilePicture->path);
     }
 
     public function test_can_not_select_default_profile_picture_if_not_authenticated()
     {
+        Storage::fake();
+
         $defaultProfilePicture = DefaultProfilePicture::factory()->create();
 
         // try to update profile picture with a default profile picture

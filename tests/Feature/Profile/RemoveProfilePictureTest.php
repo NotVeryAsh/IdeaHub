@@ -68,6 +68,7 @@ class RemoveProfilePictureTest extends TestCase
 
     public function test_default_profile_picture_is_not_deleted_when_removing_profile_picture()
     {
+        // Create default profile picture
         $defaultProfilePicture = DefaultProfilePicture::factory()->create();
 
         // Give user a default uploaded profile picture
@@ -78,7 +79,7 @@ class RemoveProfilePictureTest extends TestCase
         // Log in as user
         $this->actingAs($user);
 
-        // Update profile picture with new default profile picture
+        // Remove user's current profile picture
         $this->delete('/profile/profile-picture');
 
         // Assert user's profile picture has been removed
