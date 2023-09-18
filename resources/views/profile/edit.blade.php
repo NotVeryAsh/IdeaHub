@@ -62,21 +62,25 @@
                             </form>
                             @csrf
                             @method('patch')
-                            @foreach ($defaultProfilePictures as $picture)
 
+                            @php
+                                $lastRowIndex = $defaultProfilePictures->count() - 5;
+                            @endphp
+
+                            @foreach ($defaultProfilePictures as $picture)
                                 @php
                                     $newRow = ($loop->iteration % 4 == 1);
                                 @endphp
 
                                 @if($newRow)
-                                    <div class="flex flex-row align-items-center justify-content-center @if(!$loop->last) mb-6 @endif">
-                                        @endif
+                                    <div class="flex flex-row align-items-center justify-content-center @if($loop->iteration < $lastRowIndex) mb-6 @endif">
+                                @endif
 
                                         <button class="mx-auto default-profile-picture-button" data-picture-id="{{$picture->id}}" type="submit">
                                             <img src="{{ asset("storage/$picture->path") }}" class="object-cover ring-2 ring-blue-500 rounded-full w-10 h-10" alt="Default Profile Picture">
                                         </button>
 
-                                        @if($loop->iteration % 4 == 0 || $loop->last)
+                                @if($loop->iteration % 4 == 0 || $loop->last)
                                     </div>
                                 @endif
                             @endforeach
