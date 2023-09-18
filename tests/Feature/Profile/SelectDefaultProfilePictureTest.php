@@ -37,7 +37,7 @@ class SelectDefaultProfilePictureTest extends TestCase
         ]);
     }
 
-    public function test_404_is_removed_when_invalid_profile_picture_is_provided()
+    public function test_404_is_returned_when_invalid_profile_picture_is_provided()
     {
         $user = User::factory()->create([
             'profile_picture' => 'profile_picture.jpg',
