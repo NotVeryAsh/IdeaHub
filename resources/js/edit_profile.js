@@ -107,3 +107,20 @@ removeButton.click(function(){
 saveButton.click(function(){
     $('#save-profile-picture-form').submit();
 });
+
+$('.default-profile-picture-button').click(function(event){
+
+    // get clicked submit button
+    const submitButton = $(this);
+
+    // get data-picture-id attribute from clicked button
+    const pictureId = submitButton.data('picture-id')
+
+    const form = $('#save-profile-picture-form');
+
+    // change form action to /profile-picture/default/{id}
+    form.attr('action', '/profile-picture/default/' + pictureId);
+
+    // submit form
+    form.submit();
+});

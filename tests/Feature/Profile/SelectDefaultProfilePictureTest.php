@@ -23,7 +23,7 @@ class SelectDefaultProfilePictureTest extends TestCase
 
         // update profile picture to default profile picture
         $defaultProfilePicture = DefaultProfilePicture::factory()->create();
-        $response = $this->patch("/profile/profile-picture/default/$defaultProfilePicture->id");
+        $response = $this->patch("/profile-picture/default/$defaultProfilePicture->id");
 
         // Assert message was returned
         $response->assertSessionHas([
@@ -47,7 +47,7 @@ class SelectDefaultProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // try to update profile picture with a default profile picture that doesn't exist
-        $response = $this->patch('/profile/profile-picture/default/test');
+        $response = $this->patch('/profile-picture/default/test');
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
@@ -74,7 +74,7 @@ class SelectDefaultProfilePictureTest extends TestCase
 
         // Update profile picture with a default profile picture
         $defaultProfilePicture = DefaultProfilePicture::factory()->create();
-        $response = $this->patch("/profile/profile-picture/default/$defaultProfilePicture->id");
+        $response = $this->patch("/profile-picture/default/$defaultProfilePicture->id");
 
         // Assert message was returned
         $response->assertSessionHas([
@@ -109,7 +109,7 @@ class SelectDefaultProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Update profile picture with new default profile picture
-        $response = $this->patch("/profile/profile-picture/default/$newDefaultProfilePicture->id");
+        $response = $this->patch("/profile-picture/default/$newDefaultProfilePicture->id");
 
         // Assert message was returned
         $response->assertSessionHas([
@@ -133,7 +133,7 @@ class SelectDefaultProfilePictureTest extends TestCase
         $defaultProfilePicture = DefaultProfilePicture::factory()->create();
 
         // try to update profile picture with a default profile picture
-        $response = $this->patch("/profile/profile-picture/default/$defaultProfilePicture->id");
+        $response = $this->patch("/profile-picture/default/$defaultProfilePicture->id");
 
         // Assert redirected to login page
         $response->assertRedirect('/login');

@@ -6,7 +6,6 @@ use App\Models\DefaultProfilePicture;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Psy\Util\Str;
 use Tests\TestCase;
 
 class UpdateProfilePictureTest extends TestCase
@@ -21,7 +20,7 @@ class UpdateProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Update profile picture
-        $response = $this->patch('/profile/profile-picture', [
+        $response = $this->patch('/profile-picture', [
             'profile_picture' => UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100),
         ]);
 
@@ -48,7 +47,7 @@ class UpdateProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Attempt to update profile picture without providing a profile picture
-        $response = $this->patch('/profile/profile-picture', [
+        $response = $this->patch('/profile-picture', [
             'profile_picture' => '',
         ]);
 
@@ -65,7 +64,7 @@ class UpdateProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Attempt to upload profile picture that is 6MB
-        $response = $this->patch('/profile/profile-picture', [
+        $response = $this->patch('/profile-picture', [
             'profile_picture' => UploadedFile::fake()->image('profile_picture.jpg')->size(6000),
         ]);
 
@@ -82,7 +81,7 @@ class UpdateProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Attempt to upload profile picture that is not an image
-        $response = $this->patch('/profile/profile-picture', [
+        $response = $this->patch('/profile-picture', [
             'profile_picture' => UploadedFile::fake()->create('profile_picture.pdf'),
         ]);
 
@@ -99,7 +98,7 @@ class UpdateProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Attempt to upload profile picture with extension of bmp
-        $response = $this->patch('/profile/profile-picture', [
+        $response = $this->patch('/profile-picture', [
             'profile_picture' => UploadedFile::fake()->image('profile_picture.bmp'),
         ]);
 
@@ -116,7 +115,7 @@ class UpdateProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Attempt to upload profile picture with resolution of 801x801
-        $response = $this->patch('/profile/profile-picture', [
+        $response = $this->patch('/profile-picture', [
             'profile_picture' => UploadedFile::fake()->image('profile_picture.jpg', 801, 801),
         ]);
 
@@ -140,7 +139,7 @@ class UpdateProfilePictureTest extends TestCase
         UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store('images/users/profile_pictures');
 
         // Update new profile picture
-        $response = $this->patch('/profile/profile-picture', [
+        $response = $this->patch('/profile-picture', [
             'profile_picture' => UploadedFile::fake()->image('new_profile_picture.jpg', 100, 100)->size(100),
         ]);
 
@@ -167,7 +166,7 @@ class UpdateProfilePictureTest extends TestCase
         // Store fake profile picture in profile pictures directory
         UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store(config('filesystems.profile_pictures_path'));
 
-        $response = $this->patch('/profile/profile-picture', [
+        $response = $this->patch('/profile-picture', [
             'profile_picture' => UploadedFile::fake()->image('new_profile_picture.jpg', 100, 100)->size(100),
         ]);
 
@@ -189,7 +188,7 @@ class UpdateProfilePictureTest extends TestCase
     public function test_cannot_update_profile_picture_if_not_authenticated()
     {
         // Attempt to store fake profile picture while unauthenticated
-        $response = $this->patch('/profile/profile-picture', [
+        $response = $this->patch('/profile-picture', [
             'profile_picture' => UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100),
         ]);
 
@@ -210,7 +209,7 @@ class UpdateProfilePictureTest extends TestCase
         // Log in as user
         $this->actingAs($user);
 
-        $this->patch('/profile/profile-picture', [
+        $this->patch('/profile-picture', [
             'profile_picture' => UploadedFile::fake()->image('new_profile_picture.jpg', 100, 100)->size(100),
         ]);
 

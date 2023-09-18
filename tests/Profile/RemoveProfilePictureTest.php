@@ -25,7 +25,7 @@ class RemoveProfilePictureTest extends TestCase
         UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store(config('filesystems.default_profile_pictures_path'));
 
         // Delete auth user's profile picture
-        $response = $this->delete('/profile/profile-picture');
+        $response = $this->delete('/profile-picture');
 
         // Assert message was returned
         $response->assertSessionHas([
@@ -42,7 +42,7 @@ class RemoveProfilePictureTest extends TestCase
     public function test_can_not_remove_profile_picture_if_not_authenticated()
     {
         // Attempt to delete profile picture
-        $response = $this->delete('/profile/profile-picture');
+        $response = $this->delete('/profile-picture');
 
         $response->assertRedirect('/login');
     }
@@ -62,7 +62,7 @@ class RemoveProfilePictureTest extends TestCase
         UploadedFile::fake()->image('profile_picture.jpg', 100, 100)->size(100)->store(config('filesystems.profile_pictures_path'));
 
         // delete auth user's profile picture
-        $this->delete('/profile/profile-picture');
+        $this->delete('/profile-picture');
 
         // assert profile picture was deleted from storage
         Storage::assertMissing('images/users/profile_pictures/profile_picture.jpg');
@@ -84,7 +84,7 @@ class RemoveProfilePictureTest extends TestCase
         $this->actingAs($user);
 
         // Remove user's current profile picture
-        $this->delete('/profile/profile-picture');
+        $this->delete('/profile-picture');
 
         // Assert user's profile picture has been removed
         $this->assertDatabaseHas('users', [

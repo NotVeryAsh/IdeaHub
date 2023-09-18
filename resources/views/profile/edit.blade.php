@@ -36,21 +36,26 @@
                     </button>
                 </div>
 
-                @foreach ($defaultProfilePictures as $picture)
-                    @php $newRow = $loop->index % 4 === 0 @endphp
-                    @if($newRow)
-                        <div class="flex flex-row align-items-center justify-content-center mb-4">
-                    @endif
+                @if(!$defaultProfilePictures->isEmpty())
+                    <form id="default-profile-picture-form" action="{{ route('profile.default-profile-picture.select', $defaultProfilePictures->first()->id) }}" method="POST">
+                    </form>
+                    @csrf
+                    @method('patch')
+                    @foreach ($defaultProfilePictures as $picture)
+                        @php $newRow = $loop->index % 4 === 0 @endphp
+                        @if($newRow)
+                            <div class="flex flex-row align-items-center justify-content-center mb-4">
+                        @endif
 
-                    <button class="mx-auto" data-picture-id="{{$picture->id}}">
-                        <img src="{{ asset("storage/$picture->path") }}" class="ring-2 ring-blue-500 rounded-full w-10 h-10" alt="Default Profile Picture">
-                    </button>
+                        <button class="mx-auto default-profile-picture-button" data-picture-id="{{$picture->id}}" type="submit">
+                            <img src="{{ asset("storage/$picture->path") }}" class="ring-2 ring-blue-500 rounded-full w-10 h-10" alt="Default Profile Picture">
+                        </button>
 
-                    @if($newRow)
-                        </div>
-                    @endif
-                @endforeach
-
+                        @if($newRow)
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
 
                 <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
 
