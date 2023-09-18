@@ -42,7 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::delete('', [ProfilePictureController::class, 'destroy'])->name('profile.profile-picture.delete');
 
             Route::prefix('default')->group(function () {
-                Route::patch('{picture?}', SelectDefaultProfilePictureController::class)->name('profile.default-profile-picture.select');
+                Route::patch('{picture}', SelectDefaultProfilePictureController::class)->name('profile.default-profile-picture.select');
             });
         });
 
