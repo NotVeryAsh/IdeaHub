@@ -20,7 +20,7 @@ class DefaultProfilePictureFactory extends Factory
     public function definition(): array
     {
         return [
-            'path' => config('filesystems.default_profile_pictures_path') . '/' .Str::random(30).'.jpg',
+            'path' => config('filesystems.default_profile_pictures_path').'/'.Str::random(30).'.jpg',
         ];
     }
 

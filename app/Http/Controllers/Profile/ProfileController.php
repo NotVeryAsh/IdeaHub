@@ -25,7 +25,7 @@ class ProfileController extends Controller
         return view('profile.edit', [
             'user' => $user,
             'profilePicture' => $user->profile_picture,
-            'defaultProfilePictures' => DefaultProfilePicture::all()
+            'defaultProfilePictures' => DefaultProfilePicture::all(),
         ]);
     }
 

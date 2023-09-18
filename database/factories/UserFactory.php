@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\DefaultProfilePicture;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
@@ -50,7 +49,7 @@ class UserFactory extends Factory
             $profilePicture = $user->profile_picture;
 
             // If profile picture has not been set
-            if(!$profilePicture) {
+            if (! $profilePicture) {
                 return;
             }
 
