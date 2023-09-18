@@ -36,14 +36,20 @@
                     </button>
                 </div>
 
-                <div class="flex flex-row align-items-center justify-content-center mb-4">
-                    <button class="mx-auto">
-                        <img id="preview-image" @if($profilePicture) src="{{ asset("storage/$profilePicture") }}" @endif class="@if(!$profilePicture) hidden @endif ring-2 ring-blue-500 rounded-full w-10 h-10" alt="User's profile picture" @if($profilePicture)data-original-image=" {{ asset($profilePicture) }} "@endif>
+                @foreach ($defaultProfilePictures as $picture)
+                    @php $newRow = $loop->index % 4 === 0 @endphp
+                    @if($newRow)
+                        <div class="flex flex-row align-items-center justify-content-center mb-4">
+                    @endif
+
+                    <button class="mx-auto" data-picture-id="{{$picture->id}}">
+                        <img src="{{ asset("storage/$picture->path") }}" class="ring-2 ring-blue-500 rounded-full w-10 h-10" alt="Default Profile Picture">
                     </button>
-                    <button class="mx-auto">
-                        <img id="preview-image" @if($profilePicture) src="{{ asset("storage/$profilePicture") }}" @endif class="@if(!$profilePicture) hidden @endif ring-2 ring-blue-500 rounded-full w-10 h-10" alt="User's profile picture" @if($profilePicture)data-original-image=" {{ asset($profilePicture) }} "@endif>
-                    </button>
-                </div>
+
+                    @if($newRow)
+                        </div>
+                    @endif
+                @endforeach
 
 
                 <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">

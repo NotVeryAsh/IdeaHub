@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\UpdateProfileRequest;
+use App\Models\DefaultProfilePicture;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -21,7 +22,11 @@ class ProfileController extends Controller
     {
         $user = request()->user();
 
-        return view('profile.edit', ['user' => $user, 'profilePicture' => $user->profile_picture]);
+        return view('profile.edit', [
+            'user' => $user,
+            'profilePicture' => $user->profile_picture,
+            'defaultProfilePictures' => DefaultProfilePicture::all()
+        ]);
     }
 
     public function update(UpdateProfileRequest $request): RedirectResponse
