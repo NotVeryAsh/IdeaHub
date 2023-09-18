@@ -50,7 +50,7 @@ class ProfilePictureService
         ]);
 
         // Only delete old profile picture if it exists and is not a default profile picture
-        if ($oldProfilePicture && !self::checkIsDefault($oldProfilePicture)) {
+        if ($oldProfilePicture && ! self::checkIsDefault($oldProfilePicture)) {
             Storage::delete($oldProfilePicture);
         }
     }
@@ -77,10 +77,25 @@ class ProfilePictureService
         $defaultProfilePicturePath = config('filesystems.default_profile_pictures_path');
         $containsDefaultProfilePicturePath = Str::contains($profilePicture, $defaultProfilePicturePath);
 
-        if (!$defaultProfilePicture || !$containsDefaultProfilePicturePath) {
+        if (! $defaultProfilePicture || ! $containsDefaultProfilePicturePath) {
             return false;
         }
 
         return true;
+    }
+
+    public static function selectDefault(User $user, $newProfilePicture): void
+    {
+        $oldProfilePicture = $user->profile_picture;
+
+        // set user's profile picture to the selected default profile picture or null if it doesn't exist
+        $user->update([
+            'profile_picture' => $newProfilePicture->path,
+        ]);
+
+        // Only delete old profile picture if it exists and is not a default profile picture
+        if ($oldProfilePicture && ! ProfilePictureService::checkIsDefault($oldProfilePicture)) {
+            Storage::delete($oldProfilePicture);
+        }
     }
 }

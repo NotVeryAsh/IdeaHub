@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Models\DefaultProfilePicture;
+use App\Services\ProfilePictureService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,8 @@ class SelectDefaultProfilePictureController extends Controller
     {
         $user = $request->user();
 
-        // set user's profile picture to the selected default profile picture or null if it doesn't exist
-        $user->update([
-            'profile_picture' => $picture->path,
-        ]);
+        // Select default profile picture
+        ProfilePictureService::selectDefault($user, $picture);
 
         return redirect()->back()->with(['status' => 'Profile picture updated!']);
     }
