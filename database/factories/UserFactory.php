@@ -48,7 +48,7 @@ class UserFactory extends Factory
 
             $profilePicture = $user->profile_picture;
 
-            // If profile picture has not been set
+            // If profile picture has not been set, don't store anything
             if (! $profilePicture) {
                 return;
             }
@@ -56,7 +56,7 @@ class UserFactory extends Factory
             // Fake create profile picture based on the path
             $image = fake()->image(null, 100, 100);
 
-            // Store profile picture in storage
+            // Store profile picture in the path specified
             Storage::put($profilePicture, $image);
         });
     }

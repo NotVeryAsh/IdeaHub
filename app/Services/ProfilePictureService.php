@@ -62,6 +62,7 @@ class ProfilePictureService
     {
         $oldProfilePicture = $user->profile_picture;
 
+        // Remove user's current profile picture
         $user->update([
             'profile_picture' => null,
         ]);
@@ -71,16 +72,23 @@ class ProfilePictureService
             return;
         }
 
+        // Delete old profile picture
         Storage::delete($oldProfilePicture);
     }
 
     // Check if profile picture is a default profile picture
     public static function checkIsDefault($profilePicture): bool
     {
+        // Get default profile picture from database with path
         $defaultProfilePicture = DefaultProfilePicture::query()->where('path', $profilePicture)->first();
+
+        // Get the directory path to where default profile pictures are stored
         $defaultProfilePicturePath = config('filesystems.default_profile_pictures_path');
+
+        // Check if the default profile picture exists or if the profile picture path is in the default profile picture directory
         $containsDefaultProfilePicturePath = Str::contains($profilePicture, $defaultProfilePicturePath);
 
+        // Not a default profile picture
         if (! $defaultProfilePicture || ! $containsDefaultProfilePicturePath) {
             return false;
         }

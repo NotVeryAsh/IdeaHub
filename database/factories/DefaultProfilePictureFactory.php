@@ -20,6 +20,7 @@ class DefaultProfilePictureFactory extends Factory
     public function definition(): array
     {
         return [
+            // Generate a random file name in the default profile pictures directory
             'path' => config('filesystems.default_profile_pictures_path').'/'.Str::random(30).'.jpg',
         ];
     }
@@ -28,10 +29,10 @@ class DefaultProfilePictureFactory extends Factory
     {
         return $this->afterMaking(function (DefaultProfilePicture $profilePicture) {
 
-            // Fake create profile picture based on the path
+            // Fake create profile picture based on the path of the created factory instance
             $image = fake()->image(null, 100, 100);
 
-            // Store profile picture in storage
+            // Store the image in the default profile picture directory with the generated file name
             Storage::put($profilePicture->path, $image);
         });
     }
