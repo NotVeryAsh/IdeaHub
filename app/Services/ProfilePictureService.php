@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 class ProfilePictureService
 {
+    // Get user's initials to display as profile picture if they don't have one
     public static function getProfilePictureInitials(): ?string
     {
         // If user is logged in, return their initials or first two characters of their username
@@ -32,6 +33,7 @@ class ProfilePictureService
         return null;
     }
 
+    // Update user's profile picture and delete old profile picture if it isn't a default profile picture
     public static function update(User $user, $newProfilePicture)
     {
         // get user's current profile picture and the new submitted profile picture
@@ -55,6 +57,7 @@ class ProfilePictureService
         }
     }
 
+    // Remove user's profile picture and delete old profile picture if it isn't a default profile picture
     public static function remove($user): void
     {
         $oldProfilePicture = $user->profile_picture;
@@ -71,6 +74,7 @@ class ProfilePictureService
         Storage::delete($oldProfilePicture);
     }
 
+    // Check if profile picture is a default profile picture
     public static function checkIsDefault($profilePicture): bool
     {
         $defaultProfilePicture = DefaultProfilePicture::query()->where('path', $profilePicture)->first();
@@ -84,6 +88,7 @@ class ProfilePictureService
         return true;
     }
 
+    // Update user's profile picture to selected default profile picture and delete current profile picture if it isn't a default profile picture
     public static function selectDefault(User $user, $newProfilePicture): void
     {
         $oldProfilePicture = $user->profile_picture;
