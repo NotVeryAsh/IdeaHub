@@ -98,6 +98,7 @@ removeButton.click(function(){
 
         // Reset preview image to user's original profile picture
         previewImageElement.attr('src', originalImage);
+        profilePictureInput.val(null);
     }
 
     // Hide save button since there is nothing to save
