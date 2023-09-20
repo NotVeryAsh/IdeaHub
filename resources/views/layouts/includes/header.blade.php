@@ -44,6 +44,7 @@
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500 @if(request()->routeIs('login')) text-blue-500 @endif" aria-current="page">Log In</a>
+                            <a href="{{ route('register') }}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500 @if(request()->routeIs('register')) text-blue-500 @endif" aria-current="page">Sign Up</a>
                         @endif
                     </li>
                 </ul>
