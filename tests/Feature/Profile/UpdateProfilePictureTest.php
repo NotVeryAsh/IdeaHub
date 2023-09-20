@@ -107,7 +107,7 @@ class UpdateProfilePictureTest extends TestCase
         ]);
     }
 
-    public function test_profile_picture_resolution_must_be_800x800_or_less()
+    public function test_profile_picture_resolution_must_be_4000x4000_or_less()
     {
         $user = User::factory()->create();
 
@@ -116,11 +116,11 @@ class UpdateProfilePictureTest extends TestCase
 
         // Attempt to upload profile picture with resolution of 801x801
         $response = $this->patch('/profile-picture', [
-            'profile_picture' => UploadedFile::fake()->image('profile_picture.jpg', 801, 801),
+            'profile_picture' => UploadedFile::fake()->image('profile_picture.jpg', 4001, 4001),
         ]);
 
         $response->assertSessionHasErrors([
-            'profile_picture' => 'Profile picture must be 800x800 or less.',
+            'profile_picture' => 'Profile picture must be 4000x4000 or less.',
         ]);
     }
 
