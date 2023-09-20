@@ -12,6 +12,28 @@ Progression and changes will be documented in this file and adhere to the standa
 - Dashboard functionality.
 - Teams
 
+## [3.3.0] - 2023-09-20
+
+### Added
+
+- Default Profile Picture Controller
+- Default Profile Picture Model
+- Default Profile Picture Factory
+- Default Profile Picture Migration
+- Default Profile Picture Tests
+- Ability to select default profile pictures
+- Section for default profile pictures underneath upload profile picture section on edit profile page
+- Added sign up item in the profile dropdown menu when user is not logged in
+- Added config file items to specify where user profile pictures and default profile pictures are stored
+
+### Changed
+
+- Changed edit profile page to include default profile picture section
+- Changed the default profile picture that is shown when user is not logged in
+- Moved profile picture functionality to ProfilePictureService
+- Changed how profile picture is shown in header view file
+- edit profile js file to include default profile picture functionality
+
 ## [3.2.0] - 2023-08-22
 
 ### Added

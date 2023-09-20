@@ -10,7 +10,7 @@
 
         <div class="w-full max-w-xs mx-auto space-y-8">
 
-        <img id="preview-image" @if($profilePicture) src="{{ asset("storage/$profilePicture") }}" @endif class="@if(!$profilePicture) hidden @endif ring-2 ring-blue-500 rounded-full w-40 h-40 mt-4 mx-auto" alt="User's profile picture" @if($profilePicture)data-original-image=" {{ asset($profilePicture) }} "@endif>
+        <img id="preview-image" @if($profilePicture) src="{{ asset("storage/$profilePicture") }}" @endif class="@if(!$profilePicture) hidden @endif object-cover ring-2 ring-blue-500 rounded-full w-40 h-40 mt-4 mx-auto" alt="User's profile picture" @if($profilePicture)data-original-image=" {{ asset("storage/$profilePicture") }} "@endif>
 
         <div id="default-profile-picture" class="@if($profilePicture) hidden @endif rounded-full w-40 h-40 mt-4 mx-auto p-1 ring-2 ring-blue-500 bg-gray-600 flex align-item items-center justify-center">
             <span class="font-medium text-6xl text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials() }}</span>
@@ -35,7 +35,8 @@
                         Remove
                     </button>
                 </div>
-                <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+
+                <label for="dropzone-file" class="mb-8 flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
 
                     <form id="save-profile-picture-form" method="POST" action="{{ route('profile.profile-picture.update') }}" enctype="multipart/form-data">
                         @method('patch')
@@ -52,6 +53,40 @@
 
                     </form>
                 </label>
+
+                <div class="text-center">
+                    <p class="mb-4">Defaults</p>
+                    <div class="ring-2 ring-slate-700 py-4 rounded-lg">
+                        @if(!$defaultProfilePictures->isEmpty())
+                            <form id="default-profile-picture-form" action="{{ route('profile.default-profile-picture.select', $defaultProfilePictures->first()->id) }}" method="POST">
+                            </form>
+                            @csrf
+                            @method('patch')
+
+                            @php
+                                $lastRowIndex = $defaultProfilePictures->count() - 5;
+                            @endphp
+
+                            @foreach ($defaultProfilePictures as $picture)
+                                @php
+                                    $newRow = ($loop->iteration % 4 == 1);
+                                @endphp
+
+                                @if($newRow)
+                                    <div class="flex flex-row align-items-center justify-content-center @if($loop->iteration < $lastRowIndex) mb-6 @endif">
+                                @endif
+
+                                        <button class="mx-auto default-profile-picture-button" data-picture-id="{{$picture->id}}" type="submit">
+                                            <img src="{{ asset("storage/$picture->path") }}" class="object-cover ring-2 ring-blue-500 rounded-full w-10 h-10" alt="Default Profile Picture">
+                                        </button>
+
+                                @if($loop->iteration % 4 == 0 || $loop->last)
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
 

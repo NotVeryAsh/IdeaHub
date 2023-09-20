@@ -28,6 +28,9 @@ return [
     |
     */
 
+    'profile_pictures_path' => env('PROFILE_PICTURES_PATH', 'images/users/profile_pictures/'),
+    'default_profile_pictures_path' => env('DEFAULT_PROFILE_PICTURES_PATH', 'images/default/profile_pictures/'),
+
     'disks' => [
 
         'local' => [

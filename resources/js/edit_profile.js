@@ -98,6 +98,7 @@ removeButton.click(function(){
 
         // Reset preview image to user's original profile picture
         previewImageElement.attr('src', originalImage);
+        profilePictureInput.val(null);
     }
 
     // Hide save button since there is nothing to save
@@ -106,4 +107,21 @@ removeButton.click(function(){
 
 saveButton.click(function(){
     $('#save-profile-picture-form').submit();
+});
+
+$('.default-profile-picture-button').click(function(event){
+
+    // get clicked submit button
+    const submitButton = $(this);
+
+    // get data-picture-id attribute from clicked button
+    const pictureId = submitButton.data('picture-id')
+
+    const form = $('#save-profile-picture-form');
+
+    // change form action to /profile-picture/default/{id}
+    form.attr('action', '/profile-picture/default/' + pictureId);
+
+    // submit form
+    form.submit();
 });
