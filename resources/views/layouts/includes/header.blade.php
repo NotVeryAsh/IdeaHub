@@ -25,12 +25,16 @@
                 </ul>
             </div>
             <button data-collapse-toggle="navbar-profile">
-                @if(Auth::user() && Auth::user()->profile_picture)
-                    <img class="object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset("storage/" . Auth::user()->profile_picture) }}" alt="Bordered avatar">
+                @if(Auth::user())
+                    @if(Auth::user()->profile_picture)
+                        <img class="object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset("storage/" . Auth::user()->profile_picture) }}" alt="Bordered avatar">
+                    @else
+                        <div class="p-1 ring-2 ring-blue-500 flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600">
+                            <span class="font-medium text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials() }}</span>
+                        </div>
+                    @endif
                 @else
-                    <div class="p-1 ring-2 ring-blue-500 flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600">
-                        <span class="font-medium text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials() }}</span>
-                    </div>
+                    <img class="object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" alt="Bordered avatar">
                 @endif
             </button>
             <div id="navbar-profile" class="hidden w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 absolute top-0 right-0 mt-20 flex-column justify-content-center align-items-center">
