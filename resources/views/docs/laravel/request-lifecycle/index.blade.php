@@ -11,5 +11,7 @@
         <hr class="h-px my-8 bg-gray-600 border-0">
         @include('docs.laravel.request-lifecycle.pages.maintenance-mode')
         <hr class="h-px my-8 bg-gray-600 border-0">
+        @include('docs.laravel.request-lifecycle.pages.kernels')
+        <hr class="h-px my-8 bg-gray-600 border-0">
     </div>
 @stop
