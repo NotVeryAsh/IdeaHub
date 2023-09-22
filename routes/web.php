@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Docs\Architecture\HttpVerbsController;
+use App\Http\Controllers\Documentation\DocumentationController;
+use App\Http\Controllers\Documentation\Laravel\RequestLifecycleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ProfilePictureController;
@@ -24,8 +25,14 @@ Route::get('', [HomeController::class, 'index'])->name('home');
 
 // Docs routes
 Route::prefix('docs')->group(function () {
+    Route::get('', [DocumentationController::class, 'index'])->name('docs.index');
+
     Route::prefix('architecture')->group(function () {
-        Route::get('http-verbs', [HttpVerbsController::class, 'index'])->name('docs.architecture.http-verbs');
+        Route::get('http-verbs', [RequestLifecycleController::class, 'index'])->name('docs.architecture.http-verbs');
+    });
+
+    Route::prefix('laravel')->group(function () {
+        Route::get('request-lifecycle', [RequestLifecycleController::class, 'index'])->name('docs.architecture.request-lifecycle');
     });
 });
 

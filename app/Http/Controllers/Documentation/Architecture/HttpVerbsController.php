@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Docs\Architecture;
+namespace App\Http\Controllers\Documentation\Architecture;
 
 use App\Http\Controllers\Controller;
 
