@@ -6,13 +6,13 @@
         <h2 class="mb-5 text-2xl font-extrabold leading-none tracking-tight text-gray-200 md:text-3xl lg:text-4xl">Basics</h2>
 
         <ul class="list-none">
-            <li>- <a href="{{route('docs.architecture.request-lifecycle')}}">HTTP Verbs</a></li>
+            <li>- <a href="{{route('docs.architecture.http-verbs')}}">HTTP Verbs</a></li>
         </ul>
 
         <h2 class="mb-5 text-2xl font-extrabold leading-none tracking-tight text-gray-200 md:text-3xl lg:text-4xl">Laravel</h2>
 
         <ul class="list-none">
-            <li>- <a href="{{route('docs.architecture.request-lifecycle')}}">Request Lifecycle</a></li>
+            <li>- <a href="{{route('docs.laravel.request-lifecycle')}}">Request Lifecycle</a></li>
         </ul>
     </div>
 @stop

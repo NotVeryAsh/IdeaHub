@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Documentation\Architecture\HttpVerbsController;
 use App\Http\Controllers\Documentation\DocumentationController;
 use App\Http\Controllers\Documentation\Laravel\RequestLifecycleController;
 use App\Http\Controllers\HomeController;
@@ -28,11 +29,11 @@ Route::prefix('docs')->group(function () {
     Route::get('', [DocumentationController::class, 'index'])->name('docs.index');
 
     Route::prefix('architecture')->group(function () {
-        Route::get('http-verbs', [RequestLifecycleController::class, 'index'])->name('docs.architecture.http-verbs');
+        Route::get('http-verbs', [HttpVerbsController::class, 'index'])->name('docs.architecture.http-verbs');
     });
 
     Route::prefix('laravel')->group(function () {
-        Route::get('request-lifecycle', [RequestLifecycleController::class, 'index'])->name('docs.architecture.request-lifecycle');
+        Route::get('request-lifecycle', [RequestLifecycleController::class, 'index'])->name('docs.laravel.request-lifecycle');
     });
 });
 
