@@ -26,12 +26,12 @@ class ManageTeamsViewTest extends TestCase
         $user = User::factory()->create();
 
         Team::factory()->create([
-            'user_id' => $user->id,
+            'creator_id' => $user->id,
             'name' => 'Acme',
         ]);
 
         Team::factory()->create([
-            'user_id' => $user->id,
+            'creator_id' => $user->id,
             'name' => 'Acme 2',
         ]);
 
@@ -46,7 +46,7 @@ class ManageTeamsViewTest extends TestCase
         $user = User::factory()->create();
 
         Team::factory()->create([
-            'user_id' => $user->id,
+            'creator_id' => $user->id,
             'name' => 'Acme',
         ]);
 
@@ -55,7 +55,7 @@ class ManageTeamsViewTest extends TestCase
 
         Team::factory()->create([
             'name' => 'Acme 2',
-            'user_id' => $userTwo->id,
+            'creator_id' => $userTwo->id,
         ]);
 
         // list first user's teams
