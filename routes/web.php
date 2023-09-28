@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ProfilePictureController;
 use App\Http\Controllers\Profile\SelectDefaultProfilePictureController;
+use App\Http\Controllers\Teams\TeamsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +50,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('default')->group(function () {
             Route::patch('{picture}', SelectDefaultProfilePictureController::class)->name('profile.default-profile-picture.select');
+        });
+    });
+
+    // Team routes
+    Route::prefix('teams')->group(function () {
+        Route::get('', [TeamsController::class, 'index'])->name('teams.index');
+        Route::post('', [TeamsController::class, 'store'])->name('teams.store');
+
+        Route::prefix('{team}')->group(function () {
+            Route::get('', [TeamsController::class, 'show'])->name('teams.show');
         });
     });
 });
