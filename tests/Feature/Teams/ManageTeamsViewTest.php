@@ -15,7 +15,7 @@ class ManageTeamsViewTest extends TestCase
         $this->actingAs($user)->get('/teams')
             ->assertViewIs('teams.index')
             ->assertSeeInOrder([
-                'Create new teams',
+                'Create new team',
                 'Your teams',
                 "Teams you're in",
             ]);
