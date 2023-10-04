@@ -7,26 +7,67 @@
 
     <div class="flex items-center space-x-8 w-8/12 mx-auto">
         <button class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
-            Create New Team
+            Create Team
         </button>
     </div>
+    <script src="https://kit.fontawesome.com/3d5cd4ba6c.js" crossorigin="anonymous"></script>
+    <h1 class="font-bold text-3xl text-center">Your Teams</h1>
 
-    <h1 class="text-xl text-center">Your Teams</h1>
-
-    <div class="items-center space-x-8 w-8/12 mx-auto">
-        <a href="" class="flex flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
-            <p>Team Name</p>
-            <button class="bg-red-500 hover:bg-red-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
-                Leave Team
-            </button>
-        </a>
+    <div class="flex items-center space-x-8 w-8/12 mx-auto">
+        <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
+            <div class="flex flex-grow flex-row space-x-5">
+                <p>Team One</p>
+                <p>82 Members</p>
+                <form>
+                    <button onclick="">
+                        Copy Link <i class="pl-1 fa-solid fa-link"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="flex flex-row space-x-5 items-center">
+                <button class="ml-auto bg-red-500 hover:bg-red-700 font-bold py-2 px-4 rounded outline-none">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="flex items-center space-x-8 w-8/12 mx-auto">
+        <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
+            <div class="flex flex-grow flex-row space-x-5">
+                <p>Team One</p>
+                <p>82 Members</p>
+                <p>Copy Link <i class="pl-1 fa-solid fa-link"></i></p>
+            </div>
+            <div class="flex flex-row space-x-5 items-center">
+                <button class="ml-auto bg-red-500 hover:bg-red-700 font-bold py-2 px-4 rounded outline-none">Delete</button>
+            </div>
+        </div>
     </div>
 
     <hr class="h-px my-8 mx-auto bg-gray-200 border-0 dark:bg-gray-700 w-8/12">
 
-    <h1 class="text-xl text-center">Teams you're in</h1>
+    <h1 class="font-bold text-3xl text-center">Teams you're in</h1>
+
     <div class="flex items-center space-x-8 w-8/12 mx-auto">
-        <div class="ring-2 ring-slate-700 py-4 rounded-lg">
+        <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
+            <div class="flex flex-grow flex-row space-x-5">
+                <p>Team One</p>
+                <p>82 Members</p>
+                <p>Copy Link <i class="pl-1 fa-solid fa-link"></i></p>
+            </div>
+            <div class="flex flex-row space-x-5 items-center">
+                <button class="ml-auto bg-red-500 hover:bg-red-700 font-bold py-2 px-4 rounded outline-none">Leave</button>
+            </div>
+        </div>
+    </div>
+    <div class="flex items-center space-x-8 w-8/12 mx-auto">
+        <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
+            <div class="flex flex-grow flex-row space-x-5">
+                <p>Team One</p>
+                <p>82 Members</p>
+                <p>Copy Link <i class="pl-1 fa-solid fa-link"></i></p>
+            </div>
+            <div class="flex flex-row space-x-5 items-center">
+                <button class="ml-auto bg-red-500 hover:bg-red-700 font-bold py-2 px-4 rounded outline-none">Leave</button>
+            </div>
         </div>
     </div>
 
