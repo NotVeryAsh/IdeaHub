@@ -55,7 +55,7 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'email.required' => 'Email is required.',
-            'email.email' => 'Email must be a valid email address.',
+            'email.email' => 'Email is invalid.',
             'email.max' => 'Email must not be greater than 255 characters.',
             'email.unique' => 'Email has already been taken.',
             'username.required' => 'Username is required.',

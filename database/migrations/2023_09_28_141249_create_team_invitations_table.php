@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('team_invitations', function (Blueprint $table) {
             $table->id();
+            $table->string('token', 32)->unique();
+            $table->foreignId('team_id');
+            $table->string('email', 255);
+            $table->dateTime('expires_at');
             $table->timestamps();
         });
     }

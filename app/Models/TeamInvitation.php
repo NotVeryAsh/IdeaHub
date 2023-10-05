@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class TeamInvitation extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'token',
+        'team_id',
+        'email',
+        'expires_at',
+    ];
 }

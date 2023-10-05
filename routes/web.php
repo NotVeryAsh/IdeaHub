@@ -8,6 +8,7 @@ use App\Http\Controllers\Profile\ProfilePictureController;
 use App\Http\Controllers\Profile\SelectDefaultProfilePictureController;
 use App\Http\Controllers\TeamInvitationsController;
 use App\Http\Controllers\Teams\TeamsController;
+use App\Models\TeamInvitation;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,13 +66,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
             // Team invitations routes
             Route::prefix('invitations')->group(function () {
                 Route::get('', [TeamInvitationsController::class, 'index'])->name('invitations.index');
-                Route::post('', [TeamInvitationsController::class, 'store'])->can('create', 'team')->name('invitations.store');
+                Route::post('', [TeamInvitationsController::class, 'store'])->can('create', [TeamInvitation::class, 'team'])->name('invitations.store');
             });
         });
     });
 
     // Team invitations routes
     Route::prefix('invitations')->group(function () {
-        Route::get('{invitation}', [TeamInvitationsController::class, 'accept'])->name('invitations.accept');
+        Route::get('{token}', [TeamInvitationsController::class, 'accept'])->name('invitations.accept');
     });
 });
