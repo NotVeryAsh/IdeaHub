@@ -9,7 +9,7 @@
         <button data-collapse-toggle="create-team-dropdown" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
             Create Team
         </button>
-        <div id="create-team-dropdown" class="right-0 z-10 hidden w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 absolute mt-20 flex-column justify-content-center align-items-center">
+        <div id="create-team-dropdown" class="right-0 z-10 @if(!$errors->has('name')) hidden @endif w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
             <form action="/teams" method="post">
                 @csrf
                 <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700 space-y-3">
@@ -45,7 +45,7 @@
                 <button data-collapse-toggle="team-1-collapsable">
                     <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
                 </button>
-                <div id="team-1-collapsable" class="hidden w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 absolute mt-20 flex-column justify-content-center align-items-center">
+                <div id="team-1-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
                     <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
                         <li>
                             <button>...</button>
