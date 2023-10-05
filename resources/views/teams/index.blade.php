@@ -34,7 +34,7 @@
         <a href="/teams/{{$team->id}}" class="flex items-center space-x-8 w-8/12 mx-auto">
             <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
                 <div class="flex flex-grow flex-row space-x-5">
-                    <p>Team One</p>
+                    <p>{{$team->name}}</p>
                     <p>82 Members</p>
                     <form>
                         <button onclick="">
@@ -58,7 +58,7 @@
 
     <hr class="h-px my-8 mx-auto bg-gray-200 border-0 dark:bg-gray-700 w-8/12">
 
-    <h1 class="font-bold text-3xl text-center">Teams you're in</h1>
+    <h1 class="font-bold text-3xl text-center">Teams You're In</h1>
 
     <div class="flex items-center space-x-8 w-8/12 mx-auto">
         <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
