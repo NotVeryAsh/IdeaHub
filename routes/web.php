@@ -62,9 +62,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('{team}')->group(function () {
             Route::get('', [TeamsController::class, 'show'])->name('teams.show');
 
+            // Team invitations routes
             Route::prefix('invitations')->group(function () {
-                Route::post('', [TeamInvitationsController::class, 'store'])->can('create', 'team')->name('teams.show');
+                Route::get('', [TeamInvitationsController::class, 'index'])->name('invitations.index');
+                Route::post('', [TeamInvitationsController::class, 'store'])->can('create', 'team')->name('invitations.store');
             });
         });
+    });
+
+    // Team invitations routes
+    Route::prefix('invitations')->group(function () {
+        Route::get('{invitation}', [TeamInvitationsController::class, 'accept'])->name('invitations.accept');
     });
 });
