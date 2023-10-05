@@ -23,8 +23,8 @@ function getTriggers(){
 }
 
 // Hide all menus if anything other than the menu is clicked
-$(document).click(function(){
-    hideOtherElements(null, menus);
+$(document).click(function(event){
+    hideOtherElements(event.target, menus);
 });
 
 // Toggle navbar visibility when its trigger has been clicked
@@ -46,8 +46,13 @@ triggers.click(function (event) {
 
 // Hide all menus, other than the one that was clicked
 function hideOtherElements(element, otherElements) {
+
     $.each(otherElements, function (index, value) {
-        if (!value.is(element)) {
+
+        const inputClicked = $(element).is('input');
+        const hasElement = $(value).has(element).length === 1;
+
+        if (!value.is(element) && (!inputClicked || !hasElement)) {
             HideElement(value);
         }
     })
