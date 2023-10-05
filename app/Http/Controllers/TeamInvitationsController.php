@@ -25,4 +25,9 @@ class TeamInvitationsController extends Controller
         // Redirect back to the team page with a success message
         return redirect()->route('teams.show', $team)->with(['status' => 'Invitation sent!']);
     }
+
+    public function accept()
+    {
+
+    }
 }

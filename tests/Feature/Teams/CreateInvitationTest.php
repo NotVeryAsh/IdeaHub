@@ -2,6 +2,7 @@
 
 namespace Teams;
 
+use App\Mail\Invitations\TeamInvitationSent;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
@@ -14,21 +15,24 @@ class CreateInvitationTest extends TestCase
     {
         Mail::fake();
 
+        // Create the creator of the team
         $user = User::factory()->create([
             'email' => 'test@test.com',
         ]);
 
         $this->actingAs($user);
 
+        // Create team for the invitation
         $team = Team::factory()->create([
             'creator_id' => $user->id,
         ]);
 
+        // Send the invitation
         $response = $this->post("/teams/{$team->id}/invitations", [
             'email' => 'test2@test.com',
         ]);
 
-        // Check that user is redirected to profile page
+        // Check that user is redirected to team show page with a success message
         $response->assertRedirectToRoute('teams.show', $team);
         $response->assertSessionHas(['status' => 'Invitation sent!']);
     }
@@ -36,11 +40,48 @@ class CreateInvitationTest extends TestCase
     public function test_invitation_is_sent_to_user_when_creating_invitation()
     {
         Mail::fake();
+
+        // Create the creator of the team
+        $user = User::factory()->create([
+            'email' => 'test@test.com',
+        ]);
+
+        $this->actingAs($user);
+
+        // Create team for the invitation
+        $team = Team::factory()->create([
+            'creator_id' => $user->id,
+            'name' => 'Test Testing Test',
+        ]);
+
+        // Send email
+        $this->post("/teams/{$team->id}/invitations", [
+            'email' => 'test2@test.com',
+        ]);
+
+        Mail::assertQueued(TeamInvitationSent::class, function (TeamInvitationSent $mail) use ($team) {
+            return $mail->hasSubject("You have been invited to join the {$team->name} team!")
+                && $mail->hasTo('test2@test.com')
+                && $mail->team->is($team);
+        });
     }
 
     public function test_invitation_mailable_contains_correct_data_when_creating_invitation()
     {
-        //$mail = new TeamInvitationSent($team, $signedURL);
+        // Create team for the invitation
+        $team = Team::factory()->create([
+            'name' => 'Test Testing Test',
+        ]);
+
+        $mail = new TeamInvitationSent($team, 'https://test.com');
+
+        $mail->assertSeeInOrderInHtml([
+            "The {$team->name} team would like you to join them!",
+            'By accepting the invitation below, you will be able to collaborate and chat with other members in the team!',
+            'But hurry! This invitation will expire in 7 days!',
+            'https://test.com',
+            'Accept Invitation',
+        ]);
     }
 
     public function test_cannot_invite_existing_team_member_when_creating_invitations()
