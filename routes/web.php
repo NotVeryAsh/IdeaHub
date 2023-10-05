@@ -73,6 +73,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Team invitations routes
     Route::prefix('invitations')->group(function () {
-        Route::get('{token}', [TeamInvitationsController::class, 'accept'])->name('invitations.accept');
+        Route::prefix('{token}')->group(function () {
+            Route::get('', [TeamInvitationsController::class, 'accept'])->name('invitations.accept');
+        });
     });
 });

@@ -12,6 +12,7 @@ class TeamInvitationPolicy
      */
     public function create(User $user, Team $team): bool
     {
+        // Check if user is the creator of the team
         return $user->is($team->creator);
     }
 }

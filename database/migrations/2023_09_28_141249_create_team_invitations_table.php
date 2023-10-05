@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('token', 32)->unique();
             $table->foreignId('team_id');
             $table->string('email', 255);
-            $table->dateTime('expires_at');
+            $table->dateTime('expires_at')->default(now()->addWeek());
             $table->timestamps();
         });
     }

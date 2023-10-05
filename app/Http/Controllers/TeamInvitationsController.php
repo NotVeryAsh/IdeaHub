@@ -30,7 +30,7 @@ class TeamInvitationsController extends Controller
         $url = URL::temporarySignedRoute('invitations.accept', $expiresAt, ['token' => $invitation->token]);
 
         // Send a mailable to the recipient with the signed url and the team
-        Mail::to($request)->queue(new TeamInvitationSent($team, $url));
+        Mail::to($recipient)->queue(new TeamInvitationSent($team, $url));
 
         // Redirect back to the team page with a success message
         return redirect()->route('teams.show', $team)->with(['status' => 'Invitation sent!']);

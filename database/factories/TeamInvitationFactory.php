@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class TeamInvitationFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'token' => $this->faker->uuid,
+            'team_id' => Team::query()->inRandomOrder()->first()->id,
+            'email' => $this->faker->email,
+            'expires_at' => now()->addWeek(),
         ];
     }
 }

@@ -73,7 +73,6 @@ class CreateInvitationTest extends TestCase
         $invitation = TeamInvitation::query()->first();
 
         Mail::assertQueued(TeamInvitationSent::class, function (TeamInvitationSent $mail) use ($team, $invitation) {
-
             return $mail->hasTo('test2@test.com')
                 && $mail->team->is($team)
                 && Str::contains($mail->url, "invitations/$invitation->token");
@@ -125,6 +124,31 @@ class CreateInvitationTest extends TestCase
         // Check that user is redirected to profile page
         $response->assertRedirectToRoute('teams.show', $team);
         $response->assertSessionHas(['status' => 'Invitation sent!']);
+    }
+
+    public function test_cannot_invite_self_when_creating_invitations()
+    {
+        Mail::fake();
+
+        // Creator a user for the creator of the team
+        $user = User::factory()->create([
+            'email' => 'test@test.com',
+        ]);
+
+        $this->actingAs($user);
+
+        // Create team for the invitation
+        $team = Team::factory()->create([
+            'creator_id' => $user->id,
+        ]);
+
+        // Attempt to send invitation to self as the creator
+        $response = $this->post("/teams/{$team->id}/invitations", [
+            'email' => 'test@test.com',
+        ]);
+
+        // Check that user is redirected to profile page
+        $response->assertSessionHasErrors(['email' => 'You cannot invite yourself.']);
     }
 
     public function test_email_is_required_to_create_an_invitation()
