@@ -49,10 +49,23 @@ function hideOtherElements(element, otherElements) {
 
     $.each(otherElements, function (index, value) {
 
-        const inputClicked = $(element).is('input');
+        // Check if the menu contains the clicked element
         const hasElement = $(value).has(element).length === 1;
 
-        if (!value.is(element) && (!inputClicked || !hasElement)) {
+        // Check if the menu has input elements which are not hidden
+        const hasInputs = $(value).has("input[type!='hidden']").length === 1;
+
+        // Check if the menu itself is clicked
+        const isMenuClicked = value.is(element);
+
+        // If a menu with none-hidden inputs is clicked, return and don't hide the menu so we don't hide the form and
+        // potentially disrupt the user if they are filling the form out
+        if(hasElement && hasInputs) {
+            return;
+        }
+
+        // Check if an element other than the menu is clicked, so we know the user is clicking away from the menu
+        if (!isMenuClicked) {
             HideElement(value);
         }
     })
