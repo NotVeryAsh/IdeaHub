@@ -10,7 +10,7 @@
             Create Team
         </button>
     </div>
-    <script src="https://kit.fontawesome.com/3d5cd4ba6c.js" crossorigin="anonymous"></script>
+
     <h1 class="font-bold text-3xl text-center">Your Teams</h1>
 
     <div class="flex items-center space-x-8 w-8/12 mx-auto">
@@ -24,9 +24,7 @@
                     </button>
                 </form>
             </div>
-            <div class="flex flex-row space-x-5 items-center">
-                <button class="ml-auto bg-red-500 hover:bg-red-700 font-bold py-2 px-4 rounded outline-none">Delete</button>
-            </div>
+            <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
         </div>
     </div>
     <div class="flex items-center space-x-8 w-8/12 mx-auto">
@@ -36,9 +34,7 @@
                 <p>82 Members</p>
                 <p>Copy Link <i class="pl-1 fa-solid fa-link"></i></p>
             </div>
-            <div class="flex flex-row space-x-5 items-center">
-                <button class="ml-auto bg-red-500 hover:bg-red-700 font-bold py-2 px-4 rounded outline-none">Delete</button>
-            </div>
+            <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
         </div>
     </div>
 
