@@ -24,7 +24,16 @@
                     </button>
                 </form>
             </div>
-            <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
+            <button data-collapse-toggle="team-1-collapsable">
+                <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
+            </button>
+            <div id="team-1-collapsable" class="hidden w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 absolute mt-20 flex-column justify-content-center align-items-center">
+                <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
+                    <li>
+                        <button>...</button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="flex items-center space-x-8 w-8/12 mx-auto">
