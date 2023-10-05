@@ -103,6 +103,9 @@ class CreateInvitationTest extends TestCase
 
     public function test_cannot_invite_existing_team_member_when_creating_invitations()
     {
+
+        // TODO Make this function factor in teams that user is part of but not creator of
+
         Mail::fake();
 
         $user = User::factory()->create([

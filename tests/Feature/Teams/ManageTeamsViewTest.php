@@ -72,7 +72,7 @@ class ManageTeamsViewTest extends TestCase
 
     public function test_authentication_is_required_to_access_make_a_team_page()
     {
-        $this->get('/teams/create')
+        $this->get('/teams')
             ->assertRedirect('/login');
     }
 }

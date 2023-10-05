@@ -34,7 +34,7 @@
                         </div>
                     @endif
                 @else
-                    <img class="object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" alt="Bordered avatar">
+                    <img class="object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" alt="Default Profile Picture">
                 @endif
             </button>
             <div id="navbar-profile" class="hidden w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 absolute top-0 right-0 mt-20 flex-column justify-content-center align-items-center">
