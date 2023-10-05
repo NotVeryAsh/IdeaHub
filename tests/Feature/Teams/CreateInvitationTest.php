@@ -33,12 +33,12 @@ class CreateInvitationTest extends TestCase
         ]);
     }
 
-    public function test_random_uuid_is_generated_when_creating_an_invitation()
+    public function test_signed_url_is_generated_when_creating_invitation()
     {
 
     }
 
-    public function test_expiration_date_is_generated_when_creating_an_invitation()
+    public function test_signed_url_is_invalidated_after_one_week()
     {
 
     }
