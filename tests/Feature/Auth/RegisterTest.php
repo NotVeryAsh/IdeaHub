@@ -281,7 +281,7 @@ class RegisterTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors([
-            'email' => 'Email must be a valid email address.',
+            'email' => 'Email is invalid.',
         ]);
         $this->assertGuest();
     }

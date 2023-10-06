@@ -348,7 +348,7 @@ class UpdateProfileTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors([
-            'email' => 'Email must be a valid email address.',
+            'email' => 'Email is invalid.',
         ]);
     }
 
