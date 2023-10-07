@@ -33,7 +33,7 @@ class TeamInvitationsController extends Controller
         $url = URL::temporarySignedRoute('invitations.accept', $expiresAt, ['token' => $invitation->token]);
 
         // Send a mailable to the recipient with the signed url and the team
-        Mail::to($recipient)->queue(new TeamInvitationSent($team, $url));
+        Mail::to($recipient)->send(new TeamInvitationSent($team, $url));
 
         // Redirect back to the team page with a success message
         return redirect()->route('teams.show', $team)->with(['status' => 'Invitation sent!']);
@@ -76,18 +76,18 @@ class TeamInvitationsController extends Controller
         }
 
         // If a user with the invitation email has already signed up
-        if ($user = User::query()->where('email', $invitation->email)->first()) {
+        if (User::query()->where('email', $invitation->email)->first()) {
 
             // Force user to login before redirecting them the invitation accept link
             return redirect()->route('login', [
-                'email' => $user->email,
+                'token' => $token,
                 'redirect' => $request->getRequestUri(),
             ]);
         }
 
         // Force user to sign up before redirecting them the invitation accept link
-        return redirect()->route('signup', [
-            'email' => $user->email,
+        return redirect()->route('register', [
+            'token' => $token,
             'redirect' => $request->getRequestUri(),
         ]);
     }
