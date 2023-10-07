@@ -32,6 +32,13 @@ Route::prefix('docs')->group(function () {
     });
 });
 
+// Route to accept invitation
+Route::prefix('invitations')->group(function () {
+    Route::prefix('{token}')->group(function () {
+        Route::get('', [TeamInvitationsController::class, 'accept'])->name('invitations.accept');
+    });
+});
+
 // Auth routes
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard route
@@ -68,13 +75,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('', [TeamInvitationsController::class, 'index'])->name('invitations.index');
                 Route::post('', [TeamInvitationsController::class, 'store'])->can('create', [TeamInvitation::class, 'team'])->name('invitations.store');
             });
-        });
-    });
-
-    // Team invitations routes
-    Route::prefix('invitations')->group(function () {
-        Route::prefix('{token}')->group(function () {
-            Route::get('', [TeamInvitationsController::class, 'accept'])->name('invitations.accept');
         });
     });
 });

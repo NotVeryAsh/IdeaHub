@@ -6,8 +6,10 @@ use App\Http\Requests\Teams\StoreTeamInvitationRequest;
 use App\Mail\Invitations\TeamInvitationSent;
 use App\Models\Team;
 use App\Models\TeamInvitation;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
@@ -36,8 +38,23 @@ class TeamInvitationsController extends Controller
         return redirect()->route('teams.show', $team)->with(['status' => 'Invitation sent!']);
     }
 
-    public function accept($email, $team)
+    public function accept(Request $request, $token)
     {
+        if (! $request->hasValidSignature()) {
+            return view('invitations.invalid');
+        }
 
+        if (! $invitation = TeamInvitation::query()->where('token', $token)->first()) {
+            return view('invitations.invalid');
+        }
+
+        // if user is logged in
+        // if user's email is the same as the invitation email
+        // delete the invitation and redirect to teams/{team} with a success message
+        // else if user's email is not the same, redirect user to the invalid invitation page
+
+        // if a user exists with the invitation emails
+        // redirect user to the login page with a redirect parameter back to this route
+        // else redirect user to the signup page with a redirect parameter back to this route
     }
 }
