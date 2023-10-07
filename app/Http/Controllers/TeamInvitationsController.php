@@ -6,10 +6,11 @@ use App\Http\Requests\Teams\StoreTeamInvitationRequest;
 use App\Mail\Invitations\TeamInvitationSent;
 use App\Models\Team;
 use App\Models\TeamInvitation;
+use App\Models\TeamUser;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
@@ -32,7 +33,7 @@ class TeamInvitationsController extends Controller
         $url = URL::temporarySignedRoute('invitations.accept', $expiresAt, ['token' => $invitation->token]);
 
         // Send a mailable to the recipient with the signed url and the team
-        Mail::to($recipient)->queue(new TeamInvitationSent($team, $url));
+        Mail::to($recipient)->send(new TeamInvitationSent($team, $url));
 
         // Redirect back to the team page with a success message
         return redirect()->route('teams.show', $team)->with(['status' => 'Invitation sent!']);
@@ -48,13 +49,46 @@ class TeamInvitationsController extends Controller
             return view('invitations.invalid');
         }
 
-        // if user is logged in
-        // if user's email is the same as the invitation email
-        // delete the invitation and redirect to teams/{team} with a success message
-        // else if user's email is not the same, redirect user to the invalid invitation page
+        // If user is already logged in
+        if ($user = $request->user()) {
 
-        // if a user exists with the invitation emails
-        // redirect user to the login page with a redirect parameter back to this route
-        // else redirect user to the signup page with a redirect parameter back to this route
+            // If user's email and invitation email do not match
+            if (strtolower($invitation->email) !== strtolower($user->email)) {
+                return view('invitations.invalid');
+            }
+
+            // Delete all invitations for this user to the team
+            TeamInvitation::query()
+                ->where([
+                    'team_id' => $invitation->team_id,
+                    'email' => $user->email,
+                ])
+                ->delete();
+
+            // Add the user to the team if they are not already a member
+            TeamUser::query()->firstOrCreate([
+                'team_id' => $invitation->team_id,
+                'user_id' => $user->id,
+            ]);
+
+            // Redirect to the team page with a success message
+            return redirect()->route('teams.show', $invitation->team)->with(['status' => 'Invitation accepted!']);
+        }
+
+        // If a user with the invitation email has already signed up
+        if ($user = User::query()->where('email', $invitation->email)->first()) {
+
+            // Force user to login before redirecting them the invitation accept link
+            return redirect()->route('login', [
+                'email' => $user->email,
+                'redirect' => $request->getRequestUri(),
+            ]);
+        }
+
+        // Force user to sign up before redirecting them the invitation accept link
+        return redirect()->route('signup', [
+            'email' => $user->email,
+            'redirect' => $request->getRequestUri(),
+        ]);
     }
 }

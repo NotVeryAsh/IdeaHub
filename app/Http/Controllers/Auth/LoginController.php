@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,9 +16,15 @@ class LoginController extends Controller
     /**
      * Return the login view
      */
-    public function index(): RedirectResponse|Response
+    public function index(Request $request): RedirectResponse|Response
     {
-        return response()->view('auth.login');
+        $email = $request->get('email');
+        $redirect = $request->get('redirect');
+
+        return response()->view('auth.login', [
+            'email' => $email,
+            'redirect' => $redirect,
+        ]);
     }
 
     /**
