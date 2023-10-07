@@ -8,6 +8,7 @@ use App\Mail\RegisteredUser;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,9 +21,15 @@ class RegisterController extends Controller
     /**
      * Return the register view
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return response()->view('auth.register');
+        $email = $request->get('email');
+        $redirect = $request->get('redirect');
+
+        return response()->view('auth.register', [
+            'email' => $email,
+            'redirect' => $redirect,
+        ]);
     }
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -39,10 +40,8 @@ class User extends Authenticatable implements CanResetPassword, MustVerifyEmail
         return $this->hasMany(Team::class, 'creator_id');
     }
 
-    public function teams()
+    public function teams(): BelongsToMany
     {
-        // TODO - fix this
-        return $this->ownedTeams();
-        //return $this->hasManyThrough(Team::class, TeamUser::class, 'user_id', 'id', 'id', 'team_id');
+        return $this->belongsToMany(Team::class);
     }
 }

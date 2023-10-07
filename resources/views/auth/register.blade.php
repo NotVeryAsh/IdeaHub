@@ -2,7 +2,7 @@
 @section('content')
     <h1 class="font-bold text-4xl text-center">Register</h1>
 
-    <form class="w-full max-w-xs mx-auto space-y-8" action="/auth/register" method="post" id="recaptcha-protected-form" data-sitekey="{{ config('services.recaptcha.key') }}" data-action="register">
+    <form class="w-full max-w-xs mx-auto space-y-8" action="/auth/register?@if($email)redirect={{$redirect}}@endif" method="post" id="recaptcha-protected-form" data-sitekey="{{ config('services.recaptcha.key') }}" data-action="register">
         @csrf
 
         <div>
@@ -18,7 +18,7 @@
             <label class="block mb-3" for="email">
                 Email
             </label>
-            <input id="email" type="email" name="email" placeholder="Email" maxlength="255" required value="{{ old('email') }}" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('email')) border-red-400 @else border-gray-500 @endif">
+            <input @if($email) readonly @endif id="email" type="email" name="email" placeholder="Email" maxlength="255" required value="{{ $email ?? old('email') }}" class="read-only:opacity-60 read-only:hover:cursor-not-allowed bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('email')) border-red-400 @else border-gray-500 @endif">
             @if($errors->has('email'))
                 <p class="mt-2 text-red-400">{{ $errors->first('email') }}</p>
             @endif
