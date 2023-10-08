@@ -71,24 +71,30 @@ class TeamInvitationsController extends Controller
                 'user_id' => $user->id,
             ]);
 
+            if (! $user->isVerified()) {
+                return view('auth.verify-email-notice', [
+                    'status' => 'Invitation accepted! Now just one final step...',
+                ]);
+            }
+
             // Redirect to the team page with a success message
             return redirect()->route('teams.show', $invitation->team)->with(['status' => 'Invitation accepted!']);
         }
+
+        // Get data for login and register routes
+        $data = [
+            'token' => $token,
+            'redirect' => $request->getRequestUri(),
+        ];
 
         // If a user with the invitation email has already signed up
         if (User::query()->where('email', $invitation->email)->first()) {
 
             // Force user to login before redirecting them the invitation accept link
-            return redirect()->route('login', [
-                'token' => $token,
-                'redirect' => $request->getRequestUri(),
-            ]);
+            return redirect()->route('login', $data);
         }
 
         // Force user to sign up before redirecting them the invitation accept link
-        return redirect()->route('register', [
-            'token' => $token,
-            'redirect' => $request->getRequestUri(),
-        ]);
+        return redirect()->route('register', $data);
     }
 }
