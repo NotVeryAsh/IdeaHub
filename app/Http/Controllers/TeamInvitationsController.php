@@ -71,8 +71,8 @@ class TeamInvitationsController extends Controller
                 'user_id' => $user->id,
             ]);
 
-            if (! $user->isVerified()) {
-                return view('auth.verify-email-notice', [
+            if (! $user->hasVerifiedEmail()) {
+                return redirect()->route('verification.notice')->with([
                     'status' => 'Invitation accepted! Now just one final step...',
                 ]);
             }
