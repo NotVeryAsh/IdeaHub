@@ -60,7 +60,7 @@ class RegisterController extends Controller
         // Send Verify email notifications
         event(new Registered($user));
 
-        // Redirect to verify email page
+        // Redirect to verify email page if an intended redirect page is not set
         return redirect()->intended(route('verification.notice'));
     }
 }

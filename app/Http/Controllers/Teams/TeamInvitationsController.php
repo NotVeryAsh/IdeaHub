@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
@@ -82,10 +83,12 @@ class TeamInvitationsController extends Controller
             return redirect()->route('teams.show', $invitation->team)->with(['status' => 'Invitation accepted!']);
         }
 
+        // Make app redirect to this invitation accept link after logging in or registering
+        Session::put('url.intended', $request->getRequestUri());
+
         // Get data for login and register routes
         $data = [
             'token' => $token,
-            'redirect' => $request->getRequestUri(),
         ];
 
         // If a user with the invitation email has already signed up
