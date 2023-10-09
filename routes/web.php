@@ -6,7 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ProfilePictureController;
 use App\Http\Controllers\Profile\SelectDefaultProfilePictureController;
-use App\Http\Controllers\TeamInvitationsController;
+use App\Http\Controllers\Teams\TeamInvitationsController;
 use App\Http\Controllers\Teams\TeamsController;
 use App\Models\TeamInvitation;
 use Illuminate\Support\Facades\Route;

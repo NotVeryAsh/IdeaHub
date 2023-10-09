@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Teams;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\StoreTeamInvitationRequest;
 use App\Mail\Invitations\TeamInvitationSent;
 use App\Models\Team;
