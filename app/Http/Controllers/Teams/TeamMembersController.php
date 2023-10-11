@@ -19,7 +19,7 @@ use Illuminate\View\View;
 
 class TeamMembersController extends Controller
 {
-    public function index(Team $team): View
+    public function index(List Team $team): View
     {
         return view('teams.members.index', [
             'team' => $team,
