@@ -224,8 +224,6 @@ class AcceptInvitationTest extends TestCase
             'user_id' => $userTwo->id,
         ]);
 
-        // TODO Add acting as invited user
-
         // Create an invitation for the user that is already in the account
         $teamInvitation = TeamInvitation::factory()->create([
             'team_id' => $team->id,
@@ -234,6 +232,9 @@ class AcceptInvitationTest extends TestCase
 
         // Create a signed url for the invitation
         $url = URL::temporarySignedRoute('invitations.accept', $teamInvitation->expires_at, ['token' => $teamInvitation->token]);
+
+        // Authenticate as user that was invited
+        $this->actingAs($userTwo);
 
         // Accept invitation
         $response = $this->get($url);
@@ -297,16 +298,10 @@ class AcceptInvitationTest extends TestCase
             'email' => 'test2@test.com',
         ]);
 
-        // Create a signed url for the invitation
-        $url = URL::temporarySignedRoute('invitations.accept', $teamInvitation->expires_at, ['token' => $teamInvitation->token]);
+        // Go to register page with invitation token
+        $response = $this->get("/register?token=$teamInvitation->token");
 
-        // Accept invitation
-        $response = $this->get($url);
-
-        // TODO do this without redirecting - go straight to page
-
-        $response->assertRedirect("/register?token=$teamInvitation->token");
-        $response->assertSeeTextInOrder([
+        $response->assertSeeInOrder([
             'Sign Up',
             'test2@test.com',
         ]);
@@ -323,28 +318,22 @@ class AcceptInvitationTest extends TestCase
             'creator_id' => $user->id,
         ]);
 
-        // Create user to invite
-        $userTwo = User::factory()->create([
+        // Create a second user
+        User::factory()->create([
             'email' => 'test2@test.com',
         ]);
 
         // Create invitation for user two
         $teamInvitation = TeamInvitation::factory()->create([
             'team_id' => $team->id,
-            'email' => $userTwo->email,
+            'email' => 'test2@test.com',
         ]);
 
-        // Create a signed url for the invitation
-        $url = URL::temporarySignedRoute('invitations.accept', $teamInvitation->expires_at, ['token' => $teamInvitation->token]);
+        // Go to register page with invitation token
+        $response = $this->get("/login?token=$teamInvitation->token");
 
-        // Accept invitation
-        $response = $this->get($url);
-
-        // TODO do this without redirecting - go straight to page
-
-        $response->assertRedirect("/login?token=$teamInvitation->token");
-        $response->assertSeeTextInOrder([
-            'Sign Up',
+        $response->assertSeeInOrder([
+            'Log In',
             'test2@test.com',
         ]);
     }
