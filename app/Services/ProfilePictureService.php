@@ -10,10 +10,12 @@ use Illuminate\Support\Str;
 class ProfilePictureService
 {
     // Get user's initials to display as profile picture if they don't have one
-    public static function getProfilePictureInitials(): ?string
+    public static function getProfilePictureInitials(User $user = null): ?string
     {
+        $user = $user ?? auth()->user();
+
         // If user is logged in, return their initials or first two characters of their username
-        if ($user = auth()->user()) {
+        if ($user) {
 
             // Get first and last name
             $firstName = $user->first_name;

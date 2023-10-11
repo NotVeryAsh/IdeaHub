@@ -30,21 +30,72 @@
     </div>
     <h1 class="font-bold text-3xl text-center">Members</h1>
 
-    @foreach($members as $member)
-        <a class="flex items-center space-x-8 w-8/12 mx-auto">
-            {{$member->name}}
-        </a>
-    @endforeach
+    <div class="space-y-5">
+        @foreach($members as $member)
+            <a href="/teams/{{$team->id}}/members/{{$member->id}}" class="flex items-center space-x-8 w-8/12 mx-auto">
+                <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
+                    <div class="flex flex-grow flex-row space-x-5 items-center">
+                        <div>
+                            @if($member->profile_picture)
+                                <img class="object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset("storage/$member->profile_picture") }}" alt="Bordered avatar">
+                            @else
+                                <div class="p-1 ring-2 ring-blue-500 flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600">
+                                    <span class="font-medium text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials($member) }}</span>
+                                </div>
+                            @endif
+                        </div>
+                        <p>{{$member->first_name}}</p>
+                        <p>{{$member->last_name}}</p>
+                        <p>{{$member->username}}</p>
+                        <p>{{$member->email}}</p>
+                        <form>
+
+                        </form>
+                    </div>
+                    <button data-collapse-toggle="team-1-collapsable">
+                        <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+                    <div id="team-1-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
+                        <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
+                            <li>
+                                <button>...</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+        @endforeach
+    </div>
 
     <hr class="h-px my-8 mx-auto bg-gray-200 border-0 dark:bg-gray-700 w-8/12">
 
     <h1 class="font-bold text-3xl text-center">Invitations</h1>
 
-    @foreach($invitations as $invitation)
-        <a class="flex items-center space-x-8 w-8/12 mx-auto">
-            {{$invitation->email}}
-        </a>
-    @endforeach
+    <div class="space-y-5">
+        @foreach($invitations as $invitation)
+            <div class="flex items-center space-x-8 w-8/12 mx-auto">
+                <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
+                    <div class="flex flex-grow flex-row space-x-5 items-center">
+                        <p>{{$invitation->email}}</p>
+                        <p>{{$invitation->expires_at}}</p>
+                        <form>
+
+                        </form>
+                    </div>
+                    <button data-collapse-toggle="team-1-collapsable">
+                        <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+                    <div id="team-1-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
+                        <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
+                            <li>
+                                <button>...</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
 
     <hr class="h-px my-8 mx-auto bg-gray-200 border-0 dark:bg-gray-700 w-8/12">
 @stop
