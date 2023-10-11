@@ -82,7 +82,7 @@ class TeamInvitationsController extends Controller
             }
 
             // Redirect to the team page with a success message
-            return redirect()->route('teams.show', $team->name)->with(['status' => "You have joined the $team->name team!"]);
+            return redirect()->route('teams.show', $team->id)->with(['status' => "You have joined the $team->name team!"]);
         }
 
         // Make app redirect to this invitation accept link after logging in or registering

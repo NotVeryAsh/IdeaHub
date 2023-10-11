@@ -43,11 +43,9 @@ class AcceptInvitationTest extends TestCase
         // Accept invitation
         $response = $this->get($url);
 
-        // TODO fix - url is incorrect
-
         // Assert invitation is accepted
         $response->assertRedirect("/teams/$team->id");
-        $response->assertSessionHas('success', "You have joined the $team->name team!");
+        $response->assertSessionHas('status', "You have joined the $team->name team!");
     }
 
     public function test_accept_invitation_redirects_to_login_page_if_email_already_exists_when_not_authenticated()
