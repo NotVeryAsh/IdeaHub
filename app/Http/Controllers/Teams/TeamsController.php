@@ -15,6 +15,7 @@ class TeamsController extends Controller
     public function index(): View
     {
         return view('teams.index', [
+            'ownedTeams' => request()->user()->ownedTeams,
             'teams' => request()->user()->teams,
         ]);
     }
