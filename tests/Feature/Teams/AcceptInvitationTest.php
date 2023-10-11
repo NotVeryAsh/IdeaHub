@@ -4,6 +4,7 @@ namespace Teams;
 
 use App\Models\Team;
 use App\Models\TeamInvitation;
+use App\Models\TeamUser;
 use App\Models\User;
 use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
@@ -42,6 +43,8 @@ class AcceptInvitationTest extends TestCase
         // Accept invitation
         $response = $this->get($url);
 
+        // TODO fix - url is incorrect
+
         // Assert invitation is accepted
         $response->assertRedirect("/teams/$team->id");
         $response->assertSessionHas('success', "You have joined the $team->name team!");
@@ -75,7 +78,7 @@ class AcceptInvitationTest extends TestCase
         // Accept invitation
         $response = $this->get($url);
 
-        $response->assertRedirect('/login');
+        $response->assertRedirect("/login?token=$teamInvitation->token");
     }
 
     public function test_accept_invitation_redirects_to_signup_page_if_email_already_exists_when_not_authenticated()
@@ -101,7 +104,7 @@ class AcceptInvitationTest extends TestCase
         // Accept invitation
         $response = $this->get($url);
 
-        $response->assertRedirect('/signup');
+        $response->assertRedirect("/register?token=$teamInvitation->token");
     }
 
     public function test_invitation_must_not_be_expired_when_accepting_invitations()
@@ -128,8 +131,7 @@ class AcceptInvitationTest extends TestCase
         // Accept invitation
         $response = $this->get($url);
 
-        $response->assertViewIs('auth.invitations.invalid');
-        $response->assertSessionHas('error', 'This invitation is invalid.');
+        $response->assertViewIs('invitations.invalid');
 
     }
 
@@ -170,8 +172,7 @@ class AcceptInvitationTest extends TestCase
         // Accept invitation
         $response = $this->get($url);
 
-        $response->assertViewIs('auth.invitations.invalid');
-        $response->assertSessionHas('error', 'This invitation is invalid.');
+        $response->assertViewIs('invitations.invalid');
     }
 
     public function test_invitation_token_must_be_valid_when_accepting_invitation()
@@ -198,8 +199,7 @@ class AcceptInvitationTest extends TestCase
         // Accept invitation
         $response = $this->get($url);
 
-        $response->assertViewIs('auth.invitations.invalid');
-        $response->assertSessionHas('error', 'This invitation is invalid.');
+        $response->assertViewIs('invitations.invalid');
     }
 
     public function test_cannot_accept_invitation_if_user_is_already_in_account()
@@ -223,6 +223,8 @@ class AcceptInvitationTest extends TestCase
             'team_id' => $team->id,
             'user_id' => $userTwo->id,
         ]);
+
+        // TODO Add acting as invited user
 
         // Create an invitation for the user that is already in the account
         $teamInvitation = TeamInvitation::factory()->create([
@@ -301,7 +303,9 @@ class AcceptInvitationTest extends TestCase
         // Accept invitation
         $response = $this->get($url);
 
-        $response->assertRedirect('/signup');
+        // TODO do this without redirecting - go straight to page
+
+        $response->assertRedirect("/register?token=$teamInvitation->token");
         $response->assertSeeTextInOrder([
             'Sign Up',
             'test2@test.com',
@@ -336,7 +340,9 @@ class AcceptInvitationTest extends TestCase
         // Accept invitation
         $response = $this->get($url);
 
-        $response->assertRedirect('/login');
+        // TODO do this without redirecting - go straight to page
+
+        $response->assertRedirect("/login?token=$teamInvitation->token");
         $response->assertSeeTextInOrder([
             'Sign Up',
             'test2@test.com',

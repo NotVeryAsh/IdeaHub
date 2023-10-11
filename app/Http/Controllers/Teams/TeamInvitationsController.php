@@ -59,6 +59,8 @@ class TeamInvitationsController extends Controller
                 return view('invitations.invalid');
             }
 
+            $team = $invitation->team;
+
             // Delete all invitations for this user to the team
             TeamInvitation::query()
                 ->where([
@@ -75,12 +77,12 @@ class TeamInvitationsController extends Controller
 
             if (! $user->hasVerifiedEmail()) {
                 return redirect()->route('verification.notice')->with([
-                    'status' => 'Invitation accepted! Now just one final step...',
+                    'status' => "You have joined the $team->name team! Now just one final step...",
                 ]);
             }
 
             // Redirect to the team page with a success message
-            return redirect()->route('teams.show', $invitation->team)->with(['status' => 'Invitation accepted!']);
+            return redirect()->route('teams.show', $team->name)->with(['status' => "You have joined the $team->name team!"]);
         }
 
         // Make app redirect to this invitation accept link after logging in or registering

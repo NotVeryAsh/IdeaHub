@@ -35,7 +35,8 @@
             <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
                 <div class="flex flex-grow flex-row space-x-5">
                     <p>{{$team->name}}</p>
-                    <p>82 Members</p>
+                    <p>{{count($team->members)}} Members</p>
+                    <p>Creator: {{$team->creator->username}}</p>
                     <form>
                         <button onclick="">
                             Copy Link <i class="pl-1 fa-solid fa-link"></i>
@@ -65,12 +66,8 @@
             <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
                 <div class="flex flex-grow flex-row space-x-5">
                     <p>{{$team->name}}</p>
-                    <p>82 Members</p>
-                    <form>
-                        <button onclick="">
-                            Copy Link <i class="pl-1 fa-solid fa-link"></i>
-                        </button>
-                    </form>
+                    <p>{{count($team->members)}} Members</p>
+                    <p>Creator: {{$team->creator->username}}</p>
                 </div>
                 <button data-collapse-toggle="team-1-collapsable">
                     <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
