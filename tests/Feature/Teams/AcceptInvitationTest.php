@@ -238,7 +238,7 @@ class AcceptInvitationTest extends TestCase
         $response = $this->get($url);
 
         $response->assertRedirect("/teams/$team->id");
-        $response->assertSessionHas('success', "You have joined the $team->name team!");
+        $response->assertSessionHas('status', "You have joined the $team->name team!");
     }
 
     public function test_invitation_is_deleted_when_accepting_invitation()
