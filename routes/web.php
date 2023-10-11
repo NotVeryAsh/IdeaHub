@@ -73,7 +73,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('{team}')->group(function () {
             Route::get('', [TeamsController::class, 'show'])->name('teams.show');
 
-            Route::prefix('members')->group(function() {
+            Route::prefix('members')->group(function () {
                 Route::get('', [TeamMembersController::class, 'index'])->name('teams.members');
             });
 

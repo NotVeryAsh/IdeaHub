@@ -3,7 +3,6 @@
 namespace Teams;
 
 use App\Models\Team;
-use App\Models\TeamInvitation;
 use App\Models\TeamUser;
 use App\Models\User;
 use Tests\TestCase;
