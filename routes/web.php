@@ -7,6 +7,7 @@ use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ProfilePictureController;
 use App\Http\Controllers\Profile\SelectDefaultProfilePictureController;
 use App\Http\Controllers\Teams\TeamInvitationsController;
+use App\Http\Controllers\Teams\TeamMembersController;
 use App\Http\Controllers\Teams\TeamsController;
 use App\Models\TeamInvitation;
 use Illuminate\Support\Facades\Route;
@@ -73,7 +74,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('', [TeamsController::class, 'show'])->name('teams.show');
 
             Route::prefix('members')->group(function() {
-                Route::get('', [TeamsController::class, 'members'])->name('teams.members')->can('TeamUserGate.viewAny', 'team');
+                Route::get('', [TeamMembersController::class, 'index'])->name('teams.members');
             });
 
             // Team invitations routes

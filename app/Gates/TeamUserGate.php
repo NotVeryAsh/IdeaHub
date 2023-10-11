@@ -4,11 +4,12 @@ namespace App\Gates;
 
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class TeamUserGate
 {
-    public function viewAny(Team $team, User $user): bool
+    public static function viewAny(User $user, Team $team): bool
     {
-        return $team->members->contains($user);
+        return $team->members->contains(Auth::user());
     }
 }
