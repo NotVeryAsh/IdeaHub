@@ -62,6 +62,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
+    // TODO - Add can() method to check if user is in team
+
     // Team routes
     Route::prefix('teams')->group(function () {
         Route::get('', [TeamsController::class, 'index'])->name('teams.index');
@@ -69,6 +71,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('{team}')->group(function () {
             Route::get('', [TeamsController::class, 'show'])->name('teams.show');
+
+            Route::prefix('members')->group(function() {
+                Route::get('', [TeamsController::class, 'members'])->name('teams.members')->can('TeamUserGate.viewAny', 'team');
+            });
 
             // Team invitations routes
             Route::prefix('invitations')->group(function () {
