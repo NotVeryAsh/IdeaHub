@@ -33,19 +33,9 @@
     <h1 class="font-bold text-3xl text-center">Creator</h1>
     <div class="space-y-5">
         <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
-            <thead class="border-b-2 border-slate-700">
-                <tr class="text-left">
-                    <th class="w-20"></th>
-                    <th class="py-6">Name</th>
-                    <th class="py-6">Username</th>
-                    <th class="py-6">Email</th>
-                    <th class="py-6">Date Joined</th>
-                    <th class="w-10"></th>
-                </tr>
-            </thead>
             <tbody>
-                <tr>
-                    <td class="py-5">
+                <tr class="text-left">
+                    <td class="w-20 py-6">
                         @if($creator->profile_picture)
                             <img class="mx-auto object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset("storage/$creator->profile_picture") }}" alt="Bordered avatar">
                         @else
@@ -54,11 +44,11 @@
                             </div>
                         @endif
                     </td>
-                    <td class="py-5"><p>{{$creator->first_name}} {{$creator->last_name}}</p></td>
-                    <td class="py-5"><p>{{$creator->username}}</p></td>
-                    <td class="py-5"><p>{{$creator->email}}</p></td>
-                    <td class="py-5"><p>{{$team->created_at}}</p></td>
-                    <td class="py-5">
+                    <td class="py-6"><p>{{$creator->first_name}} {{$creator->last_name}}</p></td>
+                    <td class="py-6"><p>{{$creator->username}}</p></td>
+                    <td class="py-6"><p>{{$creator->email}}</p></td>
+                    <td class="py-6"><p>{{$team->created_at}}</p></td>
+                    <td class="w-10">
                         <button data-collapse-toggle="member-{{$creator->id}}-collapsable">
                             <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
                         </button>
