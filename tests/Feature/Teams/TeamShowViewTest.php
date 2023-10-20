@@ -12,11 +12,15 @@ class TeamShowViewTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->actingAs($user)->get('/teams')
-            ->assertViewIs('teams.index')
+        $team = Team::factory()->create([
+            'creator_id' => $user->id,
+            'name' => 'Acme',
+        ]);
+
+        $this->actingAs($user)->get("/teams/$team->id")
+            ->assertViewIs('teams.show')
             ->assertSeeInOrder([
-                'Create Team',
-                'Your Teams',
+                'Acme',
             ]);
     }
 
@@ -72,6 +76,26 @@ class TeamShowViewTest extends TestCase
         $this->actingAs($user);
 
         $this->get('/teams/1')
+            ->assertStatus(404);
+    }
+
+    public function test_404_when_user_is_accessing_team_they_are_not_in()
+    {
+        $user = User::factory()->create();
+
+        // Create team for user
+        $team = Team::factory()->create([
+            'creator_id' => $user->id,
+            'name' => 'Acme',
+        ]);
+
+        // Create another user
+        $otherUser = User::factory()->create();
+
+        // Authenticate as invalid user
+        $this->actingAs($otherUser);
+
+        $this->get("/teams/$team->id")
             ->assertStatus(404);
     }
 }

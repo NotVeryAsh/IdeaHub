@@ -248,7 +248,7 @@ class TeamMemberViewTest extends TestCase
         $response->assertStatus(302);
 
         $response->assertSessionHasErrors([
-            'page' => 'Per page must be an integer.',
+            'per_page' => 'Per page must be an integer.',
         ]);
     }
 
@@ -270,7 +270,7 @@ class TeamMemberViewTest extends TestCase
         $response->assertStatus(302);
 
         $response->assertSessionHasErrors([
-            'page' => 'Search term must not be greater than 255 characters.',
+            'search_term' => 'Search term must not be greater than 255 characters.',
         ]);
     }
 

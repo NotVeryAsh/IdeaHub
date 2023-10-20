@@ -260,6 +260,6 @@ class CreateInvitationTest extends TestCase
             'email' => 'test3@test.com',
         ]);
 
-        $response->assertStatus(403);
+        $response->assertStatus(404);
     }
 }
