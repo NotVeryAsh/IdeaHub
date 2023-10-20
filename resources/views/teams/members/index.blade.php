@@ -36,8 +36,8 @@
         <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
             <thead class="border-b-2 border-slate-700">
                 <tr class="text-left">
-                    <th class="w-20 py-8"></th>
-                    <th class="py-3">
+                    <th class="w-20"></th>
+                    <th class="py-6">
                         <a href="{{route('teams.members', ['team' => $team, 'order_by' => 'name', 'order_by_direction' => $orderByDirection === 'asc' ? 'desc' : 'asc'])}}">
                             Name
                             @if($orderBy === 'name')
@@ -45,7 +45,7 @@
                             @endif
                         </a>
                     </th>
-                    <th class="py-3">
+                    <th class="py-6">
                         <a href="{{route('teams.members', ['team' => $team, 'order_by' => 'username', 'order_by_direction' => $orderByDirection === 'asc' ? 'desc' : 'asc'])}}">
                             Username
                             @if($orderBy === 'username')
@@ -53,7 +53,7 @@
                             @endif
                         </a>
                     </th>
-                    <th class="py-3">
+                    <th class="py-6">
                         <a href="{{route('teams.members', ['team' => $team, 'order_by' => 'email', 'order_by_direction' => $orderByDirection === 'asc' ? 'desc' : 'asc'])}}">
                         Email
                             @if($orderBy === 'email')
@@ -61,7 +61,7 @@
                             @endif
                         </a>
                     </th>
-                    <th class="py-3">
+                    <th class="py-6">
                         <a href="{{route('teams.members', ['team' => $team, 'order_by' => 'date_joined', 'order_by_direction' => $orderByDirection === 'asc' ? 'desc' : 'asc'])}}">
                             Date Joined
                             @if($orderBy === 'date_joined')
@@ -84,11 +84,11 @@
                                 </div>
                             @endif
                         </td>
-                        <td><p>{{$member->first_name}} {{$member->last_name}}</p></td>
-                        <td><p>{{$member->username}}</p></td>
-                        <td><p>{{$member->email}}</p></td>
-                        <td><p>{{$member->pivot->created_at}}</p></td>
-                        <td>
+                        <td class="py-5"><p>{{$member->first_name}} {{$member->last_name}}</p></td>
+                        <td class="py-5"><p>{{$member->username}}</p></td>
+                        <td class="py-5"><p>{{$member->email}}</p></td>
+                        <td class="py-5"><p>{{$member->pivot->created_at}}</p></td>
+                        <td class="py-5">
                             <button data-collapse-toggle="team-1-collapsable">
                                 <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
                             </button>
@@ -111,29 +111,41 @@
     <h1 class="font-bold text-3xl text-center">Invitations</h1>
 
     <div class="space-y-5">
-        @foreach($invitations as $invitation)
-            <div class="flex items-center space-x-8 w-8/12 mx-auto">
-                <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-5 space-x-5">
-                    <div class="flex flex-grow flex-row space-x-5 items-center">
-                        <p>{{$invitation->email}}</p>
-                        <p>{{$invitation->expires_at}}</p>
-                        <form>
-
-                        </form>
-                    </div>
-                    <button data-collapse-toggle="team-1-collapsable">
-                        <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
-                    </button>
-                    <div id="team-1-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
-                        <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
-                            <li>
-                                <button>...</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        @endforeach
+        <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
+            <thead class="border-b-2 border-slate-700">
+            <tr class="text-left">
+                <th class="w-10 py-6"></th>
+                <th>
+                    Email
+                </th>
+                <th class="py-6">
+                    Date Invited
+                </th>
+                <th class="w-10"></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($invitations as $invitation)
+                <tr @if(!$loop->last)class="border-b-2 border-slate-700"@endif>
+                    <td class="py-5"></td>
+                    <td class="py-5"><p>{{$invitation->email}}</p></td>
+                    <td class="py-5"><p>{{$invitation->created_at}}</p></td>
+                    <td class="py-5">
+                        <button data-collapse-toggle="team-1-collapsable">
+                            <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <div id="team-1-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
+                            <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
+                                <li>
+                                    <button>...</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
 
     <hr class="h-px my-8 mx-auto bg-gray-200 border-0 dark:bg-gray-700 w-8/12">
