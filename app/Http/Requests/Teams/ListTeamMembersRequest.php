@@ -37,7 +37,6 @@ class ListTeamMembersRequest extends FormRequest
             'per_page.integer' => 'Per page must be an integer.',
             'search_term.string' => 'Search term must be a string.',
             'search_term.max' => 'Search term must not be greater than 255 characters.',
-
         ];
     }
 }
