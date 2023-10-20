@@ -43,9 +43,9 @@
                         @if(Auth::user())
                             <a href="{{ route('profile') }}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500 @if(request()->routeIs('profile')) text-blue-500 @endif" aria-current="page">Profile</a>
                             <a href="{{ route('teams.index') }}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500 @if(request()->routeIs('teams.index')) text-blue-500 @endif" aria-current="page">Teams</a>
-                            <form action="{{ route('logout') }}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500">
+                            <form action="{{ route('logout') }}" method="POST" class="block rounded hover:bg-gray-700 hover:text-blue-500">
                                 @csrf
-                                <button type="submit" class="text-left w-full" aria-current="page">Log Out</button>
+                                <button type="submit" class="text-left w-full py-3 pl-3 pr-4" aria-current="page">Log Out</button>
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500 @if(request()->routeIs('login')) text-blue-500 @endif" aria-current="page">Log In</a>
