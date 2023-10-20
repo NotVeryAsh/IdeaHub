@@ -31,42 +31,49 @@
     <h1 class="font-bold text-3xl text-center">Members</h1>
 
     <div class="space-y-5">
-        @foreach($members as $member)
-            <a href="/teams/{{$team->id}}/members/{{$member->id}}" class="flex items-center w-8/12 mx-auto">
-                <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center space-x-5 px-5">
-                    <div class="flex flex-grow flex-row items-center">
-                        <div>
+        <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
+            <thead class="border-b-2 border-slate-700">
+                <tr class="text-left">
+                    <th class="w-20 py-8"></th>
+                    <th class="py-3">First Name</th>
+                    <th class="py-3">Last Name</th>
+                    <th class="py-3">Username</th>
+                    <th class="py-3">Email</th>
+                    <th class="w-10"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($members as $member)
+                    <tr @if(!$loop->last)class="border-b-2 border-slate-700"@endif>
+                        <td class="py-5">
                             @if($member->profile_picture)
-                                <img class="object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset("storage/$member->profile_picture") }}" alt="Bordered avatar">
+                                <img class="mx-auto object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset("storage/$member->profile_picture") }}" alt="Bordered avatar">
                             @else
-                                <div class="p-1 ring-2 ring-blue-500 flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600">
+                                <div class="mx-auto p-1 ring-2 ring-blue-500 flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600">
                                     <span class="font-medium text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials($member) }}</span>
                                 </div>
                             @endif
-                        </div>
-                        <div class="flex space-x-5">
-                            <p>{{$member->first_name}}</p>
-                            <p>{{$member->last_name}}</p>
-                            <p>{{$member->username}}</p>
-                            <p>{{$member->email}}</p>
-                        </div>
-                        <form>
-
-                        </form>
-                    </div>
-                    <button data-collapse-toggle="team-1-collapsable">
-                        <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
-                    </button>
-                    <div id="team-1-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
-                        <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
-                            <li>
-                                <button>...</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </a>
-        @endforeach
+                        </td>
+                        <td><p>{{$member->first_name}}</p></td>
+                        <td><p>{{$member->last_name}}</p></td>
+                        <td><p>{{$member->username}}</p></td>
+                        <td><p>{{$member->email}}</p></td>
+                        <td>
+                            <button data-collapse-toggle="team-1-collapsable">
+                                <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                            <div id="team-1-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
+                                <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
+                                    <li>
+                                        <button>...</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
     <hr class="h-px my-8 mx-auto bg-gray-200 border-0 dark:bg-gray-700 w-8/12">
