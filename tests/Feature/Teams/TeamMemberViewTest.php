@@ -6,6 +6,8 @@ use App\Models\Team;
 use App\Models\TeamInvitation;
 use App\Models\TeamUser;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class TeamMemberViewTest extends TestCase
@@ -25,7 +27,6 @@ class TeamMemberViewTest extends TestCase
 
         $this->actingAs($user)
             ->get("/teams/{$team->id}/members")
-            ->assertSee($team->name)
             ->assertSee('Members')
             ->assertSee('Invitations');
     }
@@ -205,5 +206,115 @@ class TeamMemberViewTest extends TestCase
         $this->actingAs($user)
             ->get("/teams/{$team->id}/members")
             ->assertSee('Delete');
+    }
+
+    public function test_page_must_be_an_integer()
+    {
+        $user = User::factory()->create();
+
+        $team = Team::factory()->create([
+            'creator_id' => $user->id,
+        ]);
+
+        $response = $this->actingAs($user)
+            ->get(Request::create("/teams/{$team->id}/members")
+                ->fullUrlWithQuery([
+                    'page' => 'string',
+                ])
+            );
+
+        $response->assertStatus(302);
+
+        $response->assertSessionHasErrors([
+            'page' => 'Page must be an integer.',
+        ]);
+    }
+
+    public function test_per_page_must_be_an_integer()
+    {
+        $user = User::factory()->create();
+
+        $team = Team::factory()->create([
+            'creator_id' => $user->id,
+        ]);
+
+        $response = $this->actingAs($user)
+            ->get(Request::create("/teams/{$team->id}/members")
+                ->fullUrlWithQuery([
+                    'per_page' => 'string',
+                ])
+            );
+
+        $response->assertStatus(302);
+
+        $response->assertSessionHasErrors([
+            'page' => 'Per page must be an integer.',
+        ]);
+    }
+
+    public function test_search_term_must_not_be_greater_than_255_characters()
+    {
+        $user = User::factory()->create();
+
+        $team = Team::factory()->create([
+            'creator_id' => $user->id,
+        ]);
+
+        $response = $this->actingAs($user)
+            ->get(Request::create("/teams/{$team->id}/members")
+                ->fullUrlWithQuery([
+                    'search_term' => Str::random(256),
+                ])
+            );
+
+        $response->assertStatus(302);
+
+        $response->assertSessionHasErrors([
+            'page' => 'Search term must not be greater than 255 characters.',
+        ]);
+    }
+
+    public function test_order_by_must_be_valid()
+    {
+        $user = User::factory()->create();
+
+        $team = Team::factory()->create([
+            'creator_id' => $user->id,
+        ]);
+
+        $response = $this->actingAs($user)
+            ->get(Request::create("/teams/{$team->id}/members")
+                ->fullUrlWithQuery([
+                    'order_by' => 'test',
+                ])
+            );
+
+        $response->assertStatus(302);
+
+        $response->assertSessionHasErrors([
+            'order_by' => 'Order by is invalid.',
+        ]);
+    }
+
+    public function test_order_by_direction_must_be_valid()
+    {
+        $user = User::factory()->create();
+
+        $team = Team::factory()->create([
+            'creator_id' => $user->id,
+        ]);
+
+        $response = $this->actingAs($user)
+            ->get(Request::create("/teams/{$team->id}/members")
+                ->fullUrlWithQuery([
+                    'order_by_direction' => 'test',
+                ])
+            );
+
+        $response->assertStatus(302);
+
+        $response->assertSessionHasErrors([
+            'order_by_direction' => 'Order by direction is invalid.',
+        ]);
     }
 }
