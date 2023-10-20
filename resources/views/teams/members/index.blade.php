@@ -35,10 +35,10 @@
             <thead class="border-b-2 border-slate-700">
                 <tr class="text-left">
                     <th class="w-20 py-8"></th>
-                    <th class="py-3">First Name</th>
-                    <th class="py-3">Last Name</th>
+                    <th class="py-3">Name</th>
                     <th class="py-3">Username</th>
                     <th class="py-3">Email</th>
+                    <th class="py-3">Date Joined</th>
                     <th class="w-10"></th>
                 </tr>
             </thead>
@@ -54,10 +54,10 @@
                                 </div>
                             @endif
                         </td>
-                        <td><p>{{$member->first_name}}</p></td>
-                        <td><p>{{$member->last_name}}</p></td>
+                        <td><p>{{$member->first_name}} {{$member->last_name}}</p></td>
                         <td><p>{{$member->username}}</p></td>
                         <td><p>{{$member->email}}</p></td>
+                        <td><p>{{$member->created_at}}</p></td>
                         <td>
                             <button data-collapse-toggle="team-1-collapsable">
                                 <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
