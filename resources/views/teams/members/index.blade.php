@@ -32,9 +32,9 @@
 
     <div class="space-y-5">
         @foreach($members as $member)
-            <a href="/teams/{{$team->id}}/members/{{$member->id}}" class="flex items-center space-x-8 w-8/12 mx-auto">
-                <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
-                    <div class="flex flex-grow flex-row space-x-5 items-center">
+            <a href="/teams/{{$team->id}}/members/{{$member->id}}" class="flex items-center w-8/12 mx-auto">
+                <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center space-x-5 px-5">
+                    <div class="flex flex-grow flex-row items-center">
                         <div>
                             @if($member->profile_picture)
                                 <img class="object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset("storage/$member->profile_picture") }}" alt="Bordered avatar">
@@ -44,10 +44,12 @@
                                 </div>
                             @endif
                         </div>
-                        <p>{{$member->first_name}}</p>
-                        <p>{{$member->last_name}}</p>
-                        <p>{{$member->username}}</p>
-                        <p>{{$member->email}}</p>
+                        <div class="flex space-x-5">
+                            <p>{{$member->first_name}}</p>
+                            <p>{{$member->last_name}}</p>
+                            <p>{{$member->username}}</p>
+                            <p>{{$member->email}}</p>
+                        </div>
                         <form>
 
                         </form>
@@ -74,7 +76,7 @@
     <div class="space-y-5">
         @foreach($invitations as $invitation)
             <div class="flex items-center space-x-8 w-8/12 mx-auto">
-                <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-3 space-x-5">
+                <div class="flex-grow flex w-auto flex-row ring-2 ring-slate-700 py-4 rounded-lg items-center px-5 space-x-5">
                     <div class="flex flex-grow flex-row space-x-5 items-center">
                         <p>{{$invitation->email}}</p>
                         <p>{{$invitation->expires_at}}</p>

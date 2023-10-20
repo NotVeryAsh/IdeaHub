@@ -6,10 +6,15 @@
     @endif
 
     @if(Auth::id() === $team->creator_id)
-        <div class="flex items-center space-x-8 space-y-20 w-8/12 mx-auto relative">
+        <div class="flex items-center space-x-8 w-8/12 mx-auto relative">
             <button data-collapse-toggle="create-team-dropdown" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
                 Invite
             </button>
+            <a href="{{route('teams.members', $team)}}">
+            <button class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
+                Members
+            </button>
+            </a>
             <div id="create-team-dropdown" class="right-0 z-10 @if(!$errors->has('email')) hidden @endif w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
                 <form action="/teams/{{ $team->id }}/invitations" method="post">
                     @csrf
