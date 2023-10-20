@@ -41,6 +41,6 @@ class TeamMemberService
                 break;
         }
 
-        return $query->paginate($perPage, ['team_user.*'], 'team_members', $page);
+        return $query->paginate($perPage, ['*'], 'team_members', $page);
     }
 }
