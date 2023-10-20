@@ -35,10 +35,38 @@
             <thead class="border-b-2 border-slate-700">
                 <tr class="text-left">
                     <th class="w-20 py-8"></th>
-                    <th class="py-3">Name</th>
-                    <th class="py-3">Username</th>
-                    <th class="py-3">Email</th>
-                    <th class="py-3">Date Joined</th>
+                    <th class="py-3">
+                        <a href="{{route('teams.members', ['team' => $team, 'order_by' => 'name', 'order_by_direction' => $orderByDirection === 'asc' ? 'desc' : 'asc'])}}">
+                            Name
+                            @if($orderBy === 'name')
+                                <i class="fa-solid {{ $orderByDirection === 'asc' ? 'fa-angle-down': 'fa-angle-up' }} fa-2xs"></i>
+                            @endif
+                        </a>
+                    </th>
+                    <th class="py-3">
+                        <a href="{{route('teams.members', ['team' => $team, 'order_by' => 'username', 'order_by_direction' => $orderByDirection === 'asc' ? 'desc' : 'asc'])}}">
+                            Username
+                            @if($orderBy === 'username')
+                                <i class="fa-solid {{ $orderByDirection === 'asc' ? 'fa-angle-down': 'fa-angle-up' }} fa-2xs"></i>
+                            @endif
+                        </a>
+                    </th>
+                    <th class="py-3">
+                        <a href="{{route('teams.members', ['team' => $team, 'order_by' => 'email', 'order_by_direction' => $orderByDirection === 'asc' ? 'desc' : 'asc'])}}">
+                        Email
+                            @if($orderBy === 'email')
+                                <i class="fa-solid {{ $orderByDirection === 'asc' ? 'fa-angle-down': 'fa-angle-up' }} fa-2xs"></i>
+                            @endif
+                        </a>
+                    </th>
+                    <th class="py-3">
+                        <a href="{{route('teams.members', ['team' => $team, 'order_by' => 'date_joined', 'order_by_direction' => $orderByDirection === 'asc' ? 'desc' : 'asc'])}}">
+                            Date Joined
+                            @if($orderBy === 'date_joined')
+                                <i class="fa-solid {{ $orderByDirection === 'asc' ? 'fa-angle-down': 'fa-angle-up' }} fa-2xs"></i>
+                            @endif
+                        </a>
+                    </th>
                     <th class="w-10"></th>
                 </tr>
             </thead>
@@ -57,7 +85,7 @@
                         <td><p>{{$member->first_name}} {{$member->last_name}}</p></td>
                         <td><p>{{$member->username}}</p></td>
                         <td><p>{{$member->email}}</p></td>
-                        <td><p>{{$member->created_at}}</p></td>
+                        <td><p>{{$member->pivot->created_at}}</p></td>
                         <td>
                             <button data-collapse-toggle="team-1-collapsable">
                                 <i class="text-xl fa-solid fa-ellipsis-vertical"></i>

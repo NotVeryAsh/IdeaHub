@@ -54,7 +54,7 @@ class Team extends Model
 
     public function members(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('created_at');
     }
 
     public function invitations(): HasMany

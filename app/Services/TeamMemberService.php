@@ -26,14 +26,21 @@ class TeamMemberService
             ->orWhere('username', 'like', "%{$searchTerm}%");
         }
 
-        // order by first name and last name if order by name is provided
-        if($orderBy === 'name') {
-            $query->selectRaw('users.*, CONCAT(first_name, " ", last_name) AS name')
-                ->orderBy('name', $orderByDirection);
-        } else {
-            $query->orderBy($orderBy, $orderByDirection);
+        switch ($orderBy){
+            case 'name':
+                $query->orderBy('first_name', $orderByDirection)
+                    ->orderBy('last_name', $orderByDirection);
+                break;
+
+            case 'date_joined':
+                $query->orderBy('team_user.created_at', $orderByDirection);
+                break;
+
+            default:
+                $query->orderBy($orderBy, $orderByDirection);
+                break;
         }
 
-        return $query->paginate($perPage, ['*'], 'team_members', $page);
+        return $query->paginate($perPage, ['team_user.*'], 'team_members', $page);
     }
 }

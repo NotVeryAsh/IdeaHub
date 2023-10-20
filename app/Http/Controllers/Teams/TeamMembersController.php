@@ -18,6 +18,8 @@ class TeamMembersController extends Controller
             'team' => $team,
             'members' => $members,
             'invitations' => $team->invitations,
+            'orderBy' => $request->validated('order_by', 'name'),
+            'orderByDirection' => $request->validated('order_by_direction', 'asc'),
         ]);
     }
 }

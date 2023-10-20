@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Teams;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ListTeamMembersRequest extends FormRequest
 {
@@ -26,6 +27,22 @@ class ListTeamMembersRequest extends FormRequest
                 'nullable',
                 'string',
                 'max:255',
+            ],
+            'order_by' => [
+                Rule::in([
+                    'name',
+                    'email',
+                    'username',
+                    'date_joined',
+                ]),
+                'nullable'
+            ],
+            'order_by_direction' => [
+                Rule::in([
+                    'asc',
+                    'desc',
+                ]),
+                'nullable'
             ],
         ];
     }
