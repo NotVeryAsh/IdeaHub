@@ -89,13 +89,19 @@
                         <td class="py-5"><p>{{$member->email}}</p></td>
                         <td class="py-5"><p>{{$member->pivot->created_at}}</p></td>
                         <td class="py-5">
-                            <button data-collapse-toggle="team-1-collapsable">
+                            <button data-collapse-toggle="member-{{$member->id}}-collapsable">
                                 <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
                             </button>
-                            <div id="team-1-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
+                            <div id="member-{{$member->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
                                 <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
                                     <li>
-                                        <button>...</button>
+                                        @if($team->creator->is(Auth::user()))
+                                            <form action="" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
+                                                @csrf
+                                                <button type="submit" class="text-left w-full" aria-current="page">Remove</button>
+                                            </form>
+                                        @endif
+                                        <a href="" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500" aria-current="page">View</a>
                                     </li>
                                 </ul>
                             </div>
@@ -131,13 +137,17 @@
                     <td class="py-5"><p>{{$invitation->email}}</p></td>
                     <td class="py-5"><p>{{$invitation->created_at}}</p></td>
                     <td class="py-5">
-                        <button data-collapse-toggle="team-1-collapsable">
+                        <button data-collapse-toggle="invitation-{{$invitation->id}}-collapsable">
                             <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                        <div id="team-1-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
+                        <div id="invitation-{{$invitation->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
                             <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
                                 <li>
-                                    <button>...</button>
+                                    <form action="" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-left w-full" aria-current="page">Delete</button>
+                                    </form>
                                 </li>
                             </ul>
                         </div>

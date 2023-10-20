@@ -6,11 +6,11 @@
     @endif
 
     <div class="flex items-center space-x-8 w-8/12 mx-auto relative">
-        <button class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
-            <a href="{{route('teams.members', $team)}}">
-                Members
-            </a>
-        </button>
+        <a href="{{route('teams.members', $team)}}" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
+            <button>
+                    Members
+            </button>
+        </a>
         @if($team->creator->is(Auth::user()))
             <button data-collapse-toggle="create-team-dropdown" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
                 Invite
