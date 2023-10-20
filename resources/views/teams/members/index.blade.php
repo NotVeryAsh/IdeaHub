@@ -30,6 +30,51 @@
             </div>
         </div>
     @endif
+    <h1 class="font-bold text-3xl text-center">Creator</h1>
+    <div class="space-y-5">
+        <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
+            <thead class="border-b-2 border-slate-700">
+                <tr class="text-left">
+                    <th class="w-20"></th>
+                    <th class="py-6">Name</th>
+                    <th class="py-6">Username</th>
+                    <th class="py-6">Email</th>
+                    <th class="py-6">Date Joined</th>
+                    <th class="w-10"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="py-5">
+                        @if($creator->profile_picture)
+                            <img class="mx-auto object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset("storage/$creator->profile_picture") }}" alt="Bordered avatar">
+                        @else
+                            <div class="mx-auto p-1 ring-2 ring-blue-500 flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600">
+                                <span class="font-medium text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials($creator) }}</span>
+                            </div>
+                        @endif
+                    </td>
+                    <td class="py-5"><p>{{$creator->first_name}} {{$creator->last_name}}</p></td>
+                    <td class="py-5"><p>{{$creator->username}}</p></td>
+                    <td class="py-5"><p>{{$creator->email}}</p></td>
+                    <td class="py-5"><p>{{$team->created_at}}</p></td>
+                    <td class="py-5">
+                        <button data-collapse-toggle="member-{{$creator->id}}-collapsable">
+                            <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <div id="member-{{$creator->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
+                            <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
+                                <li>
+                                    <a href="" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500" aria-current="page">View</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <h1 class="font-bold text-3xl text-center">Members</h1>
 
     <div class="space-y-5">
@@ -111,8 +156,6 @@
             </tbody>
         </table>
     </div>
-
-    <hr class="h-px my-8 mx-auto bg-gray-200 border-0 dark:bg-gray-700 w-8/12">
 
     <h1 class="font-bold text-3xl text-center">Invitations</h1>
 

@@ -15,6 +15,7 @@ class TeamMembersController extends Controller
         $members = TeamMemberService::filter($request, $team);
 
         return view('teams.members.index', [
+            'creator' => $team->creator,
             'team' => $team,
             'members' => $members,
             'invitations' => $team->invitations,
