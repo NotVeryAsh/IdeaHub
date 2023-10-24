@@ -175,13 +175,15 @@
                         </button>
                         <div id="invitation-{{$invitation->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
                             <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
-                                <li>
-                                    <form action="" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-left w-full" aria-current="page">Delete</button>
-                                    </form>
-                                </li>
+                                @if($team->creator->is(Auth::user()))
+                                    <li>
+                                        <form action="" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-left w-full" aria-current="page">Delete</button>
+                                        </form>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </td>

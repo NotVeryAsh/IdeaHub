@@ -155,7 +155,7 @@ class TeamMemberViewTest extends TestCase
 
         $this->actingAs($member)
             ->get("/teams/{$team->id}/members")
-            ->assertDontSee('Invite');
+            ->assertDontSee('Send Invitation');
     }
 
     public function test_owner_can_see_invite_button()
