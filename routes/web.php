@@ -7,8 +7,10 @@ use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ProfilePictureController;
 use App\Http\Controllers\Profile\SelectDefaultProfilePictureController;
 use App\Http\Controllers\Teams\TeamInvitationsController;
+use App\Http\Controllers\Teams\TeamMembersController;
 use App\Http\Controllers\Teams\TeamsController;
 use App\Models\TeamInvitation;
+use App\Models\TeamUser;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,13 +64,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
+    // TODO - Add can() method to check if user is in team
+
     // Team routes
     Route::prefix('teams')->group(function () {
         Route::get('', [TeamsController::class, 'index'])->name('teams.index');
         Route::post('', [TeamsController::class, 'store'])->name('teams.store');
 
         Route::prefix('{team}')->group(function () {
-            Route::get('', [TeamsController::class, 'show'])->name('teams.show');
+            Route::get('', [TeamsController::class, 'show'])->name('teams.show')->can('view', 'team');
+
+            Route::prefix('members')->group(function () {
+                Route::get('', [TeamMembersController::class, 'index'])->name('teams.members')->can('viewAny', [TeamUser::class, 'team']);
+            });
 
             // Team invitations routes
             Route::prefix('invitations')->group(function () {
