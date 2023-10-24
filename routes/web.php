@@ -36,8 +36,9 @@ Route::prefix('docs')->group(function () {
 
 // Route to accept invitation
 Route::prefix('invitations')->group(function () {
-    Route::prefix('{token}')->group(function () {
+    Route::prefix('{invitation}')->group(function () {
         Route::get('', [TeamInvitationsController::class, 'accept'])->name('invitations.accept');
+        Route::delete('', [TeamInvitationsController::class, 'delete'])->name('invitations.delete')->can('delete', 'invitation');
     });
 });
 
@@ -75,13 +76,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('', [TeamsController::class, 'show'])->name('teams.show')->can('view', 'team');
 
             Route::prefix('members')->group(function () {
-                Route::get('', [TeamMembersController::class, 'index'])->name('teams.members')->can('viewAny', [TeamUser::class, 'team']);
+                Route::get('', [TeamMembersController::class, 'index'])->name('teams.members')->can('TeamUserGate.viewAny', ['team']);
             });
 
             // Team invitations routes
             Route::prefix('invitations')->group(function () {
                 Route::get('', [TeamInvitationsController::class, 'index'])->name('invitations.index');
-                Route::post('', [TeamInvitationsController::class, 'store'])->can('create', [TeamInvitation::class, 'team'])->name('invitations.store');
+                Route::post('', [TeamInvitationsController::class, 'store'])->name('invitations.store')->can('create', [TeamInvitation::class, 'team']);
             });
         });
     });
