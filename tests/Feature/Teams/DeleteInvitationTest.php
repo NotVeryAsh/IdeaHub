@@ -69,10 +69,11 @@ class DeleteInvitationTest extends TestCase
 
     public function test_authentication_is_required_to_delete_a_team_invitation()
     {
+        User::factory()->create();
         $team = Team::factory()->create();
 
         $teamInvitation = TeamInvitation::factory()->create([
-            'team' => $team->id,
+            'team_id' => $team->id,
             'email' => 'test@test.com'
         ]);
 
