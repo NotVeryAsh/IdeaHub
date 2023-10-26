@@ -75,14 +75,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('', [TeamsController::class, 'show'])->name('teams.show')->can('view', 'team');
 
             Route::prefix('members')->group(function () {
-                Route::get('', [TeamMembersController::class, 'index'])->name('teams.members')->can('viewAny', [TeamUser::class, 'team']);
+                Route::get('', [TeamMembersController::class, 'index'])->name('teams.members')->can('TeamUserGate.viewAny', ['team']);
             });
 
             // Team invitations routes
             Route::prefix('invitations')->group(function () {
                 Route::get('', [TeamInvitationsController::class, 'index'])->name('invitations.index');
-                Route::post('', [TeamInvitationsController::class, 'store'])->can('create', [TeamInvitation::class, 'team'])->name('invitations.store');
+                Route::post('', [TeamInvitationsController::class, 'store'])->name('invitations.store')->can('create', [TeamInvitation::class, 'team']);
             });
+        });
+    });
+
+    // Route to delete invitation
+    Route::prefix('invitations')->group(function () {
+        Route::prefix('{team_invitation}')->group(function () {
+            Route::delete('', [TeamInvitationsController::class, 'delete'])->name('invitations.delete')->can('delete', 'team_invitation');
         });
     });
 });
