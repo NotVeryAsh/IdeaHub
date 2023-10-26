@@ -38,7 +38,7 @@ class CreateInvitationTest extends TestCase
         ]);
 
         // Check that user is redirected to team show page with a success message
-        $response->assertRedirectToRoute('teams.show', $team);
+        $response->assertRedirectToRoute('teams.members', $team);
         $response->assertSessionHas(['status' => 'Invitation sent!']);
 
         $this->assertDatabaseHas('team_invitations', [
@@ -122,7 +122,7 @@ class CreateInvitationTest extends TestCase
         ]);
 
         // Check that user is redirected to profile page
-        $response->assertRedirectToRoute('teams.show', $team);
+        $response->assertRedirectToRoute('teams.members', $team);
         $response->assertSessionHas(['status' => 'Invitation sent!']);
     }
 

@@ -76,6 +76,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::prefix('members')->group(function () {
                 Route::get('', [TeamMembersController::class, 'index'])->name('teams.members')->can('TeamUserGate.viewAny', ['team']);
+
+                Route::prefix('{member}')->group(function () {
+                    Route::delete('', [TeamMembersController::class, 'remove'])->name('teams.members.remove')->can('TeamUserGate.delete', ['team', 'member']);
+                });
             });
 
             // Team invitations routes

@@ -131,8 +131,9 @@
                                 <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
                                     <li>
                                         @if($team->creator->is(Auth::user()))
-                                            <form action="" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
+                                            <form action="{{route('teams.members.remove', [$team, $member])}}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
                                                 @csrf
+                                                @method('DELETE')
                                                 <button type="submit" class="text-left w-full" aria-current="page">Remove</button>
                                             </form>
                                         @endif
