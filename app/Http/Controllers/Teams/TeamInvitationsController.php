@@ -38,7 +38,7 @@ class TeamInvitationsController extends Controller
         Mail::to($recipient)->queue(new TeamInvitationSent($team, $url));
 
         // Redirect back to the team page with a success message
-        return redirect()->route('teams.show', $team)->with(['status' => 'Invitation sent!']);
+        return redirect()->route('teams.members', $team)->with(['status' => 'Invitation sent!']);
     }
 
     public function accept(Request $request, $token)
@@ -113,6 +113,6 @@ class TeamInvitationsController extends Controller
         $teamInvitation->delete();
 
         // Redirect back to the team page with a success message
-        return redirect()->route('teams.members', $team)->with(['status' => 'Invitation deleted!']);
+        return redirect()->route('teams.members', ['team' => $team])->with(['status' => 'Invitation deleted!']);
     }
 }
