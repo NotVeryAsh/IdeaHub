@@ -15,9 +15,10 @@ class TeamsController extends Controller
 {
     public function index(): View
     {
+        // Get all teams - including soft deleted teams, with their creators and amount of members
         return view('teams.index', [
-            'ownedTeams' => request()->user()->ownedTeams,
-            'teams' => request()->user()->teams,
+            'ownedTeams' => request()->user()->ownedTeams()->withTrashed()->withCount('members')->with('creator')->orderBy('deleted_at', 'asc')->get(),
+            'teams' => request()->user()->teams()->withTrashed()->withCount('members')->with('creator')->get(),
         ]);
     }
 
@@ -51,5 +52,12 @@ class TeamsController extends Controller
         ]);
 
         return redirect()->route('teams.show', $team)->with(['status' => 'Team updated successfully!']);
+    }
+
+    public function delete(Team $team): RedirectResponse
+    {
+        $team->delete();
+
+        return redirect()->route('teams.index')->with(['status' => 'Team deleted successfully!']);
     }
 }
