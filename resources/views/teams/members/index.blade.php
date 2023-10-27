@@ -37,7 +37,7 @@
                 <tr class="text-left">
                     <td class="w-20 py-6">
                         @if($creator->profile_picture)
-                            <img class="mx-auto object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset("storage/$creator->profile_picture") }}" alt="Bordered avatar">
+                            <img class="mx-auto object-cover w-10 h-10 rounded-full ring-2 ring-blue-500" src="{{ asset("storage/$creator->profile_picture") }}" alt="Bordered avatar">
                         @else
                             <div class="mx-auto p-1 ring-2 ring-blue-500 flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600">
                                 <span class="font-medium text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials($creator) }}</span>
@@ -69,7 +69,7 @@
 
     <div class="space-y-5">
         <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
-            <thead class="border-b-2 border-slate-700">
+            <thead class="">
                 <tr class="text-left">
                     <th class="w-20"></th>
                     <th class="py-6">
@@ -109,10 +109,10 @@
             </thead>
             <tbody>
                 @foreach($members as $member)
-                    <tr @if(!$loop->last)class="border-b-2 border-slate-700"@endif>
+                    <tr class="border-t-2 border-slate-700 @if(!$loop->last) border-b-2 @endif">
                         <td class="py-5">
                             @if($member->profile_picture)
-                                <img class="mx-auto object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset("storage/$member->profile_picture") }}" alt="Bordered avatar">
+                                <img class="mx-auto object-cover w-10 h-10 rounded-full ring-2 ring-blue-500" src="{{ asset("storage/$member->profile_picture") }}" alt="Bordered avatar">
                             @else
                                 <div class="mx-auto p-1 ring-2 ring-blue-500 flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600">
                                     <span class="font-medium text-gray-300">{{ \App\Services\ProfilePictureService::getProfilePictureInitials($member) }}</span>
@@ -152,7 +152,7 @@
 
     <div class="space-y-5">
         <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
-            <thead class="border-b-2 border-slate-700">
+            <thead class="">
             <tr class="text-left">
                 <th class="w-10 py-6"></th>
                 <th>
@@ -166,7 +166,7 @@
             </thead>
             <tbody>
             @foreach($invitations as $invitation)
-                <tr @if(!$loop->last)class="border-b-2 border-slate-700"@endif>
+                <tr class="border-t-2 border-slate-700 @if(!$loop->last) border-b-2 @endif">
                     <td class="py-5"></td>
                     <td class="py-5"><p>{{$invitation->email}}</p></td>
                     <td class="py-5"><p>{{$invitation->created_at}}</p></td>

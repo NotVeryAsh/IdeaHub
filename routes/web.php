@@ -10,7 +10,6 @@ use App\Http\Controllers\Teams\TeamInvitationsController;
 use App\Http\Controllers\Teams\TeamMembersController;
 use App\Http\Controllers\Teams\TeamsController;
 use App\Models\TeamInvitation;
-use App\Models\TeamUser;
 use Illuminate\Support\Facades\Route;
 
 /*

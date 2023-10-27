@@ -3,11 +3,8 @@
 namespace Tests\Feature\Teams;
 
 use App\Models\Team;
-use App\Models\TeamInvitation;
 use App\Models\TeamUser;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class RemoveTeamMemberTest extends TestCase
@@ -33,7 +30,7 @@ class RemoveTeamMemberTest extends TestCase
         $response = $this->delete("teams/{$team->id}/members/{$member->id}");
 
         $response->assertSessionHas([
-            'status' => 'Team member removed!'
+            'status' => 'Team member removed!',
         ]);
     }
 

@@ -22,11 +22,11 @@ class TeamMemberService
         // Search for users if a search term is provided
         if ($request->has('search_term')) {
             $query->where('name', 'like', "%{$searchTerm}%")
-            ->orWhere('email', 'like', "%{$searchTerm}%")
-            ->orWhere('username', 'like', "%{$searchTerm}%");
+                ->orWhere('email', 'like', "%{$searchTerm}%")
+                ->orWhere('username', 'like', "%{$searchTerm}%");
         }
 
-        switch ($orderBy){
+        switch ($orderBy) {
             case 'name':
                 $query->orderBy('first_name', $orderByDirection)
                     ->orderBy('last_name', $orderByDirection);

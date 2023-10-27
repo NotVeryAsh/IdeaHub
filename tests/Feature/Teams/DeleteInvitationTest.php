@@ -20,7 +20,7 @@ class DeleteInvitationTest extends TestCase
 
         $teamInvitation = TeamInvitation::factory()->create([
             'team_id' => $team->id,
-            'email' => 'test@test.com'
+            'email' => 'test@test.com',
         ]);
 
         // Authenticate as team creator
@@ -55,7 +55,7 @@ class DeleteInvitationTest extends TestCase
         // Create invitation for team
         $teamInvitation = TeamInvitation::factory()->create([
             'team_id' => $team->id,
-            'email' => 'test@test.com'
+            'email' => 'test@test.com',
         ]);
 
         // Authenticate as team member
@@ -74,7 +74,7 @@ class DeleteInvitationTest extends TestCase
 
         $teamInvitation = TeamInvitation::factory()->create([
             'team_id' => $team->id,
-            'email' => 'test@test.com'
+            'email' => 'test@test.com',
         ]);
 
         $response = $this->delete("/invitations/{$teamInvitation->id}");

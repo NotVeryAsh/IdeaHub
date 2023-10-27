@@ -41,7 +41,7 @@ class TeamMemberViewTest extends TestCase
 
         TeamInvitation::factory()->create([
             'team_id' => $team->id,
-            'email' => 'test@test.com'
+            'email' => 'test@test.com',
         ]);
 
         $this->actingAs($user)
@@ -54,7 +54,7 @@ class TeamMemberViewTest extends TestCase
         $user = User::factory()->create();
         $member = User::factory()->create([
             'first_name' => 'Ash',
-            'email' => 'test@test.com'
+            'email' => 'test@test.com',
         ]);
 
         $team = Team::factory()->create([

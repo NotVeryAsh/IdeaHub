@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $path
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Database\Factories\DefaultProfilePictureFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|DefaultProfilePicture newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|DefaultProfilePicture newQuery()
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|DefaultProfilePicture whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DefaultProfilePicture wherePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DefaultProfilePicture whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class DefaultProfilePicture extends Model
