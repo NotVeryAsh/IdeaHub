@@ -10,7 +10,6 @@ use App\Http\Controllers\Teams\TeamInvitationsController;
 use App\Http\Controllers\Teams\TeamMembersController;
 use App\Http\Controllers\Teams\TeamsController;
 use App\Models\TeamInvitation;
-use App\Models\TeamUser;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,6 +75,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::prefix('members')->group(function () {
                 Route::get('', [TeamMembersController::class, 'index'])->name('teams.members')->can('TeamUserGate.viewAny', ['team']);
+
+                Route::prefix('{member}')->group(function () {
+                    Route::delete('', [TeamMembersController::class, 'remove'])->name('teams.members.remove')->can('TeamUserGate.delete', ['team', 'member']);
+                });
             });
 
             // Team invitations routes

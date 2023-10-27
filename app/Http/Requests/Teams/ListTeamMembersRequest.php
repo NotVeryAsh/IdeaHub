@@ -35,14 +35,14 @@ class ListTeamMembersRequest extends FormRequest
                     'username',
                     'date_joined',
                 ]),
-                'nullable'
+                'nullable',
             ],
             'order_by_direction' => [
                 Rule::in([
                     'asc',
                     'desc',
                 ]),
-                'nullable'
+                'nullable',
             ],
         ];
     }
