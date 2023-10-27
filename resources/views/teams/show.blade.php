@@ -16,7 +16,6 @@
                 Invite
             </button>
 
-
             <div id="create-team-dropdown" class="right-0 z-10 @if(!$errors->has('email')) hidden @endif w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
                 <form action="/teams/{{ $team->id }}/invitations" method="post">
                     @csrf
@@ -30,6 +29,29 @@
                         <li>
                             <button class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
                                 Send Invitation
+                            </button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+
+            <button data-collapse-toggle="edit-team-dropdown" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
+                Edit
+            </button>
+            <div id="edit-team-dropdown" class="right-0 z-10 @if(!$errors->has('name')) hidden @endif w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
+                <form action="{{route('teams.update', $team)}}" method="post">
+                    @csrf
+                    @method('PATCH')
+                    <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700 space-y-3">
+                        <li>
+                            <input id="name" type="text" name="name" placeholder="Team Name" minlength="3" maxlength="50" required value="{{ $team->name }}" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('name')) border-red-400 @else border-gray-500 @endif">
+                            @if($errors->has('name'))
+                                <p class="mt-2 text-red-400">{{ $errors->first('name') }}</p>
+                            @endif
+                        </li>
+                        <li>
+                            <button class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
+                                Save
                             </button>
                         </li>
                     </ul>

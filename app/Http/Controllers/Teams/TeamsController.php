@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teams;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\StoreTeamRequest;
+use App\Http\Requests\Teams\UpdateTeamRequest;
 use App\Mail\Teams\TeamCreated;
 use App\Models\Team;
 use Illuminate\Http\RedirectResponse;
@@ -41,5 +42,14 @@ class TeamsController extends Controller
         Mail::to($user->email)->queue(new TeamCreated($user, $team));
 
         return redirect()->route('teams.show', $team)->with(['status' => 'Team created successfully!']);
+    }
+
+    public function update(UpdateTeamRequest $request, Team $team): RedirectResponse
+    {
+        $team->update([
+            'name' => $request->validated('name'),
+        ]);
+
+        return redirect()->route('teams.show', $team)->with(['status' => 'Team updated successfully!']);
     }
 }

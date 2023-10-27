@@ -72,6 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('{team}')->group(function () {
             Route::get('', [TeamsController::class, 'show'])->name('teams.show')->can('view', 'team');
+            Route::patch('', [TeamsController::class, 'update'])->name('teams.update')->can('update', 'team');
 
             Route::prefix('members')->group(function () {
                 Route::get('', [TeamMembersController::class, 'index'])->name('teams.members')->can('TeamUserGate.viewAny', ['team']);

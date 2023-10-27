@@ -19,4 +19,12 @@ class TeamPolicy
             Response::allow() :
             Response::denyWithStatus(404);
     }
+
+    public function update(User $user, Team $team): Response
+    {
+        // Check if user is the creator of the team
+        return $team->creator->is($user) ?
+            Response::allow() :
+            Response::denyWithStatus(404);
+    }
 }
