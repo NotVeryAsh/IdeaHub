@@ -67,4 +67,8 @@ class TeamsController extends Controller
 
         return redirect()->route('teams.index')->with(['status' => 'Team restored successfully!']);
     }
+
+    // TODO Add method to hard delete a team
+
+    // TODO Add method to allow users to leave a team
 }
