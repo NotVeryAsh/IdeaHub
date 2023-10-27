@@ -54,32 +54,49 @@
             @foreach($ownedTeams as $team)
                 <tr class="border-t-2 border-slate-700 @if(!$loop->last) border-b-2 @endif">
                     <td class="py-5"></td>
-                    <td class="py-5"><p>{{$team->name}}</p></td>
-                    <td class="py-5"><p>{{$team->members_count}} Members</p></td>
-                    <td class="py-5"><p>{{$team->creator->username}}</p></td>
-                    <td class="py-5">
-                        <form>
-                            <button onclick="">
-                                Copy Link <i class="pl-1 fa-solid fa-link"></i>
-                            </button>
-                        </form>
+                    <td class="py-5"><p>{{$team->name}} @if($team->trashed()) - <p class="text-red-500">Removed</p> @endif</p></td>
+                    @if($team->trashed())
+                        <td class="py-5"><p></p></td>
+                        <td class="py-5"><p></p></td>
+                        <td class="py-5"><p></p></td>
+                    @else
+                        <td class="py-5"><p>{{$team->members_count}} Members</p></td>
+                        <td class="py-5"><p>{{$team->creator->username}}</p></td>
+                        <td class="py-5">
+                            <form>
+                                <button onclick="">
+                                    Copy Link <i class="pl-1 fa-solid fa-link"></i>
+                                </button>
+                            </form>
+                        </td>
+                    @endif
                     <td class="py-5">
                         <button data-collapse-toggle="team-{{$team->id}}-collapsable">
                             <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
                         </button>
                         <div id="team-{{$team->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
                             <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
-                                @if($team->creator->is(Auth::user()))
-                                    <li>
-                                        <form action="{{route('teams.delete', $team)}}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
+                                @if($team->trashed())
+                                    {{--<li>
+                                        <form action="{{route('teams.restore', $team)}}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-green-500">
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-left w-full" aria-current="page">Delete</button>
+                                            @method('PATCH')
+                                            <button type="submit" class="text-left w-full" aria-current="page">Restore</button>
                                         </form>
-                                    </li>
-                                    <li>
-                                        <a href="{{route('teams.show', $team)}}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500" aria-current="page">View</a>
-                                    </li>
+                                    </li>--}}
+                                @else
+                                    @if($team->creator->is(Auth::user()))
+                                        <li>
+                                            <form action="{{route('teams.delete', $team)}}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-left w-full" aria-current="page">Delete</button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('teams.show', $team)}}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500" aria-current="page">View</a>
+                                        </li>
+                                    @endif
                                 @endif
                             </ul>
                         </div>

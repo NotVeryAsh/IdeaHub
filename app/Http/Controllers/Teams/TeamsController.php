@@ -17,7 +17,7 @@ class TeamsController extends Controller
     {
         // Get all teams - including soft deleted teams, with their creators and amount of members
         return view('teams.index', [
-            'ownedTeams' => request()->user()->ownedTeams()->withTrashed()->withCount('members')->with('creator')->get(),
+            'ownedTeams' => request()->user()->ownedTeams()->withTrashed()->withCount('members')->with('creator')->orderBy('deleted_at', 'asc')->get(),
             'teams' => request()->user()->teams()->withTrashed()->withCount('members')->with('creator')->get(),
         ]);
     }
