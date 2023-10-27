@@ -55,7 +55,7 @@
                 <tr class="border-t-2 border-slate-700 @if(!$loop->last) border-b-2 @endif">
                     <td class="py-5"></td>
                     <td class="py-5"><p>{{$team->name}}</p></td>
-                    <td class="py-5"><p>{{$team->members->count()}} Members</p></td>
+                    <td class="py-5"><p>{{$team->members_count}} Members</p></td>
                     <td class="py-5"><p>{{$team->creator->username}}</p></td>
                     <td class="py-5">
                         <form>
@@ -120,7 +120,7 @@
                 <tr class="border-t-2 border-slate-700 @if(!$loop->last) border-b-2 @endif">
                     <td class="py-5"></td>
                     <td class="py-5"><p>{{$team->name}}</p></td>
-                    <td class="py-5"><p>{{$team->members->count()}} Members</p></td>
+                    <td class="py-5"><p>{{$team->members_count}} Members</p></td>
                     <td class="py-5"><p>{{$team->creator->username}}</p></td>
                     <td class="py-5">
                         <form>
