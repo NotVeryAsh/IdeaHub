@@ -52,4 +52,11 @@ class TeamsController extends Controller
 
         return redirect()->route('teams.show', $team)->with(['status' => 'Team updated successfully!']);
     }
+
+    public function delete(Team $team): RedirectResponse
+    {
+        $team->delete();
+
+        return redirect()->route('teams.index')->with(['status' => 'Team deleted successfully!']);
+    }
 }
