@@ -60,4 +60,11 @@ class TeamsController extends Controller
 
         return redirect()->route('teams.index')->with(['status' => 'Team deleted successfully!']);
     }
+
+    public function restore(Team $team): RedirectResponse
+    {
+        $team->restore();
+
+        return redirect()->route('teams.index')->with(['status' => 'Team restored successfully!']);
+    }
 }
