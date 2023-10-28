@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Teams\TeamInvitationsController;
+use App\Http\Controllers\Teams\TeamLinksController;
 use App\Http\Controllers\Teams\TeamMembersController;
 use App\Http\Controllers\Teams\TeamsController;
 use App\Models\TeamInvitation;
+use App\Models\TeamLink;
 use Illuminate\Support\Facades\Route;
 
 // Team Routes
@@ -52,6 +54,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::post('', [TeamInvitationsController::class, 'store'])->name('invitations.store')->can(
                     'create',
                     [TeamInvitation::class, 'team']
+                );
+            });
+
+            // Team link routes
+            Route::prefix('links')->group(function () {
+                Route::post('', [TeamLinksController::class, 'store'])->name('links.store')->can(
+                    'create',
+                    [TeamLink::class, 'team']
                 );
             });
         });

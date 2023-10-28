@@ -5,8 +5,10 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gates;
 use App\Gates\TeamUserGate;
 use App\Models\TeamInvitation;
+use App\Models\TeamLink;
 use App\Models\User;
 use App\Policies\TeamInvitationPolicy;
+use App\Policies\TeamLinkPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use ReflectionClass;
@@ -20,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         TeamInvitation::class => TeamInvitationPolicy::class,
+        TeamLink::class => TeamLinkPolicy::class,
     ];
 
     protected array $gates = [
