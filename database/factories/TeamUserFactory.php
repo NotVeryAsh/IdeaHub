@@ -20,7 +20,7 @@ class TeamUserFactory extends Factory
     {
         return [
             'user_id' => User::query()->inRandomOrder()->first()->id,
-            'team_id' => Team::query()->inRandomOrder()->first()->id,
+            'team_id' => Team::query()->withTrashed()->inRandomOrder()->first()->id,
         ];
     }
 }
