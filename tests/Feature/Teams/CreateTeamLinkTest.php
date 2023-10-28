@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\TeamLink;
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class CreateTeamLinkTest extends TestCase
@@ -28,9 +29,13 @@ class CreateTeamLinkTest extends TestCase
         // Create a join link for the team
         $response = $this->post("/teams/{$team->id}/links");
 
-        // Check that user is redirected to team show page with a success message
-        $response->assertRedirectToRoute('teams.members', $team);
-        $response->assertSessionHas(['status' => 'Join link created!']);
+        $response->assertStatus(201);
+
+        $url = URL::to("/teams/1/join/{$team->link->token}");
+
+        $response->assertExactJson([
+            'url' => $url,
+        ]);
 
         $this->assertDatabaseHas('team_links', [
             'team_id' => $team->id,
