@@ -2,7 +2,7 @@
 @section('content')
     <h1 class="font-bold text-4xl text-center">Register</h1>
 
-    <form class="w-full max-w-xs mx-auto space-y-8" action="/auth/register?@if($invitation?->email)redirect={{$redirect}}@endif" method="post" id="recaptcha-protected-form" data-sitekey="{{ config('services.recaptcha.key') }}" data-action="register">
+    <form class="w-full max-w-xs mx-auto space-y-8" action="/auth/register" method="post" id="recaptcha-protected-form" data-sitekey="{{ config('services.recaptcha.key') }}" data-action="register">
         @csrf
 
         <div>

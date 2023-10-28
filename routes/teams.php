@@ -17,6 +17,12 @@ Route::prefix('invitations')->group(function () {
     });
 });
 
+Route::prefix('teams')->group(function () {
+    Route::prefix('join')->group(function () {
+        Route::get('{team_link:token}', [TeamLinksController::class, 'join'])->name('links.join');
+    });
+});
+
 // TODO - Add can() method to check if user is in team and if user is owner of team
 
 // Team routes

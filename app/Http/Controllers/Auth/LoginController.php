@@ -21,11 +21,9 @@ class LoginController extends Controller
     public function index(Request $request): RedirectResponse|Response
     {
         $invitation = TeamInvitation::query()->where('token', $request->get('token'))->first();
-        $redirect = $request->get('redirect');
 
         return response()->view('auth.login', [
             'invitation' => $invitation,
-            'redirect' => $redirect,
         ]);
     }
 

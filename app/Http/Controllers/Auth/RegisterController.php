@@ -25,11 +25,9 @@ class RegisterController extends Controller
     public function index(Request $request): Response
     {
         $invitation = TeamInvitation::query()->where('token', $request->get('token'))->first();
-        $redirect = $request->get('redirect');
 
         return response()->view('auth.register', [
             'invitation' => $invitation,
-            'redirect' => $redirect,
         ]);
     }
 
