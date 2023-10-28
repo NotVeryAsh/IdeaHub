@@ -29,7 +29,6 @@
         </div>
     </div>
     <h1 class="font-bold text-3xl text-center">Your Teams</h1>
-<!-- TODO Add a way to view teams you're in -->
 <!-- TODO Add a button to leave a team -->
     <div class="space-y-5">
         <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
@@ -77,6 +76,7 @@
                         </button>
                         <div id="team-{{$team->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
                             <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
+                                <!-- TODO Fix this -->
                                 @if($team->trashed())
                                     {{--<li>
                                         <form action="{{route('teams.restore', $team)}}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-green-500">

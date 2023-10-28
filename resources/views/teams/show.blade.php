@@ -1,10 +1,9 @@
 @extends('layouts.app')
 @section('content')
 
-    @if(Session::has('status'))
-        <p class="mt-2 text-xl text-center">{{ Session::get('status') }}</p>
-    @endif
+    <p id="status" class="mt-2 text-xl text-center">@if(Session::has('status')){{ Session::get('status') }}@endif</p>
 
+    <!-- TODO Change hardcoded url to use route() function -->
     <div class="flex items-center space-x-8 w-8/12 mx-auto relative">
         <a href="{{route('teams.members', $team)}}" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
             <button>
@@ -34,6 +33,15 @@
                     </ul>
                 </form>
             </div>
+
+            <!-- TODO Change button to submit form on click -->
+            <form action="{{route('links.store', $team)}}" method="post" class="axios-form ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
+                @csrf
+                @method('POST')
+                <button type="submit">
+                    Copy Link <i class="pl-1 fa-solid fa-link"></i>
+                </button>
+            </form>
 
             <button data-collapse-toggle="edit-team-dropdown" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
                 Edit

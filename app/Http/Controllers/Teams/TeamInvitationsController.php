@@ -31,6 +31,8 @@ class TeamInvitationsController extends Controller
             'expires_at' => $expiresAt,
         ]);
 
+        // TODO Delete old invitations if a new one is created for the same email - and make a test for this
+
         // Create a signed url for the team invitation which will expire after a week
         $url = URL::temporarySignedRoute('invitations.accept', $expiresAt, ['token' => $invitation->token]);
 
