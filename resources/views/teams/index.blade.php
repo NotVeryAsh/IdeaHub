@@ -29,7 +29,8 @@
         </div>
     </div>
     <h1 class="font-bold text-3xl text-center">Your Teams</h1>
-
+<!-- TODO Add a way to view teams you're in -->
+<!-- TODO Add a button to leave a team -->
     <div class="space-y-5">
         <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
             <thead class="">

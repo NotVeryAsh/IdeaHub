@@ -74,6 +74,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('', [TeamsController::class, 'show'])->name('teams.show')->can('view', 'team');
             Route::patch('', [TeamsController::class, 'update'])->name('teams.update')->can('update', 'team');
             Route::delete('', [TeamsController::class, 'delete'])->name('teams.delete')->can('delete', 'team');
+            Route::patch('restore', [TeamsController::class, 'restore'])->name('teams.restore')->can('restore', 'team')->withTrashed();
 
             Route::prefix('members')->group(function () {
                 Route::get('', [TeamMembersController::class, 'index'])->name('teams.members')->can('TeamUserGate.viewAny', ['team']);

@@ -20,6 +20,7 @@ class TeamFactory extends Factory
         return [
             'name' => $this->faker->company,
             'creator_id' => User::query()->inRandomOrder()->first()->id,
+            'deleted_at' => null,
         ];
     }
 }
