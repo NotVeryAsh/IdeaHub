@@ -34,14 +34,21 @@
                 </form>
             </div>
 
-            <!-- TODO Change button to submit form on click -->
-            <form action="{{route('links.store', $team)}}" method="post" class="axios-form ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
-                @csrf
-                @method('POST')
-                <button type="submit">
-                    Copy Link <i class="pl-1 fa-solid fa-link"></i>
-                </button>
-            </form>
+            @if($team->link && \Carbon\Carbon::parse($team->link->expires_at)->isFuture())
+                <form action="{{route('links.show', $team)}}" method="get" class="axios-form ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
+                    @csrf
+                    <button type="submit">
+                        Copy Link <i class="pl-1 fa-solid fa-link"></i>
+                    </button>
+                </form>
+            @else
+                <form id="create-team-link" action="{{route('links.store', $team)}}" method="post" class="axios-form ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
+                    @csrf
+                    <button type="submit">
+                        Copy Link <i class="pl-1 fa-solid fa-link"></i>
+                    </button>
+                </form>
+            @endif
 
             <button data-collapse-toggle="edit-team-dropdown" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
                 Edit

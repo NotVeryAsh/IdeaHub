@@ -27,7 +27,7 @@ class CreateTeamLinkTest extends TestCase
         ]);
 
         // Create a join link for the team
-        $response = $this->post("/teams/{$team->id}/links");
+        $response = $this->post("/teams/{$team->id}/link");
 
         $response->assertStatus(201);
 
@@ -35,6 +35,7 @@ class CreateTeamLinkTest extends TestCase
 
         $response->assertExactJson([
             'url' => $url,
+            'message' => 'Join link copied!',
         ]);
 
         $this->assertDatabaseHas('team_links', [
@@ -61,7 +62,7 @@ class CreateTeamLinkTest extends TestCase
         $link = TeamLink::factory()->create();
 
         // Create a join link for the team
-        $this->post("/teams/{$team->id}/links");
+        $this->post("/teams/{$team->id}/link");
 
         $this->assertDatabaseMissing('team_links', [
             'id' => $link->id,
@@ -79,7 +80,7 @@ class CreateTeamLinkTest extends TestCase
 
         $team = Team::factory()->create();
 
-        $response = $this->post("/teams/{$team->id}/links");
+        $response = $this->post("/teams/{$team->id}/link");
 
         $response->assertStatus(302);
         $response->assertRedirect('/login');
@@ -97,10 +98,23 @@ class CreateTeamLinkTest extends TestCase
         $this->actingAs($user);
 
         // Create a team for the creator
-        $team = Team::factory()->create();
+        $team = Team::factory()->create([
+            'creator_id' => $creator->id,
+        ]);
 
         // Attempt to create a link for the team which the user does not have permission for
-        $response = $this->post("/teams/{$team->id}/links");
+        $response = $this->post("/teams/{$team->id}/link");
+
+        $response->assertStatus(404);
+    }
+
+    public function test_404_is_returned_if_team_does_not_exist()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $response = $this->post('/teams/1/link');
 
         $response->assertStatus(404);
     }
