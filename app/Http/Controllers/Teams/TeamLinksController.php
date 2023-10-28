@@ -30,6 +30,22 @@ class TeamLinksController extends Controller
         $url = "http://localhost/teams/1/join/$link->token";
 
         // Return the url in a json response
-        return response()->json(['url' => $url], 201);
+        return response()->json([
+            'url' => $url,
+            'message' => 'Join link copied!',
+        ], 201);
+    }
+
+    public function show(Team $team): JsonResponse
+    {
+        $link = $team->link;
+
+        $url = "http://localhost/teams/1/join/$link->token";
+
+        // Return the url in a json response
+        return response()->json([
+            'url' => $url,
+            'message' => 'Join link copied!',
+        ]);
     }
 }

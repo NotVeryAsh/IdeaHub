@@ -26,11 +26,14 @@ $('.axios-form').click(function (event) {
         }
     }).then(function (response) {
         // Get the url from the response
-        url = response.data.url;
+        let url = response.data.url;
+        let message = response.data.message;
 
         // Copy url to user's clipboard
         navigator.clipboard.writeText(url).then(function() {
-            $('#status').text('Join link copied!');
+            $('#status').text(message);
         });
+
+        $('#create-team-link').attr('method', 'get');
     });
 });

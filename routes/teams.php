@@ -58,9 +58,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
 
             // Team link routes
-            Route::prefix('links')->group(function () {
+            Route::prefix('link')->group(function () {
                 Route::post('', [TeamLinksController::class, 'store'])->name('links.store')->can(
                     'create',
+                    [TeamLink::class, 'team']
+                );
+                Route::get('', [TeamLinksController::class, 'show'])->name('links.show')->can(
+                    'view',
                     [TeamLink::class, 'team']
                 );
             });
