@@ -62,10 +62,8 @@ class TeamLinksController extends Controller
             'expires_at' => $expiresAt,
         ]);
 
-        // Generate a url with the link's token and the team eg. localhost:8000/teams/1/join/$link->token
-        // TODO Update this url
-        //$url = route('links.join', [$team, $link->token]);
-        $url = "http://localhost/teams/1/join/$link->token";
+        // Generate a url for the team link
+        $url = route('links.join', $link->token);
 
         // Return the url in a json response
         return response()->json([
@@ -78,7 +76,7 @@ class TeamLinksController extends Controller
     {
         $link = $team->link;
 
-        $url = "http://localhost/teams/1/join/$link->token";
+        $url = route('links.join', $link->token);
 
         // Return the url in a json response
         return response()->json([
