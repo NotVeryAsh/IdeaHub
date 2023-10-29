@@ -1,5 +1,14 @@
 $('.axios-form').click(function (event) {
 
+    // Find submit button and disable it
+    let submitButton = $(this).find('button[type="submit"]');
+
+    // Get text of submit button
+    let text = submitButton.text();
+
+    // Set button ti disabled while the request is loading
+    setDisabled(submitButton);
+
     // Prevent the form from submitting
     event.preventDefault();
 
@@ -35,5 +44,21 @@ $('.axios-form').click(function (event) {
         });
 
         $('#create-team-link').attr('method', 'get');
+
+        setNotDisabled($('#copy-link-button'), 'Copy Link <i class="pl-1 fa-solid fa-link"></i>');
     });
 });
+
+function setDisabled(element)
+{
+    element.prop('disabled', true);
+    element.html('<i class="fa-solid fa-spinner fa-spin"></i> Loading...');
+    element.addClass('cursor-not-allowed');
+}
+
+function setNotDisabled(element, text)
+{console.log(text);
+    element.prop('disabled', false);
+    element.removeClass('cursor-not-allowed');
+    element.html(text);
+}

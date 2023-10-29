@@ -5,13 +5,19 @@
         <p class="mt-2 text-xl text-center">{{ Session::get('status') }}</p>
     @endif
 
-    @if($team->creator->is(Auth::user()))
-        <div class="flex items-center space-x-8 space-y-20 w-8/12 mx-auto relative">
+    <div class="flex items-center space-x-8 w-8/12 mx-auto relative">
+        <a href="{{route('teams.show', $team)}}" class="mr-auto py-2 px-4 rounded focus:outline-none">
+            <button>
+                <i class="fa-solid fa-arrow-left"></i> Back to team
+            </button>
+        </a>
+        @if($team->creator->is(Auth::user()))
             <button data-collapse-toggle="create-team-dropdown" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
                 Invite
             </button>
+
             <div id="create-team-dropdown" class="right-0 z-10 @if(!$errors->has('email')) hidden @endif w-7/12 lg:w-5/12 xl:w-4/12 absolute mt-20 flex-column justify-content-center align-items-center">
-                <form action="{{route('invitations.store', $team)}}" method="post">
+                <form action="/teams/{{ $team->id }}/invitations" method="post">
                     @csrf
                     <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700 space-y-3">
                         <li>
@@ -28,8 +34,8 @@
                     </ul>
                 </form>
             </div>
-        </div>
-    @endif
+        @endif
+    </div>
     <h1 class="font-bold text-3xl text-center">Creator</h1>
     <div class="space-y-5">
         <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">

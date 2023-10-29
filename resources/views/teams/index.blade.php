@@ -63,14 +63,14 @@
                             @if($team->link && \Carbon\Carbon::parse($team->link->expires_at)->isFuture())
                                 <form action="{{route('links.show', $team)}}" method="get" class="axios-form">
                                     @csrf
-                                    <button type="submit">
+                                    <button type="submit" id="copy-link-button">
                                         Copy Link <i class="pl-1 fa-solid fa-link"></i>
                                     </button>
                                 </form>
                             @else
                                 <form id="create-team-link" action="{{route('links.store', $team)}}" method="post" class="axios-form">
                                     @csrf
-                                    <button type="submit">
+                                    <button type="submit" id="copy-link-button">
                                         Copy Link <i class="pl-1 fa-solid fa-link"></i>
                                     </button>
                                 </form>

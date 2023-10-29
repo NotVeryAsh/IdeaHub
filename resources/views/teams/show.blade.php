@@ -4,6 +4,11 @@
     <p id="status" class="mt-2 text-xl text-center">@if(Session::has('status')){{ Session::get('status') }}@endif</p>
 
     <div class="flex items-center space-x-8 w-8/12 mx-auto relative">
+        <a href="{{route('teams.index')}}" class="mr-auto py-2 px-4 rounded focus:outline-none">
+            <button>
+                <i class="fa-solid fa-arrow-left"></i> Back to teams
+            </button>
+        </a>
         <a href="{{route('teams.members', $team)}}" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
             <button>
                     Members
@@ -36,14 +41,14 @@
             @if($team->link && \Carbon\Carbon::parse($team->link->expires_at)->isFuture())
                 <form action="{{route('links.show', $team)}}" method="get" class="axios-form">
                     @csrf
-                    <button type="submit" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
+                    <button type="submit" id="copy-link-button" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none disabled:opacity-75">
                         Copy Link <i class="pl-1 fa-solid fa-link"></i>
                     </button>
                 </form>
             @else
                 <form id="create-team-link" action="{{route('links.store', $team)}}" method="post" class="axios-form">
                     @csrf
-                    <button type="submit" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
+                    <button type="submit" id="copy-link-button" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none disabled:opacity-75">
                         Copy Link <i class="pl-1 fa-solid fa-link"></i>
                     </button>
                 </form>
