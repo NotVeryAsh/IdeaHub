@@ -44,7 +44,7 @@ class CreateInvitationTest extends TestCase
         $this->assertDatabaseHas('team_invitations', [
             'team_id' => $team->id,
             'email' => 'test2@test.com',
-            'expires_at' => now()->addWeek(),
+            'expires_at' => now()->addWeek()->format('Y-m-d H:i:s'),
         ]);
     }
 

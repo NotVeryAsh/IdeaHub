@@ -48,6 +48,41 @@ class AcceptInvitationTest extends TestCase
         $response->assertSessionHas('status', "You have joined the $team->name team!");
     }
 
+    public function test_accepting_invitation_with_unverified_email_redirects_to_verify_email_page()
+    {
+        // Create team creator
+        $user = User::factory()->create([
+            'email' => 'test@test.com',
+        ]);
+
+        // Create team to invite user to
+        $team = Team::factory()->create([
+            'creator_id' => $user->id,
+        ]);
+
+        // Create user to invite
+        $userTwo = User::factory()->unverified()->create([
+            'email' => 'test2@test.com',
+        ]);
+
+        // Create invitation for user two
+        $teamInvitation = TeamInvitation::factory()->create([
+            'team_id' => $team->id,
+            'email' => $userTwo->email,
+        ]);
+
+        // Create a signed url for the invitation
+        $url = URL::temporarySignedRoute('invitations.accept', $teamInvitation->expires_at, ['token' => $teamInvitation->token]);
+
+        // Authenticate as user two
+        $this->actingAs($userTwo);
+
+        // Accept invitation
+        $response = $this->get($url);
+
+        $response->assertRedirect('/auth/verify-email');
+    }
+
     public function test_accept_invitation_redirects_to_login_page_if_email_already_exists_when_not_authenticated()
     {
         $user = User::factory()->create([
@@ -149,25 +184,22 @@ class AcceptInvitationTest extends TestCase
             'email' => 'test2@test.com',
         ]);
 
-        // Create another user to attempt to accept the invitation
-        $userThree = User::factory()->create([
-            'email' => 'test3@test.com',
-        ]);
-
-        // Accept the invitation as user three
-        $this->actingAs($userThree);
-
-        // Create an expired invitation
+        // Create an invitation for the second user
         $teamInvitation = TeamInvitation::factory()->create([
             'team_id' => $team->id,
             'email' => $userTwo->email,
-            'expires_at' => now()->subDay(),
         ]);
 
         // Create a signed url for the invitation
         $url = URL::temporarySignedRoute('invitations.accept', $teamInvitation->expires_at, ['token' => $teamInvitation->token]);
 
-        // Accept invitation
+        // Create another user to attempt to accept the invitation
+        $userThree = User::factory()->create([
+            'email' => 'test3@test.com',
+        ]);
+
+        // Attempt to accept the invitation as the wrong user
+        $this->actingAs($userThree);
         $response = $this->get($url);
 
         $response->assertViewIs('invitations.invalid');

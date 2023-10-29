@@ -59,9 +59,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             // Team invitations routes
             Route::prefix('invitations')->group(function () {
-                Route::get('', [TeamInvitationsController::class, 'index'])->name('invitations.index')->can(
-                    'viewAny',
-                    [TeamInvitation::class, 'team']);
                 Route::post('', [TeamInvitationsController::class, 'store'])->name('invitations.store')->can(
                     'create',
                     [TeamInvitation::class, 'team']

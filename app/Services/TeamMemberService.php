@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\Teams\ListTeamMembersRequest;
 use App\Models\Team;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class TeamMemberService
 {
@@ -21,7 +22,8 @@ class TeamMemberService
 
         // Search for users if a search term is provided
         if ($request->has('search_term')) {
-            $query->where('name', 'like', "%{$searchTerm}%")
+
+            $query->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', "%{$searchTerm}%")
                 ->orWhere('email', 'like', "%{$searchTerm}%")
                 ->orWhere('username', 'like', "%{$searchTerm}%");
         }

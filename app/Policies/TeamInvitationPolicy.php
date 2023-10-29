@@ -9,14 +9,6 @@ use Illuminate\Auth\Access\Response;
 
 class TeamInvitationPolicy
 {
-    public static function viewAny(User $user, Team $team): Response
-    {
-        // Check if user is the creator of the team of in the team
-        return $user->is($team->creator) || $team->members->contains($user) ?
-            Response::allow() :
-            Response::denyWithStatus(404);
-    }
-
     public function create(User $user, Team $team): Response
     {
         // Check if user is the creator of the team
