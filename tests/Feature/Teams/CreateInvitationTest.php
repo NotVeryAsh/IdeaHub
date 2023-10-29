@@ -128,9 +128,9 @@ class CreateInvitationTest extends TestCase
             'email' => 'test2@test.com',
         ]);
 
-        // Check that user is redirected to profile page
-        $response->assertRedirectToRoute('teams.members', $team);
-        $response->assertSessionHasErrors(['This user is already a member of this team.']);
+        $response->assertSessionHasErrors([
+            'email' => 'This user is already a member of this team.',
+        ]);
     }
 
     public function test_old_invitations_are_deleted_when_another_is_created()

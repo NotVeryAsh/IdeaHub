@@ -72,7 +72,7 @@ class ManageTeamsViewTest extends TestCase
         // Make the first user join the third team
         TeamUser::factory()->create([
             'team_id' => $teamThree->id,
-            'user_id' => $userThree->id,
+            'user_id' => $user->id,
         ]);
 
         // Get the teams for the first user
