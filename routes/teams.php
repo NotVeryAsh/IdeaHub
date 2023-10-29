@@ -19,11 +19,9 @@ Route::prefix('invitations')->group(function () {
 
 Route::prefix('teams')->group(function () {
     Route::prefix('join')->group(function () {
-        Route::get('{team_link:token}', [TeamLinksController::class, 'join'])->name('links.join');
+        Route::get('{token}', [TeamLinksController::class, 'join'])->name('links.join');
     });
 });
-
-// TODO - Add can() method to check if user is in team and if user is owner of team
 
 // Team routes
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -34,11 +32,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('{team}')->group(function () {
             Route::get('', [TeamsController::class, 'show'])->name('teams.show')->can('view', 'team');
             Route::patch('', [TeamsController::class, 'update'])->name('teams.update')->can('update', 'team');
-            Route::delete('', [TeamsController::class, 'delete'])->name('teams.delete')->can('delete', 'team');
+            Route::delete('', [TeamsController::class, 'delete'])->name('teams.delete')->can('delete', 'team')->withTrashed();
             Route::patch('restore', [TeamsController::class, 'restore'])->name('teams.restore')->can(
                 'restore',
                 'team'
             )->withTrashed();
+
+            Route::delete('leave', [TeamMembersController::class, 'leave'])->name('teams.leave')->can(
+                'TeamUserGate.leave',
+                ['team', 'member']
+            );
 
             Route::prefix('members')->group(function () {
                 Route::get('', [TeamMembersController::class, 'index'])->name('teams.members')->can(
@@ -56,7 +59,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             // Team invitations routes
             Route::prefix('invitations')->group(function () {
-                Route::get('', [TeamInvitationsController::class, 'index'])->name('invitations.index');
+                Route::get('', [TeamInvitationsController::class, 'index'])->name('invitations.index')->can(
+                    'viewAny',
+                    [TeamInvitation::class, 'team']);
                 Route::post('', [TeamInvitationsController::class, 'store'])->name('invitations.store')->can(
                     'create',
                     [TeamInvitation::class, 'team']

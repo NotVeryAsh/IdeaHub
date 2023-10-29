@@ -43,13 +43,13 @@ class TeamCreated extends Mailable
      * Get the message content definition.
      */
     public function content(): Content
-    { // TODO Change members page url
+    {
         return new Content(
             markdown: 'emails.teams.created',
             with: [
                 'user' => $this->user,
                 'team' => $this->team,
-                'membersPageURL' => /*route('teams.members', $this->team)*/ config('app.url')."/teams/{$this->team->id}/members",
+                'membersPageURL' => route('teams.members', $this->team),
             ],
         );
     }

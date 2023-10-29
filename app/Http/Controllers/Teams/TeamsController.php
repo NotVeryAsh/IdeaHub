@@ -7,7 +7,11 @@ use App\Http\Requests\Teams\StoreTeamRequest;
 use App\Http\Requests\Teams\UpdateTeamRequest;
 use App\Mail\Teams\TeamCreated;
 use App\Models\Team;
+use App\Models\TeamInvitation;
+use App\Models\TeamLink;
+use App\Models\TeamUser;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
@@ -56,7 +60,23 @@ class TeamsController extends Controller
 
     public function delete(Team $team): RedirectResponse
     {
-        $team->delete();
+        DB::transaction(function () use ($team) {
+
+            // Remove links and invitations for team
+            TeamLink::query()->where('team_id', $team->id)->delete();
+            TeamInvitation::query()->where('team_id', $team->id)->delete();
+
+            // If we are hard deleting the team, remove all of its data
+            if ($team->trashed()) {
+
+                TeamUser::query()->where('team_id', $team->id)->delete();
+                $team->forceDelete();
+
+                return;
+            }
+
+            $team->delete();
+        });
 
         return redirect()->route('teams.index')->with(['status' => 'Team deleted successfully!']);
     }
@@ -67,8 +87,4 @@ class TeamsController extends Controller
 
         return redirect()->route('teams.index')->with(['status' => 'Team restored successfully!']);
     }
-
-    // TODO Add method to hard delete a team
-
-    // TODO Add method to allow users to leave a team
 }

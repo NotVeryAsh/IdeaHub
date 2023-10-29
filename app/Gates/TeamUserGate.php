@@ -5,14 +5,13 @@ namespace App\Gates;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
-use Illuminate\Support\Facades\Auth;
 
 class TeamUserGate
 {
     public static function viewAny(User $user, Team $team): Response
     {
-        // Check if user is the creator of the team
-        return $user->is($team->creator) || $team->members->contains(Auth::user()) ?
+        // Check if user is the creator of the team of in the team
+        return $user->is($team->creator) || $team->members->contains($user) ?
             Response::allow() :
             Response::denyWithStatus(404);
     }
@@ -24,6 +23,16 @@ class TeamUserGate
 
         // Check if user is the creator of the team
         return $memberInTeam && $userIsCreator ?
+            Response::allow() :
+            Response::denyWithStatus(404);
+    }
+
+    public static function leave(User $user, Team $team): Response
+    {
+        // Check if user is a member of the team
+        $canAccess = $team->members->contains($user);
+
+        return $canAccess ?
             Response::allow() :
             Response::denyWithStatus(404);
     }

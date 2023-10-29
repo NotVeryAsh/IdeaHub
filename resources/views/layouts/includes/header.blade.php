@@ -20,7 +20,7 @@
                         <a href="{{ route('dashboard') }}" class="block py-3 pl-3 pr-4 rounded md:border-0 md:p-0 hover:text-blue-500 hover:bg-gray-700 md:hover:bg-transparent @if(request()->routeIs('dashboard')) text-blue-500 @endif">Dashboard</a>
                     </li>
                     <li>
-                        <a href="#" class="block py-3 pl-3 pr-4 rounded md:border-0 md:p-0 hover:text-blue-500 hover:bg-gray-700 md:hover:bg-transparent @if(request()->routeIs('docs')) text-blue-500 @endif">Docs</a>
+                        <a href="{{ route('docs.architecture.http-verbs') }}" class="block py-3 pl-3 pr-4 rounded md:border-0 md:p-0 hover:text-blue-500 hover:bg-gray-700 md:hover:bg-transparent @if(request()->routeIs('docs')) text-blue-500 @endif">Docs</a>
                     </li>
                 </ul>
             </div>

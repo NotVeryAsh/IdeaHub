@@ -1,9 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-    @if(Session::has('status'))
-        <p class="mt-2 text-xl text-center">{{ Session::get('status') }}</p>
-    @endif
+    <p id="status" class="mt-2 text-xl text-center">@if(Session::has('status')){{ Session::get('status') }}@endif</p>
 
     <div class="flex items-center space-x-8 space-y-20 w-8/12 mx-auto relative">
         <button data-collapse-toggle="create-team-dropdown" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none" type="submit">
@@ -29,7 +27,6 @@
         </div>
     </div>
     <h1 class="font-bold text-3xl text-center">Your Teams</h1>
-<!-- TODO Add a button to leave a team -->
     <div class="space-y-5">
         <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
             <thead class="">
@@ -63,11 +60,21 @@
                         <td class="py-5"><p>{{$team->members_count}} Members</p></td>
                         <td class="py-5"><p>{{$team->creator->username}}</p></td>
                         <td class="py-5">
-                            <form>
-                                <button onclick="">
-                                    Copy Link <i class="pl-1 fa-solid fa-link"></i>
-                                </button>
-                            </form>
+                            @if($team->link && \Carbon\Carbon::parse($team->link->expires_at)->isFuture())
+                                <form action="{{route('links.show', $team)}}" method="get" class="axios-form">
+                                    @csrf
+                                    <button type="submit">
+                                        Copy Link <i class="pl-1 fa-solid fa-link"></i>
+                                    </button>
+                                </form>
+                            @else
+                                <form id="create-team-link" action="{{route('links.store', $team)}}" method="post" class="axios-form">
+                                    @csrf
+                                    <button type="submit">
+                                        Copy Link <i class="pl-1 fa-solid fa-link"></i>
+                                    </button>
+                                </form>
+                            @endif
                         </td>
                     @endif
                     <td class="py-5">
@@ -76,22 +83,28 @@
                         </button>
                         <div id="team-{{$team->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
                             <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
-                                <!-- TODO Fix this -->
                                 @if($team->trashed())
-                                    {{--<li>
-                                        <form action="{{route('teams.restore', $team)}}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-green-500">
+                                    <li>
+                                        <form action="{{route('teams.restore', $team)}}" method="POST">
                                             @csrf
                                             @method('PATCH')
-                                            <button type="submit" class="text-left w-full" aria-current="page">Restore</button>
+                                            <button type="submit" class="text-left w-full block py-3 pl-3 pr-4 rounded hover:bg-gray-700" aria-current="page">Restore</button>
                                         </form>
-                                    </li>--}}
+                                    </li>
+                                    <li>
+                                        <form action="{{route('teams.delete', $team)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-left w-full block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500" aria-current="page">Permanently Delete</button>
+                                        </form>
+                                    </li>
                                 @else
                                     @if($team->creator->is(Auth::user()))
                                         <li>
-                                            <form action="{{route('teams.delete', $team)}}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
+                                            <form action="{{route('teams.delete', $team)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-left w-full" aria-current="page">Delete</button>
+                                                <button type="submit" class="text-left w-full block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500" aria-current="page">Delete</button>
                                             </form>
                                         </li>
                                         <li>
@@ -112,7 +125,6 @@
 
     <h1 class="font-bold text-3xl text-center">Teams You're In</h1>
 
-
     <div class="space-y-5">
         <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
             <thead class="">
@@ -127,9 +139,6 @@
                 <th class="py-6">
                     Creator
                 </th>
-                <th class="py-6">
-
-                </th>
                 <th class="w-10"></th>
             </tr>
             </thead>
@@ -141,12 +150,6 @@
                     <td class="py-5"><p>{{$team->members_count}} Members</p></td>
                     <td class="py-5"><p>{{$team->creator->username}}</p></td>
                     <td class="py-5">
-                        <form>
-                            <button onclick="">
-                                Copy Link <i class="pl-1 fa-solid fa-link"></i>
-                            </button>
-                        </form>
-                    <td class="py-5">
                         <button data-collapse-toggle="team-{{$team->id}}-collapsable">
                             <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
                         </button>
@@ -154,6 +157,13 @@
                             <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
                                 <li>
                                     <a href="{{route('teams.show', $team)}}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500" aria-current="page">View</a>
+                                </li>
+                                <li>
+                                    <form action="{{route('teams.leave', $team)}}" method="POST" class="">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-left w-full block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500" aria-current="page">Leave</button>
+                                    </form>
                                 </li>
                             </ul>
                         </div>

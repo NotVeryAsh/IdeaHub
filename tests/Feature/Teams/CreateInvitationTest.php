@@ -102,28 +102,82 @@ class CreateInvitationTest extends TestCase
 
     public function test_cannot_invite_existing_team_member_when_creating_invitations()
     {
-
-        // TODO Make this function factor in teams that user is part of but not creator of
-
-        Mail::fake();
-
+        // Create a user
         $user = User::factory()->create([
             'email' => 'test@test.com',
         ]);
 
-        $this->actingAs($user);
-
+        // Create a team for the user
         $team = Team::factory()->create([
             'creator_id' => $user->id,
         ]);
 
+        // Create a member for the team
+        $member = User::factory()->create([
+            'email' => 'test2@test.com',
+        ]);
+
+        // Add the member to the team
+        $team->members()->attach($member);
+
+        // Authenticate as the team creator
+        $this->actingAs($user);
+
+        // Attempt to invite already existing member
         $response = $this->post("/teams/{$team->id}/invitations", [
             'email' => 'test2@test.com',
         ]);
 
         // Check that user is redirected to profile page
         $response->assertRedirectToRoute('teams.members', $team);
+        $response->assertSessionHasErrors(['This user is already a member of this team.']);
+    }
+
+    public function test_old_invitations_are_deleted_when_another_is_created()
+    {
+        Mail::fake();
+
+        // Fake carbon time so we can compare the expiration date
+        Carbon::setTestNow();
+
+        // Create the creator of the team
+        $user = User::factory()->create([
+            'email' => 'test@test.com',
+        ]);
+
+        $this->actingAs($user);
+
+        // Create team for the invitation
+        $team = Team::factory()->create([
+            'creator_id' => $user->id,
+        ]);
+
+        // Create an invitation
+        $invitation = TeamInvitation::factory()->create([
+            'team_id' => $team->id,
+            'email' => 'test2@test.com',
+        ]);
+
+        // Send the new invitation
+        $response = $this->post("/teams/{$team->id}/invitations", [
+            'email' => 'test2@test.com',
+        ]);
+
+        // Check that user is redirected to team show page with a success message
+        $response->assertRedirectToRoute('teams.members', $team);
         $response->assertSessionHas(['status' => 'Invitation sent!']);
+
+        // Assert an invitation was created
+        $this->assertDatabaseHas('team_invitations', [
+            'team_id' => $team->id,
+            'email' => 'test2@test.com',
+            'expires_at' => now()->addWeek(),
+        ]);
+
+        // Asset the old invitation was deleted
+        $this->assertDatabaseMissing('team_invitations', [
+            'id' => $invitation->id,
+        ]);
     }
 
     public function test_cannot_invite_self_when_creating_invitations()

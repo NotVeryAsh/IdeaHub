@@ -24,14 +24,15 @@ class TeamInvitationsController extends Controller
         $recipient = $request->validated('email');
         $expiresAt = now()->addWeek();
 
+        // Delete old invitations for this email
+        TeamInvitation::query()->where('email', $recipient)->delete();
+
         $invitation = TeamInvitation::query()->create([
             'token' => Str::random(32),
             'team_id' => $team->id,
             'email' => $recipient,
             'expires_at' => $expiresAt,
         ]);
-
-        // TODO Delete old invitations if a new one is created for the same email - and make a test for this
 
         // Create a signed url for the team invitation which will expire after a week
         $url = URL::temporarySignedRoute('invitations.accept', $expiresAt, ['token' => $invitation->token]);

@@ -35,6 +35,29 @@ class DeleteTeamTest extends TestCase
         $response->assertSessionHas(['status' => 'Team deleted successfully!']);
     }
 
+    public function test_team_is_hard_deleted_when_team_is_trashed()
+    {
+        $user = User::factory()->create();
+
+        $team = Team::factory()->create([
+            'deleted_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        // Authenticate as team creator
+        $this->actingAs($user);
+
+        $response = $this->delete("/teams/{$team->id}");
+
+        // Check that model is deleted now
+        $this->assertDatabaseMissing('teams', [
+            'id' => $team->id,
+        ]);
+
+        $response->assertRedirectToRoute('teams.index');
+
+        $response->assertSessionHas(['status' => 'Team deleted successfully!']);
+    }
+
     public function test_team_can_only_be_deleted_by_team_creator()
     {
         // Create creator of the team

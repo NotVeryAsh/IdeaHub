@@ -35,16 +35,16 @@
             </div>
 
             @if($team->link && \Carbon\Carbon::parse($team->link->expires_at)->isFuture())
-                <form action="{{route('links.show', $team)}}" method="get" class="axios-form ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
+                <form action="{{route('links.show', $team)}}" method="get" class="axios-form">
                     @csrf
-                    <button type="submit">
+                    <button type="submit" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
                         Copy Link <i class="pl-1 fa-solid fa-link"></i>
                     </button>
                 </form>
             @else
-                <form id="create-team-link" action="{{route('links.store', $team)}}" method="post" class="axios-form ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
+                <form id="create-team-link" action="{{route('links.store', $team)}}" method="post" class="axios-form">
                     @csrf
-                    <button type="submit">
+                    <button type="submit" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
                         Copy Link <i class="pl-1 fa-solid fa-link"></i>
                     </button>
                 </form>
@@ -72,6 +72,14 @@
                     </ul>
                 </form>
             </div>
+        @elseif(Auth::user())
+            <form action="{{route('teams.leave', $team)}}" method="post" class="ml-auto bg-red-400 hover:bg-red-500 font-bold py-2 px-4 rounded focus:outline-none">
+                @csrf
+                @method('DELETE')
+                <button type="submit">
+                    Leave
+                </button>
+            </form>
         @endif
     </div>
 

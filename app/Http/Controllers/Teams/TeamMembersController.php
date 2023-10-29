@@ -34,4 +34,15 @@ class TeamMembersController extends Controller
         // Redirect back to the team page with a success message
         return redirect()->route('teams.members', $team)->with(['status' => 'Team member removed!']);
     }
+
+    public function leave(Team $team): RedirectResponse
+    {
+        $user = request()->user();
+
+        // Remove the authenticated user from the team
+        $team->members()->detach($user);
+
+        // Redirect back to the team page with a success message
+        return redirect()->route('teams.index', $team)->with(['status' => 'You have left the team!']);
+    }
 }

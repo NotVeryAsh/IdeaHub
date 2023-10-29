@@ -14,8 +14,12 @@ use Illuminate\Support\Str;
 
 class TeamLinksController extends Controller
 {
-    public function join(Request $request, TeamLink $teamLink)
+    public function join(Request $request, $token)
     {
+        if (! $teamLink = TeamLink::query()->where('token', $token)->first()) {
+            return view('links.invalid');
+        }
+
         if (Carbon::parse($teamLink->expires_at)->isPast()) {
             return view('links.invalid');
         }

@@ -31,7 +31,7 @@ class CreateTeamLinkTest extends TestCase
 
         $response->assertStatus(201);
 
-        $url = URL::to("/teams/1/join/{$team->link->token}");
+        $url = URL::to("/teams/join/{$team->link->token}");
 
         $response->assertExactJson([
             'url' => $url,

@@ -5,6 +5,7 @@ namespace Teams;
 use App\Models\Team;
 use App\Models\TeamLink;
 use App\Models\User;
+use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class GetTeamLinkTest extends TestCase
@@ -23,9 +24,8 @@ class GetTeamLinkTest extends TestCase
 
         $response->assertStatus(200);
 
-        // TODO Change this
         $response->assertJson([
-            'url' => "http://localhost/teams/1/join/$teamLink->token",
+            'url' => URL::to("teams/join/$teamLink->token"),
             'message' => 'Join link copied!',
         ]);
     }
