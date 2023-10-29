@@ -35,7 +35,7 @@
         <table class="table-fixed ring-2 ring-slate-700 py-4 rounded-lg w-8/12 mx-auto">
             <tbody>
                 <tr class="text-left">
-                    <td class="w-20 py-6">
+                    <td class="clickable cursor-pointer w-20 py-6" data-target-url="{{route('profile', $creator->username)}}">
                         @if($creator->profile_picture)
                             <img class="mx-auto object-cover w-10 h-10 rounded-full ring-2 ring-blue-500" src="{{ asset("storage/$creator->profile_picture") }}" alt="Bordered avatar">
                         @else
@@ -44,15 +44,15 @@
                             </div>
                         @endif
                     </td>
-                    <td class="py-6"><p>{{$creator->first_name}} {{$creator->last_name}}</p></td>
-                    <td class="py-6"><p>{{$creator->username}}</p></td>
-                    <td class="py-6"><p>{{$creator->email}}</p></td>
-                    <td class="py-6"><p>{{$team->created_at}}</p></td>
-                    <td class="w-10">
+                    <td class="py-6 clickable cursor-pointer" data-target-url="{{route('profile', $creator->username)}}"><p>{{$creator->first_name}} {{$creator->last_name}}</p></td>
+                    <td class="py-6 clickable cursor-pointer" data-target-url="{{route('profile', $creator->username)}}"><p>{{$creator->username}}</p></td>
+                    <td class="py-6 clickable cursor-pointer" data-target-url="{{route('profile', $creator->username)}}"><p>{{$creator->email}}</p></td>
+                    <td class="py-6 clickable cursor-pointer" data-target-url="{{route('profile', $creator->username)}}"><p>{{$team->created_at}}</p></td>
+                    <td class="w-14 text-center">
                         <button data-collapse-toggle="member-{{$creator->id}}-collapsable">
                             <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                        <div id="member-{{$creator->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
+                        <div id="member-{{$creator->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center text-left">
                             <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
                                 <li>
                                     <a href="" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500" aria-current="page">View</a>
@@ -104,13 +104,13 @@
                             @endif
                         </a>
                     </th>
-                    <th class="w-10"></th>
+                    <th class="w-14 text-center"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($members as $member)
                     <tr class="border-t-2 border-slate-700 @if(!$loop->last) border-b-2 @endif">
-                        <td class="py-5">
+                        <td class="py-5 clickable cursor-pointer" data-target-url="{{route('profile', $creator->username)}}" data-target-url="{{route('profile', $member->username)}}">
                             @if($member->profile_picture)
                                 <img class="mx-auto object-cover w-10 h-10 rounded-full ring-2 ring-blue-500" src="{{ asset("storage/$member->profile_picture") }}" alt="Bordered avatar">
                             @else
@@ -119,15 +119,15 @@
                                 </div>
                             @endif
                         </td>
-                        <td class="py-5"><p>{{$member->first_name}} {{$member->last_name}}</p></td>
-                        <td class="py-5"><p>{{$member->username}}</p></td>
-                        <td class="py-5"><p>{{$member->email}}</p></td>
-                        <td class="py-5"><p>{{$member->pivot->created_at}}</p></td>
-                        <td class="py-5">
+                        <td class="py-5 clickable cursor-pointer" data-target-url="{{route('profile', $creator->username)}}"><p>{{$member->first_name}} {{$member->last_name}}</p></td>
+                        <td class="py-5 clickable cursor-pointer" data-target-url="{{route('profile', $creator->username)}}"><p>{{$member->username}}</p></td>
+                        <td class="py-5 clickable cursor-pointer" data-target-url="{{route('profile', $creator->username)}}"><p>{{$member->email}}</p></td>
+                        <td class="py-5 clickable cursor-pointer" data-target-url="{{route('profile', $creator->username)}}"><p>{{$member->pivot->created_at}}</p></td>
+                        <td class="py-5 text-center">
                             <button data-collapse-toggle="member-{{$member->id}}-collapsable">
                                 <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
                             </button>
-                            <div id="member-{{$member->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
+                            <div id="member-{{$member->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center text-left">
                                 <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
                                     <li>
                                         @if($team->creator->is(Auth::user()))
@@ -161,35 +161,35 @@
                 <th class="py-6">
                     Date Invited
                 </th>
-                <th class="w-10"></th>
+                <th class="w-14 text-center"></th>
             </tr>
             </thead>
             <tbody>
-            @foreach($invitations as $invitation)
-                <tr class="border-t-2 border-slate-700 @if(!$loop->last) border-b-2 @endif">
-                    <td class="py-5"></td>
-                    <td class="py-5"><p>{{$invitation->email}}</p></td>
-                    <td class="py-5"><p>{{$invitation->created_at}}</p></td>
-                    <td class="py-5">
-                        <button data-collapse-toggle="invitation-{{$invitation->id}}-collapsable">
-                            <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
-                        </button>
-                        <div id="invitation-{{$invitation->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
-                            <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
-                                @if($team->creator->is(Auth::user()))
-                                    <li>
-                                        <form action="{{route('invitations.delete', $invitation)}}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-left w-full" aria-current="page">Delete</button>
-                                        </form>
-                                    </li>
-                                @endif
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
+                @foreach($invitations as $invitation)
+                    <tr class="border-t-2 border-slate-700 @if(!$loop->last) border-b-2 @endif">
+                        <td class="py-5"></td>
+                        <td class="py-5"><p>{{$invitation->email}}</p></td>
+                        <td class="py-5"><p>{{$invitation->created_at}}</p></td>
+                        <td class="py-5 text-center">
+                            @if($team->creator->is(Auth::user()))
+                                <button data-collapse-toggle="invitation-{{$invitation->id}}-collapsable">
+                                    <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <div id="invitation-{{$invitation->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center text-left">
+                                    <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
+                                            <li>
+                                                <form action="{{route('invitations.delete', $invitation)}}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-left w-full" aria-current="page">Delete</button>
+                                                </form>
+                                            </li>
+                                    </ul>
+                                </div>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

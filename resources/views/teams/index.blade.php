@@ -44,22 +44,22 @@
                 <th class="py-6">
 
                 </th>
-                <th class="w-10"></th>
+                <th class="w-14 text-center"></th>
             </tr>
             </thead>
             <tbody>
             @foreach($ownedTeams as $team)
                 <tr class="border-t-2 border-slate-700 @if(!$loop->last) border-b-2 @endif">
-                    <td class="py-5"></td>
-                    <td class="py-5"><p>{{$team->name}} @if($team->trashed()) - <p class="text-red-500">Removed</p> @endif</p></td>
+                    <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}"></td>
+                    <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}"><p>{{$team->name}} @if($team->trashed()) - <p class="text-red-500">Removed</p> @endif</p></td>
                     @if($team->trashed())
-                        <td class="py-5"><p></p></td>
-                        <td class="py-5"><p></p></td>
-                        <td class="py-5"><p></p></td>
+                        <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}"><p></p></td>
+                        <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}"><p></p></td>
+                        <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}"><p></p></td>
                     @else
-                        <td class="py-5"><p>{{$team->members_count}} Members</p></td>
-                        <td class="py-5"><p>{{$team->creator->username}}</p></td>
-                        <td class="py-5">
+                        <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}"><p>{{$team->members_count}} Members</p></td>
+                        <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}"><p>{{$team->creator->username}}</p></td>
+                        <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}">
                             @if($team->link && \Carbon\Carbon::parse($team->link->expires_at)->isFuture())
                                 <form action="{{route('links.show', $team)}}" method="get" class="axios-form">
                                     @csrf
@@ -77,11 +77,11 @@
                             @endif
                         </td>
                     @endif
-                    <td class="py-5">
+                    <td class="py-5 text-center">
                         <button data-collapse-toggle="team-{{$team->id}}-collapsable">
                             <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                        <div id="team-{{$team->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
+                        <div id="team-{{$team->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center text-left">
                             <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
                                 @if($team->trashed())
                                     <li>
@@ -139,21 +139,21 @@
                 <th class="py-6">
                     Creator
                 </th>
-                <th class="w-10"></th>
+                <th class="w-14 text-center"></th>
             </tr>
             </thead>
             <tbody>
             @foreach($teams as $team)
                 <tr class="border-t-2 border-slate-700 @if(!$loop->last) border-b-2 @endif">
-                    <td class="py-5"></td>
-                    <td class="py-5"><p>{{$team->name}}</p></td>
-                    <td class="py-5"><p>{{$team->members_count}} Members</p></td>
-                    <td class="py-5"><p>{{$team->creator->username}}</p></td>
-                    <td class="py-5">
+                    <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}"></td>
+                    <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}"><p>{{$team->name}}</p></td>
+                    <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}"><p>{{$team->members_count}} Members</p></td>
+                    <td class="py-5 clickable cursor-pointer" data-target-url="{{route('teams.show', $team)}}"><p>{{$team->creator->username}}</p></td>
+                    <td class="py-5 text-center">
                         <button data-collapse-toggle="team-{{$team->id}}-collapsable">
                             <i class="text-xl fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                        <div id="team-{{$team->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center">
+                        <div id="team-{{$team->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center text-left">
                             <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
                                 <li>
                                     <a href="{{route('teams.show', $team)}}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500" aria-current="page">View</a>
