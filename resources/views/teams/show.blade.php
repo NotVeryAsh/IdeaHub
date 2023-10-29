@@ -3,7 +3,6 @@
 
     <p id="status" class="mt-2 text-xl text-center">@if(Session::has('status')){{ Session::get('status') }}@endif</p>
 
-    <!-- TODO Change hardcoded url to use route() function -->
     <div class="flex items-center space-x-8 w-8/12 mx-auto relative">
         <a href="{{route('teams.members', $team)}}" class="ml-auto bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none">
             <button>

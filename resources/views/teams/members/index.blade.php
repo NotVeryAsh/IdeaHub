@@ -55,7 +55,7 @@
                         <div id="member-{{$creator->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center text-left">
                             <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
                                 <li>
-                                    <a href="" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500" aria-current="page">View</a>
+                                    <a href="{{route('profile', $creator->username)}}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500" aria-current="page">View</a>
                                 </li>
                             </ul>
                         </div>
@@ -137,7 +137,7 @@
                                                 <button type="submit" class="text-left w-full" aria-current="page">Remove</button>
                                             </form>
                                         @endif
-                                        <a href="" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500" aria-current="page">View</a>
+                                        <a href="{{route('profile', $member->username)}}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500" aria-current="page">View</a>
                                     </li>
                                 </ul>
                             </div>
