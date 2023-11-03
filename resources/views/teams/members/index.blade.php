@@ -167,6 +167,9 @@
                 <th class="py-6">
                     Date Invited
                 </th>
+                <th class="py-6">
+                    Expires at
+                </th>
                 <th class="w-14 text-center"></th>
             </tr>
             </thead>
@@ -176,6 +179,17 @@
                         <td class="py-5"></td>
                         <td class="py-5"><p>{{$invitation->email}}</p></td>
                         <td class="py-5"><p>{{$invitation->created_at}}</p></td>
+                        <td class="py-5">
+                            @if(\Carbon\Carbon::parse($invitation->expires_at)->isPast())
+                                <p class="text-red-500">
+                                    {{$invitation->expires_at}} - Expired
+                                </p>
+                            @else
+                                <p>
+                                    {{$invitation->expires_at}}
+                                </p>
+                            @endif
+                        </td>
                         <td class="py-5 text-center">
                             @if($team->creator->is(Auth::user()))
                                 <button data-collapse-toggle="invitation-{{$invitation->id}}-collapsable">
