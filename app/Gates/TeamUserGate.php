@@ -19,10 +19,9 @@ class TeamUserGate
     public static function delete(User $creator, Team $team, User $member): Response
     {
         $userIsCreator = $creator->is($team->creator);
-        $memberInTeam = $team->members->contains($member);
 
         // Check if user is the creator of the team
-        return $memberInTeam && $userIsCreator ?
+        return $userIsCreator ?
             Response::allow() :
             Response::denyWithStatus(404);
     }

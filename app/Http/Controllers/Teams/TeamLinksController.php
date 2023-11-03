@@ -16,10 +16,12 @@ class TeamLinksController extends Controller
 {
     public function join(Request $request, $token)
     {
+        // Check if the team link exists
         if (! $teamLink = TeamLink::query()->where('token', $token)->first()) {
             return view('links.invalid');
         }
 
+        // Check if the team link has expired
         if (Carbon::parse($teamLink->expires_at)->isPast()) {
             return view('links.invalid');
         }

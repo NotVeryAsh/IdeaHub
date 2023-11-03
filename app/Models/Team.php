@@ -57,6 +57,7 @@ class Team extends Model
 
     public function members(): BelongsToMany
     {
+        // Include the date that the user was added to the team
         return $this->belongsToMany(User::class)->withPivot('created_at');
     }
 

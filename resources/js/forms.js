@@ -57,7 +57,7 @@ function setDisabled(element)
 }
 
 function setNotDisabled(element, text)
-{console.log(text);
+{
     element.prop('disabled', false);
     element.removeClass('cursor-not-allowed');
     element.html(text);

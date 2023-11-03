@@ -19,10 +19,34 @@ class TeamsController extends Controller
 {
     public function index(): View
     {
+        $user = request()->user();
+
+        // Get teams that the user owns
+        $ownedTeams = $user->ownedTeams()
+            // with soft deleted teams
+            ->withTrashed()
+            // Count the amount of members in the team
+            ->withCount('members')
+            // with the creator of the team
+            ->with('creator')
+            // Show deleted teams last
+            ->orderBy('deleted_at', 'asc')
+            ->get();
+
+        // Get teams that the user is a member of
+        $teams = $user->teams()
+            // with soft deleted teams
+            ->withTrashed()
+            // Count the amount of members in the team
+            ->withCount('members')
+            // with the creator of the team
+            ->with('creator')
+            ->get();
+
         // Get all teams - including soft deleted teams, with their creators and amount of members
         return view('teams.index', [
-            'ownedTeams' => request()->user()->ownedTeams()->withTrashed()->withCount('members')->with('creator')->orderBy('deleted_at', 'asc')->get(),
-            'teams' => request()->user()->teams()->withTrashed()->withCount('members')->with('creator')->get(),
+            'ownedTeams' => $ownedTeams,
+            'teams' => $teams,
         ]);
     }
 
@@ -66,9 +90,10 @@ class TeamsController extends Controller
             TeamLink::query()->where('team_id', $team->id)->delete();
             TeamInvitation::query()->where('team_id', $team->id)->delete();
 
-            // If we are hard deleting the team, remove all of its data
+            // If we are hard deleting the team, remove all the members and delete the team
             if ($team->trashed()) {
 
+                // Remove team members from the team
                 TeamUser::query()->where('team_id', $team->id)->delete();
                 $team->forceDelete();
 

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class TeamInvitationsController extends Controller
 {
@@ -44,12 +45,14 @@ class TeamInvitationsController extends Controller
         return redirect()->route('teams.members', $team)->with(['status' => 'Invitation sent!']);
     }
 
-    public function accept(Request $request, $token)
+    public function accept(Request $request, $token): RedirectResponse|View
     {
+        // If invitation accept link is invalid
         if (! $request->hasValidSignature()) {
             return view('invitations.invalid');
         }
 
+        // If invitation invitation doesn't exist
         if (! $invitation = TeamInvitation::query()->where('token', $token)->first()) {
             return view('invitations.invalid');
         }
@@ -72,8 +75,8 @@ class TeamInvitationsController extends Controller
                 ])
                 ->delete();
 
-            // Add the user to the team if they are not already a member
-            TeamUser::query()->firstOrCreate([
+            // Add the user to the team
+            TeamUser::query()->create([
                 'team_id' => $invitation->team_id,
                 'user_id' => $user->id,
             ]);
