@@ -10,7 +10,35 @@ Progression and changes will be documented in this file and adhere to the standa
 ### Added
 
 - Dashboard functionality.
-- Teams
+- Ability to filter team members by more fields
+- Ability to paginate team members
+
+## [4.0.0] - 2023-11-01
+
+### Added
+
+- Ability to create a team
+- Ability to delete a team
+- Ability to view all teams
+- Ability to edit a team
+- Ability to leave a team
+- Ability to a specific view
+- Ability to view all members on a team
+- Ability to remove a member from a team
+- Ability to create an invitation to a team
+- Ability to accept an invitation to a team
+- Ability to delete an invitation to a team
+- Ability to view all invitations to a team
+- Ability to create a join for a team
+- Ability to delete a join link for a team
+- Command to delete invitations that been expired for a week
+- Command to delete links that have expired for a day
+- Scheduled command to delete expired invitation
+- Scheduled command to delete expired join links
+- Add emails to email users when they have created a team
+- Add emails to email users when they have been invited to a team
+- Add emails to email users when they accepted a team invitation
+- Ability to filter and order team members
 
 ## [3.3.0] - 2023-09-20
 
