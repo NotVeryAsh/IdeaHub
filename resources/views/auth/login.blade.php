@@ -13,7 +13,7 @@
             <label class="block mb-3" for="username">
                 Email or Username
             </label>
-            <input placeholder="Email or Username" id="username" type="text" name="identifier" maxlength="255" required value="{{ old('identifier') }}" class="bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('identifier')) border-red-400 @else border-gray-500 @endif">
+            <input @if($invitation?->email) readonly @endif placeholder="Email or Username" id="username" type="text" name="identifier" maxlength="255" required value="{{ $invitation?->email ?? old('identifier') }}" class="read-only:opacity-60 read-only:hover:cursor-not-allowed bg-gray-700 shadow-md appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none @if($errors->has('identifier')) border-red-400 @else border-gray-500 @endif">
             @if($errors->has('identifier'))
                 <p class="mt-2 text-red-400">{{ $errors->first('identifier') }}</p>
             @endif

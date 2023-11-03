@@ -20,7 +20,7 @@
                         <a href="{{ route('dashboard') }}" class="block py-3 pl-3 pr-4 rounded md:border-0 md:p-0 hover:text-blue-500 hover:bg-gray-700 md:hover:bg-transparent @if(request()->routeIs('dashboard')) text-blue-500 @endif">Dashboard</a>
                     </li>
                     <li>
-                        <a href="#" class="block py-3 pl-3 pr-4 rounded md:border-0 md:p-0 hover:text-blue-500 hover:bg-gray-700 md:hover:bg-transparent @if(request()->routeIs('docs')) text-blue-500 @endif">Docs</a>
+                        <a href="{{ route('docs.architecture.http-verbs') }}" class="block py-3 pl-3 pr-4 rounded md:border-0 md:p-0 hover:text-blue-500 hover:bg-gray-700 md:hover:bg-transparent @if(request()->routeIs('docs')) text-blue-500 @endif">Docs</a>
                     </li>
                 </ul>
             </div>
@@ -34,17 +34,18 @@
                         </div>
                     @endif
                 @else
-                    <img class="object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" alt="Bordered avatar">
+                    <img class="object-cover w-10 h-10 rounded-full ring-2 ring-blue-500 mx-auto" src="{{ asset('images/idea-hub-logo-minimal.jpg') }}" alt="Default Profile Picture">
                 @endif
             </button>
-            <div id="navbar-profile" class="hidden w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 absolute top-0 right-0 mt-20 flex-column justify-content-center align-items-center">
+            <div id="navbar-profile" class="z-10 hidden w-5/12 md:w-4/12 lg:w-3/12 xl:w-2/12 absolute top-0 right-0 mt-20 flex-column justify-content-center align-items-center">
                 <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
                     <li>
                         @if(Auth::user())
                             <a href="{{ route('profile') }}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500 @if(request()->routeIs('profile')) text-blue-500 @endif" aria-current="page">Profile</a>
-                            <form action="{{ route('logout') }}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500">
+                            <a href="{{ route('teams.index') }}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500 @if(request()->routeIs('teams.index')) text-blue-500 @endif" aria-current="page">Teams</a>
+                            <form action="{{ route('logout') }}" method="POST" class="block rounded hover:bg-gray-700 hover:text-blue-500">
                                 @csrf
-                                <button type="submit" class="text-left w-full" aria-current="page">Log Out</button>
+                                <button type="submit" class="text-left w-full py-3 pl-3 pr-4" aria-current="page">Log Out</button>
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 hover:text-blue-500 @if(request()->routeIs('login')) text-blue-500 @endif" aria-current="page">Log In</a>

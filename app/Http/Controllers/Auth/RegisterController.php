@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Mail\RegisteredUser;
+use App\Models\TeamInvitation;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,9 +22,13 @@ class RegisterController extends Controller
     /**
      * Return the register view
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return response()->view('auth.register');
+        $invitation = TeamInvitation::query()->where('token', $request->get('token'))->first();
+
+        return response()->view('auth.register', [
+            'invitation' => $invitation,
+        ]);
     }
 
     /**
@@ -52,7 +58,7 @@ class RegisterController extends Controller
         // Send Verify email notifications
         event(new Registered($user));
 
-        // Redirect to verify email page
-        return redirect()->route('verification.notice');
+        // Redirect to verify email page if an intended redirect page is not set
+        return redirect()->intended(route('verification.notice'));
     }
 }

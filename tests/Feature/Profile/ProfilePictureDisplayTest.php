@@ -37,4 +37,11 @@ class ProfilePictureDisplayTest extends TestCase
         // assert that the profile picture is showing these two characters
         $response->assertSeeText('QX');
     }
+
+    public function test_empty_profile_picture_is_displayed_when_user_is_not_logged_in()
+    {
+        $response = $this->get('/');
+
+        $response->assertSeeInOrder(['Default Profile Picture']);
+    }
 }

@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
-    <h1 class="font-bold text-4xl text-center">Verify Email</h1>
-
     @if(Session::has('status'))
         <p class="mt-2 text-xl text-center">{{ Session::get('status') }}</p>
     @endif
+
+    <h1 class="font-bold text-4xl text-center">Verify Email</h1>
 
     <p class="mt-2 text-xl text-center">Please verify your email. Check your email for a verification link.</p>
 
