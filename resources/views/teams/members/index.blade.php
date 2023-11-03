@@ -183,13 +183,18 @@
                                 </button>
                                 <div id="invitation-{{$invitation->id}}-collapsable" class="hidden w-7/12 lg:w-5/12 xl:w-4/12 absolute flex-column justify-content-center align-items-center text-left">
                                     <ul class="font-medium flex flex-col p-4 mt-4 border rounded-lg bg-gray-800 border-gray-700">
-                                            <li>
-                                                <form action="{{route('invitations.delete', $invitation)}}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-left w-full" aria-current="page">Delete</button>
-                                                </form>
-                                            </li>
+                                        <li>
+                                            <form action="{{route('invitations.delete', $invitation)}}" method="POST" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700 text-red-500">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-left w-full" aria-current="page">Delete</button>
+                                            </form>
+                                            <form action="/teams/{{ $team->id }}/invitations" method="post" class="block py-3 pl-3 pr-4 rounded hover:bg-gray-700">
+                                                @csrf
+                                                <input id="email" type="hidden" name="email" maxlength="255" required value="{{$invitation->email}}">
+                                                <button type="submit" class="text-left w-full" aria-current="page">Resend Invitation</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             @endif
