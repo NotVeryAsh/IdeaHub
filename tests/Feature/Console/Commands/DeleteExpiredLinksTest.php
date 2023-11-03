@@ -9,7 +9,6 @@ use Tests\TestCase;
 
 class DeleteExpiredLinksTest extends TestCase
 {
-
     public function test_expired_links_are_deleted()
     {
         User::factory()->create();

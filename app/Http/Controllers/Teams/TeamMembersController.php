@@ -29,7 +29,7 @@ class TeamMembersController extends Controller
     public function remove(Team $team, User $member): RedirectResponse
     {
         // If member isn't in team
-        if (!$team->members->contains($member)){
+        if (! $team->members->contains($member)) {
             abort(404);
         }
 
