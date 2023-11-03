@@ -48,9 +48,4 @@ class TeamInvitation extends Model
     {
         return $this->belongsTo(Team::class);
     }
-
-    public function scopeExpired($query)
-    {
-        return $query->where('expires_at', '<', Carbon::now());
-    }
 }

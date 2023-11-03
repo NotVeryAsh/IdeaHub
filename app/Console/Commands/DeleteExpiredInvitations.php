@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\TeamInvitation;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class DeleteExpiredInvitations extends Command
@@ -29,7 +30,8 @@ class DeleteExpiredInvitations extends Command
         $this->info('Deleting expired invitations...');
 
         $teamInvitations = TeamInvitation::query()
-            ->expired()
+            // Allow expired invitations to stay around for a week after expiration so creators are sure to see that they've expired
+            ->where('expires_at', '<=', Carbon::now()->subWeek())
             ->pluck('id');
 
         $count = TeamInvitation::destroy($teamInvitations);
