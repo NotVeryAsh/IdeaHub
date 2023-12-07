@@ -1,6 +1,6 @@
 <?php
 
-namespace Auth;
+namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Tests\TestCase;
@@ -16,7 +16,7 @@ class ShowVerifyEmailNoticeTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('auth.verify-email-notice');
         $response->assertSeeInOrder([
-            'Email Verification Sent! Check your email for a verification link.',
+            'Please verify your email. Check your email for a verification link.',
             '/auth/verify-email/resend',
             'Resend Verification Email',
         ]);
@@ -30,7 +30,7 @@ class ShowVerifyEmailNoticeTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertRedirect('/dashboard');
-        $response->assertSessionHas('message', 'Email already verified');
+        $response->assertSessionHas('status', 'Email already verified');
     }
 
     public function test_user_is_redirected_to_login_page_if_unauthenticated()

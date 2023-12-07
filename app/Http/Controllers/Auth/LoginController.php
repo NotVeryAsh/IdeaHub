@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\TeamInvitation;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -15,9 +18,13 @@ class LoginController extends Controller
     /**
      * Return the login view
      */
-    public function index(): RedirectResponse|Response
+    public function index(Request $request): RedirectResponse|Response
     {
-        return response()->view('auth.login');
+        $invitation = TeamInvitation::query()->where('token', $request->get('token'))->first();
+
+        return response()->view('auth.login', [
+            'invitation' => $invitation,
+        ]);
     }
 
     /**

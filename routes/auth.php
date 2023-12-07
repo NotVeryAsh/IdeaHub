@@ -1,13 +1,21 @@
 <?php
 
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 
-// Email verification routes
-Route::prefix('auth')->group(function () {
-    Route::prefix('verify-email')->middleware('auth')->group(function () {
+// Logout and Email verification routes
+Route::prefix('auth')->middleware('auth')->group(function () {
+
+    // Logout route
+    Route::post('logout', LogoutController::class)->name('logout');
+
+    // Email verification routes
+    Route::prefix('verify-email')->group(function () {
 
         Route::get('', [EmailVerificationController::class, 'showNotice'])->name('verification.notice');
         Route::post('resend', [EmailVerificationController::class, 'resend'])->middleware(['throttle:6,1'])->name('verification.send');
@@ -15,17 +23,21 @@ Route::prefix('auth')->group(function () {
     });
 });
 
-// Login and dashboard routes
+// Login register, forgot password and reset password routes
 Route::middleware('guest')->group(function () {
 
     // Authentication routes
     Route::prefix('auth')->group(function () {
 
-        Route::post('login', [LoginController::class, 'authenticate'])->middleware('guest');
-        Route::post('register', [RegisterController::class, 'authenticate'])->middleware('guest');
+        Route::post('login', [LoginController::class, 'authenticate']);
+        Route::post('register', [RegisterController::class, 'authenticate']);
+        Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkNotification'])->name('password.email');
+        Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
     });
 
     // Index routes for views
-    Route::get('login', [LoginController::class, 'index'])->middleware('guest')->name('login');
-    Route::get('register', [RegisterController::class, 'index'])->middleware('guest')->name('register');
+    Route::get('login', [LoginController::class, 'index'])->name('login');
+    Route::get('register', [RegisterController::class, 'index'])->name('register');
+    Route::get('forgot-password', [ForgotPasswordController::class, 'index'])->name('forgot-password');
+    Route::get('reset-password/{token}', [ResetPasswordController::class, 'index'])->name('password.reset');
 });

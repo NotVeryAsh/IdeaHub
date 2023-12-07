@@ -8,11 +8,15 @@
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "spatie/laravel-image-optimizer": "^1.7"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.8",
+        "barryvdh/laravel-ide-helper": "^2.13",
+        "brianium/paratest": "^7.2",
         "fakerphp/faker": "^1.9.1",
-        "laravel/pint": "^1.0",
+        "laravel/pint": "^1.10",
         "laravel/sail": "^1.18",
         "laravel/telescope": "^4.15",
         "mockery/mockery": "^1.4.4",

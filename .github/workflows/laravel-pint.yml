@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: shivammathur/setup-php@72ae4ccbe57f82bbe08411e84e2130bd4ba1c10f
+    - uses: shivammathur/setup-php@a36e1e52ff4a1c9e9c9be31551ee4712a6cb6bd0
       with:
         php-version: '8.2'
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies

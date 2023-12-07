@@ -1,11 +1,11 @@
 <?php
 
-namespace Auth;
+namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Tests\TestCase;
 
-class ShowLoginPageTest extends TestCase
+class LoginViewTest extends TestCase
 {
     public function test_can_see_page_if_user_is_unauthenticated()
     {
@@ -27,5 +27,17 @@ class ShowLoginPageTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertRedirect('/dashboard');
+    }
+
+    public function test_recaptcha_data_is_present()
+    {
+        $response = $this->get('/login');
+
+        $response->assertStatus(200);
+        $response->assertSeeInOrder([
+            'recaptcha-protected-form',
+            'data-sitekey',
+            'data-action',
+        ]);
     }
 }

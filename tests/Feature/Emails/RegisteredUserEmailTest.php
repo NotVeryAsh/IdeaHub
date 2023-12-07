@@ -1,6 +1,6 @@
 <?php
 
-namespace Emails;
+namespace Tests\Feature\Emails;
 
 use App\Mail\RegisteredUser;
 use App\Models\User;
